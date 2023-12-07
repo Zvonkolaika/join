@@ -46,9 +46,6 @@ h1 {
   flex-shrink: 0;
 }
 
-.button {
-}
-
 .button,
 .button-w-icon {
   background-color: #2a3647;
