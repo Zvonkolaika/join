@@ -16,6 +16,8 @@ body {
   align-items: center;
 }
 
+/* --- "body" container for all content --- */
+
 .container {
   width: 100vw;
   height: 100vh;
