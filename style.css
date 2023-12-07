@@ -8,6 +8,23 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- "body" container for all content --- */
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  max-width: 1440px;
+  max-height: 1024px;
+  background: #f6f7f8;
+  position: relative;
 }
 
 h1 {
@@ -16,6 +33,10 @@ h1 {
   font-style: normal;
   font-weight: 700;
   line-height: 120%;
+}
+
+small {
+  font-size: 12px;
 }
 
 /* --- font design for all input elements --- */
@@ -41,8 +62,9 @@ h1 {
   padding: 12px 21px;
   gap: 10px;
   border-radius: 10px;
-  border: 1px solid var(--Style, #d1d1d1);
+  border: 1px solid #d1d1d1;
   background: #fff;
+  cursor: text;
 }
 
 .input-container:focus-within {
@@ -103,6 +125,7 @@ h1 {
 
 .button:hover,
 .button-w-icon:hover {
+  cursor: pointer;
   background-color: #29abe2;
   border: 1px solid #29abe2;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
@@ -130,6 +153,7 @@ h1 {
 
 .button-secondary:hover,
 .button-secondary-w-icon:hover {
+  cursor: pointer;
   color: #29abe2;
   border: 1px solid #29abe2;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
