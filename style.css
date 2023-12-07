@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Inter, sans-serif;
   font-size: 20px;
@@ -14,21 +18,40 @@ h1 {
   line-height: 120%;
 }
 
+/* --- font design for all input elements --- */
+
+.input-field,
+.dropdown,
+.button,
+.button-w-icon,
+.button-secondary,
+.button-secondary-w-icon {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+/* --- Text input field with icon --- */
+
 .input-container {
   display: flex;
   align-items: center;
-  width: 422px;
+  width: 440px;
   padding: 12px 21px;
   gap: 10px;
-
   border-radius: 10px;
   border: 1px solid var(--Style, #d1d1d1);
   background: #fff;
 }
 
+.input-container:focus-within {
+  border: 1px solid #29abe2;
+}
+
 .input-field {
-  width: 380px;
   flex-shrink: 0;
+  flex: 1;
   border: none;
 }
 
@@ -45,6 +68,18 @@ h1 {
   height: 24px;
   flex-shrink: 0;
 }
+
+/* --- Dropdown --- */
+
+.dropdown {
+  width: 440px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  background: #fff;
+}
+
+/* --- Buttons --- */
 
 .button,
 .button-w-icon {
