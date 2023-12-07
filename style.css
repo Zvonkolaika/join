@@ -32,14 +32,25 @@ header {
   top: 0;
   right: 0;
   width: calc(100% - 232px);
+  height: 96px;
   background-color: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
 nav {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 232px;
   height: 100%;
   background-color: #2a3647;
+}
+
+main {
+  position: absolute;
+  top: 96px;
+  left: 232px;
+  width: calc(100% - 232px);
 }
 
 h1 {
