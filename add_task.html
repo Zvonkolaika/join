@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task</title>
+    <link rel="stylesheet" href="add_task.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./assets/fonts/inter.css">
+    <script src="script.js"></script>
+    <script src="./js/tasks.js"></script>
+</head>
+
+<body>
+
+<form id="add-task-form-container" onsubmit="addTask()">
+       <!-- Header Section -->
+    <div class="header-div">
+        <div>
+            <h1>Add Task</h1>
+        </div>
+    </div>
+    <div class="content-add-task">
+    <div class="title-description-div">
+      <!-- Task Form Section -->
+    <div class="add-task-section">
+      <!-- Task Title -->
+        <div class="add-title-task">
+            <span>Title*</span>
+            <div class="input-container">
+                <input required type="text" id="task-title" class="title-task-inputfield" placeholder="Enter a title">
+            </div>
+        </div>
+    </div>
+    <div class="add-description-task">
+        <span>Description</span>
+        <textarea required type="text" id="task-description" class="description-task-inputfield" placeholder="Enter a Description"></textarea>
+    </div>
+    <div class="assigned-to-task">
+        <span>Assigned to</span>
+        <select required class="dropdown" name="contacts">
+            <option value="Select contacts to assign">Select contacts to assign</option>
+        </select>
+    </div>
+</div>
+<div class="date-prio-container">
+
+    <div class="">
+        <span>Due date</span>
+        <input required="" type="date" id="task-date" class="input-field date-task-inputfield" placeholder="dd/mm/yy"/>
+    </div>
+
+    <div class="add-prio-section">
+        <span>Prio</span>
+        <div class="prio-btn-container">
+            <button onclick="prioButtonUrgent()" class="prio urgent-btn" id="urgent-btn">
+                    <span>Urgent</span>
+                    <img class="prio-icon" src="/assets/img/icons/Prio alta.svg" alt="">
+            </button>
+            <button type="button" value="urgent" class="prio urgent-btn-clicked d-none" id="urgent-btn-clicked">
+                    <span>Urgent</span>
+                    <img class="prio-icon" src="/assets/img/icons/Prio alta-white.svg" alt="">
+            </button>
+            <button onclick="prioButtonMedium()" class="prio medium-btn d-none" id="medium-btn">
+                    <span>Medium</span>
+                    <img class="prio-icon" src="/assets/img/icons/Prio media.svg" alt="Medium Prio Icon">
+            </button>
+            <button type="button" value="medium" class="prio medium-btn-clicked" id="medium-btn-clicked">
+                    <span>Medium</span>
+                    <img class="prio-icon" src="assets/img/icons/Prio media-white.svg" alt="Medium Prio Icon">
+            </button>
+            <button onclick="prioButtonLow()" class="prio low-btn" id="low-btn">
+                    <span>Low</span>
+                    <img class="prio-icon" src="/assets/img/icons/Prio baja.svg" alt="Low Prio Icon">
+            </button>
+            <button type="button" value="low" class="prio low-btn-clicked d-none" id="low-btn-clicked">
+                    <span>Low</span>
+                    <img class="prio-icon" src="/assets/img/icons/Prio baja-white.svg" alt="Low Prio Icon">
+            </button>
+        </div>
+    </div>
+    <div class="category-task">
+        <span>Category</span>
+        <div class="new-category-task d-none" id="new-category-task">
+            <input placeholder="New category name" id="new-category-input">
+            <button type="button" class="cancelButton">
+                <img src="/assets/img/icons/iconoir_cancel.svg">
+            </button>
+            <button type="button" class="checkButton">
+                <img src="/assets/img/icons/add_task_icon.svg">
+            </button>
+        </div>
+    </div>
+    <div id="category">Select task category
+    </div>
+    <select id="category-dropdown-menu" class="dropdown">
+        <option value="new category">New category</option>
+        <option value="development">Development</option>
+        <option value="design">Design</option>
+        <option value="project and task management">Project and Task Management</option>
+        <option value="collaboration and communication">Collaboration and Communication</option>
+        <option value="management">Management</option>
+    </select>
+
+    <div class="borderline"></div>
+
+    <div class="task-container">
+        <span>Description</span>
+        <div class="input-container">
+            <input class="input-field" type="text" id="subtas-input" placeholder="Add new subtask"/>
+            <div class="subtask-btn">
+                <img class="subtask-img" src="/assets/img/icons/add_task_icon.svg" alt="" onclick="">
+            </div>
+        </div>
+        <ul id="subtasks-list" class="subtasks-list"></ul>
+    </div>
+</div>
+</div>
+
+    <div class="create-delete-task-container">
+        <div class="create-delete-task-btn" id="create-delete-task-btns-container">
+            <div class="create-delete-task-btn">
+                <button id="reset" type="reset" class="button-secondary-w-icon">
+                    Clear
+                    <img src="/assets/img/icons/iconoir_cancel.svg" id="clearIconDefault" class="">
+                    <img src="/assets/img/icons/cancel.svg" id="clearIconHover" class="d-none">
+                </button>
+                <button class="button-w-icon" onclick="createNewTask()" type="submit">
+                    Create Task<img src="./assets/img/icons/check.svg" />
+                  </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+
+</html>
