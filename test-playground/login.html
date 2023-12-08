@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | Login</title>
+    <link rel="stylesheet" href="../test-playground/styles/login.css">
+    <link rel="stylesheet" href="../assets/fonts/inter.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <div class="content">
+        <!-- login logo -->
+        <div class="login-logo_frame">
+            <img class="login-logo" src="../assets/img/icons/join-login-logo.svg" alt="">
+        </div>
+        
+
+        <!-- Login Card -->
+        <div class="login-card-frame">
+            <div class="login-card dp-flex flex-column">
+
+                <!-- headline -->
+                <div class="headline-frame dp-flex flex-column">
+                    <h1 style="text-align: center;">Log in</h1>
+                    <div class="headline-underline"></div>
+                </div>
+                
+
+                <!-- login inputs -->
+                <form class="dp-flex flex-column" action="#">
+                    <div style="width: 422px;" class="input-container">
+                        <input required class="input-field" type="email" placeholder="Email" />
+                        <img src="../assets/img/icons/mail.svg" alt="mail" />
+                    </div>
+                    <div style="width: 422px;" class="input-container">
+                        <input required type="password" class="input-field" type="email" placeholder="Email" />
+                        <img src="../assets/img/icons/lock.svg" alt="mail" />
+                    </div>
+                    <div class="rememberMe dp-flex">
+                        <input type="checkbox" id="remember" name="remember" value="remember-login">
+                        <label for="remember">remember me</label><br>
+                    </div>
+                    <div class="login-button_frame dp-flex">
+                        <button class="button">Log in</button>
+                        <button class="button-secondary">Guest Log in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
