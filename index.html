@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join</title>
-</head>
-<body>
-    
-</body>
-</html>
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./assets/fonts/inter.css" />
+  <link rel="stylesheet" href="sidebar_style.css" />
+  <script src="script.js"></script>
+</head>
+
+<body onload="init()">
+  <div class="container">
+    <header w3-include-html="">Header</header>
+    <!-- insert url to header -->
+
+    <!-- insert url to side menu -->
+    <nav w3-include-html="sidebar_template.html"></nav>
+
+    <main>add you content here</main>
+  </div>
+</body>
+
+</html>
