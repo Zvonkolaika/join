@@ -1,0 +1,60 @@
+.header_container {
+    display: flex;
+    width: 1440px;
+    padding: 20px 40px 20px 348px;
+    justify-content: space-between;
+    align-items: center;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+
+    /* header Typography */
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.header_icons_container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header_help_icon {
+    width: 32px;
+    height: 32px;
+}
+
+.header_user_initials_container {
+    width: 56px;
+    height: 56px;
+}
+
+.header_ellipse {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    stroke-width: 3px;
+    stroke: #2A3647;
+}
+
+.header_user_initials_box {
+    display: flex;
+    width: 48px;
+    height: 48px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 559px;
+    background: var(--white, #FFF);
+}
+
+.header_user_initials {
+    width: 27.944px;
+    height: 14.238px;
+    flex-shrink: 0;
+}
