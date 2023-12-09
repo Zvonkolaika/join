@@ -1,4 +1,6 @@
-*, ::before, ::after {
+*,
+::before,
+::after {
   box-sizing: border-box;
 }
 
@@ -67,6 +69,7 @@ main {
   top: 96px;
   left: 232px;
   width: calc(100% - 232px);
+  height: calc(100% - 96px);
 }
 
 h1 {
