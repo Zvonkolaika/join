@@ -1,4 +1,6 @@
-*, ::before, ::after {
+*,
+::before,
+::after {
   box-sizing: border-box;
 }
 
@@ -26,6 +28,10 @@ body {
 
 .flex-column {
   flex-direction: column;
+}
+
+.d-none {
+  display: none;
 }
 
 /* --- content container --- */
@@ -63,6 +69,7 @@ main {
   top: 96px;
   left: 232px;
   width: calc(100% - 232px);
+  height: calc(100% - 96px);
 }
 
 h1 {
