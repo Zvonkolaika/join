@@ -10,48 +10,33 @@
     <link rel="stylesheet" href="../style.css">
 </head>
 
-<body>
+<body onload="renderLogIn()">
     <div class="content">
         <!-- login logo -->
-        <div class="login-logo_frame">
-            <img class="login-logo" src="../assets/img/icons/join-login-logo.svg" alt="">
+        <div id="animations-helper" class="start-animations-helper"></div>
+        <img class="login-logo" src="../assets/img/icons/join-login-logo.svg" alt="">
+
+
+        <!-- sign up -->
+        <div class="switch-to-sign-up_frame dp-flex">
+            <p>Not a Join user?</p>
+            <button onclick="renderSignUp()" class="button">Sign up</button>
         </div>
-        
+
 
         <!-- Login Card -->
-        <div class="login-card-frame">
-            <div class="login-card dp-flex flex-column">
+        <div id="sign-in-up-card_frame" class="signUp-card-frame">
+            <div id="sign-in-up_card" class="signUp-card dp-flex flex-column">
+                <!-- -- rendered content -- -->
 
-                <!-- headline -->
-                <div class="headline-frame dp-flex flex-column">
-                    <h1 style="text-align: center;">Log in</h1>
-                    <div class="headline-underline"></div>
-                </div>
-                
 
-                <!-- login inputs -->
-                <form class="dp-flex flex-column" action="#">
-                    <div style="width: 422px;" class="input-container">
-                        <input required class="input-field" type="email" placeholder="Email" />
-                        <img src="../assets/img/icons/mail.svg" alt="mail" />
-                    </div>
-                    <div style="width: 422px;" class="input-container">
-                        <input required type="password" class="input-field" type="email" placeholder="Password" />
-                        <img src="../assets/img/icons/lock.svg" alt="mail" />
-                    </div>
-                    <div class="rememberMe dp-flex">
-                        <input type="checkbox" id="remember" name="remember" value="remember-login">
-                        <label for="remember">remember me</label><br>
-                    </div>
-                    <div class="login-button_frame dp-flex">
-                        <button class="button">Log in</button>
-                        <button class="button-secondary">Guest Log in</button>
-                    </div>
-                </form>
+
             </div>
         </div>
 
     </div>
+
+    <script src="./js/login.js"></script>
 </body>
 
 </html>

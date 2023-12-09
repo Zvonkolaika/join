@@ -28,6 +28,10 @@ body {
   flex-direction: column;
 }
 
+.d-none {
+  display: none;
+}
+
 /* --- content container --- */
 
 .container {

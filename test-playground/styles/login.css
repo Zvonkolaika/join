@@ -16,29 +16,47 @@ body {
 
 /* login logo & animation */
 .login-logo {
-    width: 100%;
+    width: 80%;
     height: 80%;
-}
-
-.login-logo_frame {
     position: fixed;
     top: 80px;
     left: 77px;
     z-index: 999;
-    width: 80%;
-    height: 80%;
-    background-color: #F6F7F8;
-    animation: logo-frame_animation 0.75s ease-in-out 0.25s forwards;
+    animation: logo_animation 0.75s ease-in-out 0.25s forwards;
 }
 
-@keyframes logo-frame_animation {
+@keyframes logo_animation {
     0% {
         width: 80%;
         height: 80%;
     }
+
     100% {
         width: 101px;
         height: 122px;
+    }
+}
+
+.start-animations-helper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: white;
+    z-index: 998;
+    animation: start-animations-helper_animation 0.75s ease-in-out 0.23s forwards;
+}
+
+@keyframes start-animations-helper_animation {
+    0% {
+        opacity: 100%;
+    }
+
+    100% {
+        opacity: 0%;
     }
 }
 
@@ -49,13 +67,21 @@ body {
     border-radius: 30px;
 }
 
+.signUp-card-frame {
+    padding: 48px 88px;
+    background-color: white;
+    border-radius: 30px;
+}
+
 .login-card {
     width: 422px;
     height: 397px;
     gap: 32px;
 }
 
-form {
+.signUp-card {
+    width: 422px;
+    height: 534px;
     gap: 32px;
 }
 
@@ -91,4 +117,22 @@ label {
 
 .login-button_frame {
     gap: 35px;
+}
+
+.switch-to-sign-up_frame {
+    position: fixed;
+    top: 67px;
+    right: 122px;
+    gap: 35px;
+}
+
+.switch-to-sign-up_frame p {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.link {
+    text-decoration: none;
+    color: #29ABE2;
 }
