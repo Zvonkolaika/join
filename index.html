@@ -5,72 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="login.css" />
     <link rel="stylesheet" href="./assets/fonts/inter.css" />
+    <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="init()">
     <div class="container">
-      <img class="logo" src="./assets/img/logo.svg" />
-      <div class="sign-up d-flex center gap-35">
-        Not a Join user?
-        <button class="button">Sign up</button>
-      </div>
-      <div class="login-container">
-        <div class="d-flex column center">
-          <h1>Log in</h1>
-          <svg
-            class="mb-32"
-            xmlns="http://www.w3.org/2000/svg"
-            width="154"
-            height="3"
-            viewBox="0 0 154 3"
-            fill="none"
-          >
-            <path
-              d="M152 1.5L2 1.5"
-              stroke="#29ABE2"
-              stroke-width="3"
-              stroke-linecap="round"
-            />
-          </svg>
-        </div>
+      <header w3-include-html="">Header</header>
+      <!-- insert url to header -->
 
-        <div>
-          <div class="input-container mb-32">
-            <input
-              class="input-field"
-              id="login-email"
-              type="email"
-              required
-              placeholder="Email"
-            />
-            <img src="./assets/img/icons/mail.svg" />
-          </div>
+      <nav w3-include-html="">Sidebar</nav>
+      <!-- insert url to side menu -->
 
-          <div class="input-container mb-8">
-            <input
-              class="input-field"
-              id="login-password"
-              type="password"
-              required
-              placeholder="Password"
-            />
-            <img src="./assets/img/icons/lock.svg" />
-          </div>
-          <small class="d-none">This field is required</small>
-          <div class="remember-me">
-            <input type="checkbox" id="login-remember-me" /> Remember me
-          </div>
-          <div class="d-flex center gap-35">
-            <button class="button">Log in</button>
-            <button class="button-secondary">Guest Log in</button>
-          </div>
-        </div>
-      </div>
-      <div class="footer d-flex center gap-16">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Legal Notice</a>
-      </div>
+      <main>add you content here</main>
     </div>
   </body>
 </html>
