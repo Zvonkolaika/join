@@ -52,10 +52,10 @@ function generateLogInHTML() {
             <label for="remember">remember me</label><br>
         </div>
         <div class="login-button_frame dp-flex">
-            <button class="button">Log in</button>
-            <button class="button-secondary">Guest Log in</button>
+            <button type="sumbit" class="button">Log in</button>
+            <div class="button-secondary">Guest Log in</div>
         </div>
-    </form>
+   </form> 
     `;
 }
 
@@ -109,3 +109,4 @@ let animationsHelper = document.getElementById('animations-helper');
 animationsHelper.addEventListener('animationend', () => {
     animationsHelper.classList.add('d-none');
 });
+
