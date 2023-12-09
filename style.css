@@ -41,8 +41,6 @@ body {
   max-height: 1024px;
   background: #f6f7f8;
   position: relative;
-<<<<<<< HEAD
-=======
 }
 
 header {
@@ -69,7 +67,6 @@ main {
   top: 96px;
   left: 232px;
   width: calc(100% - 232px);
->>>>>>> main
 }
 
 h1 {
