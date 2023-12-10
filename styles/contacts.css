@@ -153,4 +153,105 @@ main {
   color: #29abe2;
 }
 
-/* --- contact-details info --- */
+/* --- contact info ends --- */
+
+/* --- add contact overlay ---  */
+
+.add-contact-bg {
+  z-index: 1000;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-contact-container {
+  height: 50%;
+  width: 90%;
+  background-color: #fff;
+  border-radius: 30px;
+  display: flex;
+}
+
+.add-contact-left {
+  background-color: #2a3647;
+  height: 100%;
+  width: 42%;
+  padding: 66px 48px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.add-contact-left div {
+  position: relative;
+}
+
+.add-contact-left img {
+  position: absolute;
+  top: -70px;
+  width: 57px;
+}
+
+.add-contact-left h1,
+.add-contact-left p {
+  color: #fff;
+  margin: 0;
+}
+
+.add-contact-left p {
+  font-size: 27px;
+}
+
+.add-contact-right {
+  position: relative;
+  height: 100%;
+  width: 58%;
+  padding: 66px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-contact-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.add-contact-img-container {
+  background-color: #d1d1d1;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  margin-right: 72px;
+}
+
+.add-contact-button-container {
+  display: flex;
+  gap: 24px;
+}
+
+.close-btn-container {
+  position: absolute;
+  top: 48px;
+  right: 48px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+
+.close-btn-container:hover {
+  background-color: #d1d1d1;
+}

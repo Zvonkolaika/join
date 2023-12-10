@@ -26,12 +26,16 @@ body {
   align-items: center;
 }
 
+.d-flex {
+  display: flex;
+}
+
 .flex-column {
   flex-direction: column;
 }
 
 .d-none {
-  display: none;
+  display: none !important;
 }
 
 /* --- content container --- */
@@ -188,7 +192,7 @@ small {
   font-weight: 700;
 }
 
-.button-secondary-w-item {
+.button-secondary-w-icon {
   padding: 16px;
   border-radius: 10px;
   display: flex;
