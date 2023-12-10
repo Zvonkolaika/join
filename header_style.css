@@ -30,15 +30,20 @@
 .header_user_initials_container {
     width: 56px;
     height: 56px;
+    border: 3px solid #2A3647;
+    border-radius: 559px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.header_ellipse {
+/* .header_ellipse {
     width: 56px;
     height: 56px;
     flex-shrink: 0;
     stroke-width: 3px;
     stroke: #2A3647;
-}
+} */
 
 .header_user_initials_box {
     display: flex;
@@ -51,6 +56,7 @@
     flex-shrink: 0;
     border-radius: 559px;
     background: var(--white, #FFF);
+
 }
 
 .header_user_initials {
