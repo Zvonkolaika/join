@@ -169,17 +169,15 @@ main {
 }
 
 .add-contact-container {
-  height: 50%;
+  height: 65%;
   width: 90%;
-  background-color: #fff;
-  border-radius: 30px;
   display: flex;
 }
 
 .add-contact-left {
   background-color: #2a3647;
   height: 100%;
-  width: 42%;
+  width: 40%;
   padding: 66px 48px;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
@@ -209,9 +207,12 @@ main {
 }
 
 .add-contact-right {
+  background-color: #fff;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
   position: relative;
   height: 100%;
-  width: 58%;
+  width: 60%;
   padding: 66px 0px;
   display: flex;
   justify-content: center;
@@ -255,3 +256,5 @@ main {
 .close-btn-container:hover {
   background-color: #d1d1d1;
 }
+
+/* --- add contact overlay end ---  */
