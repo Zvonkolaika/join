@@ -155,7 +155,7 @@ function returnContactListEntry(id) {
   return `
     <div class="contact-entry" onclick="renderContactDetails(${id})">
     <div class="acc-initials">
-      <p>AM</p>
+      <p>${returnInitials(contact["name"])}</p>
     </div>
     <div>
       <name>${contact["name"]}</name>
@@ -167,7 +167,31 @@ function returnContactListEntry(id) {
 
 function renderContactDetails(id) {
   document.getElementById("contact-details").classList.remove("d-none");
+  document.getElementById("contact-innitials").innerHTML = returnInitials(
+    contacts[id]["name"]
+  );
   document.getElementById("contact-name").innerHTML = contacts[id]["name"];
   document.getElementById("contact-email").innerHTML = contacts[id]["email"];
+  document.getElementById("contact-email").href = `
+  mailto:${contacts[id]["email"]}`;
   document.getElementById("contact-phone").innerHTML = contacts[id]["phone"];
+}
+
+function returnInitials(string) {
+  let words = string.split(" ");
+  let innitials = "";
+
+  for (let i = 0; i < words.length; i++) {
+    innitials += words[i].charAt(0).toUpperCase();
+  }
+
+  return innitials;
+}
+
+function showAddContactOverlay() {
+  document.getElementById("add-contact-bg").classList.remove("d-none");
+}
+
+function hideAddContactOverlay() {
+  document.getElementById("add-contact-bg").classList.add("d-none");
 }
