@@ -32,21 +32,18 @@
     align-items: center;
     gap: 8px;
     flex-shrink: 0;
+    transition: all 100ms ease-in;
 }
 
-.sidebar_button:hover,
-.sidebar_button_icon:hover {
+.sidebar_button:hover {
     cursor: pointer;
-    background: #091931;
-    color: #FFF;
-    fill: #FFF;
+    background: #2A3D59;
 }
 
 .sidebar_button_icon {
     width: 30px;
     height: 30px;
     flex-shrink: 0;
-
 }
 
 .sidebar_button_typography {
@@ -85,4 +82,10 @@
 
 .sidebar_footer_buttons:hover {
     cursor: pointer;
+    color: var(--Ligth-blue, #29ABE2);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
 }

@@ -1,6 +1,6 @@
 .header_container {
     display: flex;
-    width: 1440px;
+    max-width: 1440px;
     padding: 20px 40px 20px 348px;
     justify-content: space-between;
     align-items: center;
@@ -22,7 +22,15 @@
     gap: 16px;
 }
 
-.header_help_icon {
+#header_help_icon {
+    content: url('assets/img/icons/help_default.svg');
+    width: 32px;
+    height: 32px;
+}
+
+#header_help_icon:hover {
+    cursor: pointer;
+    content: url('assets/img/icons/help_hover.svg');
     width: 32px;
     height: 32px;
 }
@@ -37,14 +45,6 @@
     align-items: center;
 }
 
-/* .header_ellipse {
-    width: 56px;
-    height: 56px;
-    flex-shrink: 0;
-    stroke-width: 3px;
-    stroke: #2A3647;
-} */
-
 .header_user_initials_box {
     display: flex;
     width: 48px;
@@ -56,7 +56,11 @@
     flex-shrink: 0;
     border-radius: 559px;
     background: var(--white, #FFF);
+}
 
+.header_user_initials_box:hover {
+    cursor: pointer;
+    background: linear-gradient(0deg, rgba(12, 46, 98, 0.12) 0%, rgba(12, 46, 98, 0.12) 100%), #FFF;
 }
 
 .header_user_initials {
