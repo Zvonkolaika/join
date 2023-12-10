@@ -136,8 +136,7 @@ function renderContactList() {
     let nameInitial = Array.from(contacts[i]["name"])[0];
 
     document.getElementById("contact-list").innerHTML +=
-      returnContactListCategory(nameInitial) +
-      returnContactListEntry(contacts[i]);
+      returnContactListCategory(nameInitial) + returnContactListEntry([i]);
   }
 }
 
@@ -150,9 +149,11 @@ function returnContactListCategory(character) {
   `;
 }
 
-function returnContactListEntry(contact) {
+function returnContactListEntry(id) {
+  let contact = contacts[id];
+
   return `
-    <div class="contact-entry">
+    <div class="contact-entry" onclick="renderContactDetails(${id})">
     <div class="acc-initials">
       <p>AM</p>
     </div>
@@ -162,4 +163,11 @@ function returnContactListEntry(contact) {
     </div>
   </div>
 `;
+}
+
+function renderContactDetails(id) {
+  document.getElementById("contact-details").classList.remove("d-none");
+  document.getElementById("contact-name").innerHTML = contacts[id]["name"];
+  document.getElementById("contact-email").innerHTML = contacts[id]["email"];
+  document.getElementById("contact-phone").innerHTML = contacts[id]["phone"];
 }
