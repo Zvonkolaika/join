@@ -30,14 +30,20 @@ async function getRemoteTasks() {
         tasks = storedTasks;
     }
     // console.log('getRemoteTasks() ' + tasks);
-
-    // tasks.forEach(task => {
-    //     Object.keys(task).forEach(function (key) {
-    //         console.log(key + ": " + task[key]);
-    //     });
-    // });
     
     return tasks;
+}
+
+function printAllTasks(tasks){
+    tasks.forEach(task => {
+        printTask(task);
+    });
+}
+
+function printTask(task){
+    Object.keys(task).forEach(function (key) {
+        console.log(key + ": " + task[key]);
+    });
 }
 
 
