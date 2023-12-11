@@ -7,24 +7,24 @@
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./assets/fonts/inter.css" />
     <link rel="stylesheet" href="./styles/contacts.css" />
+    <script src="./js/storage.js"></script>
     <script src="script.js"></script>
     <script src="./js/contacts.js"></script>
   </head>
 
-  <body onload="init(), renderContactList()">
+  <body onload="init()">
     <div class="container">
       <header w3-include-html="./assets/templates/header.html"></header>
       <nav w3-include-html="./assets/templates/sidebar.html"></nav>
-   
-
       <main>
-        <div id="contact-list" class="contact-list">
-          <button class="button-w-icon" onclick="showAddContactOverlay()">
+        <div class="contact-list">
+          <button class="button-w-icon" onclick="showAddContactForm()">
             Add new contact
             <img src="../assets/img/icons/person_add.svg" />
           </button>
-
-          <!-- Contact List renders here -->
+          <div id="contact-list">
+            <!-- Contact List renders here -->
+          </div>
         </div>
 
         <div class="contact-container">
@@ -41,11 +41,11 @@
               <div>
                 <h2 id="contact-name">Anton Mayer</h2>
                 <div class="d-flex">
-                  <button>
+                  <button id="contact-edit">
                     <img src="./assets/img/icons/edit.svg" />
                     Edit
                   </button>
-                  <button>
+                  <button id="contact-delete">
                     <img src="./assets/img/icons/delete.svg" />
                     Delete
                   </button>
@@ -70,10 +70,16 @@
         </div>
       </main>
 
-      <div id="add-contact-bg" class="add-contact-bg d-none" w3-include-html="./assets/templates/add-contact.html">
-
-        </div>
-      </div>
+      <div
+        id="add-contact-bg"
+        class="contact-form-bg d-none"
+        w3-include-html="./assets/templates/add-contact.html"
+      ></div>
+      <div
+        id="edit-contact-bg"
+        class="contact-form-bg d-none"
+        w3-include-html="./assets/templates/edit-contact.html"
+      ></div>
     </div>
   </body>
 </html>

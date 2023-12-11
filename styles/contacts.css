@@ -157,9 +157,10 @@ main {
 
 /* --- add contact overlay ---  */
 
-.add-contact-bg {
+.contact-form-bg {
   z-index: 1000;
   position: absolute;
+  top: 0;
   background-color: rgba(0, 0, 0, 0.2);
   height: 100%;
   width: 100%;
@@ -168,13 +169,13 @@ main {
   align-items: center;
 }
 
-.add-contact-container {
+.contact-form-container {
   height: 65%;
   width: 90%;
   display: flex;
 }
 
-.add-contact-left {
+.contact-form-left {
   background-color: #2a3647;
   height: 100%;
   width: 40%;
@@ -186,27 +187,27 @@ main {
   justify-content: center;
 }
 
-.add-contact-left div {
+.contact-form-left div {
   position: relative;
 }
 
-.add-contact-left img {
+.contact-form-left img {
   position: absolute;
   top: -70px;
   width: 57px;
 }
 
-.add-contact-left h1,
-.add-contact-left p {
+.contact-form-left h1,
+.contact-form-left p {
   color: #fff;
   margin: 0;
 }
 
-.add-contact-left p {
+.contact-form-left p {
   font-size: 27px;
 }
 
-.add-contact-right {
+.contact-form-right {
   background-color: #fff;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
@@ -219,13 +220,13 @@ main {
   align-items: center;
 }
 
-.add-contact-input-container {
+.contact-form-inputs {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-.add-contact-img-container {
+.contact-form-img-container {
   background-color: #d1d1d1;
   width: 120px;
   height: 120px;
@@ -236,7 +237,7 @@ main {
   margin-right: 72px;
 }
 
-.add-contact-button-container {
+.contact-form-button-container {
   display: flex;
   gap: 24px;
 }
