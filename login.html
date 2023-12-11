@@ -14,7 +14,7 @@
     <div class="content dp-flex flex-column">
         <!-- login logo -->
         <div id="animations-helper" class="start-animations-helper"></div>
-        <img class="login-logo" src="../assets/img/icons/join-login-logo.svg" alt="">
+        <img class="login-logo" src="./assets/img/icons/join-login-logo.svg" alt="">
 
 
         <!-- switch to sign up -->
@@ -37,12 +37,13 @@
                 <!-- login inputs -->
                 <form style="gap: 32px;" class="dp-flex flex-column" action="#">
                     <div style="width: 422px;" class="input-container">
-                        <input required class="input-field" type="email" placeholder="Email" />
-                        <img src="../assets/img/icons/mail.svg" alt="mail" />
+                        <input required class="input-field" type="email" placeholder="Email">
+                        <img src="./assets/img/icons/mail.svg" alt="mail">
                     </div>
                     <div style="width: 422px;" class="input-container">
-                        <input required type="password" class="input-field" type="email" placeholder="Password" />
-                        <img src="../assets/img/icons/lock.svg" alt="mail" />
+                        <input required type="password" class="input-field password-input" placeholder="Password">
+                        <img class="pw-img" src="./assets/img/icons/lock.svg">
+                        <img onclick="handleVisibility()" class="d-none visible-img visibility-off" src="./assets/img/icons/visibility_off.svg" alt="">
                     </div>
                     <div class="rememberMe dp-flex">
                         <input class="checkbox" type="checkbox" id="remember" name="remember" value="remember-login">
@@ -81,13 +82,15 @@
                             </div>
                             <!-- password -->
                             <div style="width: 422px;" class="input-container">
-                                <input id="register_password-input" required class="input-field" type="password" placeholder="password">
-                                <img src="./assets/img/icons/lock.svg" alt="password">
+                                <input id="register_password-input" required class="input-field password-input" type="password" placeholder="password">
+                                <img class="pw-img" src="./assets/img/icons/lock.svg" alt="password">
+                                <img onclick="handleVisibility()" class="d-none visible-img visibility-off" src="./assets/img/icons/visibility_off.svg" alt="">
                             </div>
                             <!-- password confirm -->
                             <div style="width: 422px;" class="input-container">
-                                <input id="register_confirm-input" required class="input-field" type="password" placeholder="confirm password">
-                                <img src="./assets/img/icons/lock.svg" alt="confirm password">
+                                <input id="register_confirm-input" required class="input-field password-input" type="password" placeholder="confirm password">
+                                <img class="pw-img" src="./assets/img/icons/lock.svg" alt="confirm password">
+                                <img onclick="handleVisibility()" class="d-none visible-img visibility-off" src="./assets/img/icons/visibility_off.svg" alt="">
                             </div>
                         </div>
 

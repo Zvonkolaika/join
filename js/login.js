@@ -8,18 +8,23 @@ let users = [
 ];
 
 
-/* register */
+/* register new user */
 function registerNewUser() {
     let password = document.getElementById('register_password-input');
     let confirm = document.getElementById('register_confirm-input');
     let name = document.getElementById('register_name-input');
     let email = document.getElementById('register_email-input');
 
-    if (password.value === confirm.value && lookIfUsersAllreadyExists(email) === false) {
-        let newUser = generateNewUserArray(name.value, email.value, password.value);
-        users.push(newUser);
+    if (lookIfUsersAllreadyExists(email.value) === true) {
+        alert('A user with this email allready exists');
     } else {
-        alert('das nicht funktionieren funktioniert');
+        if (password.value === confirm.value) {
+            let newUser = generateNewUserArray(name.value, email.value, password.value);
+            users.push(newUser);
+            window.location.href = 'login.html?msg=Du hast dich erfolgreich registriert';
+        } else {
+            alert('Password dont match');
+        }
     }
 }
 
@@ -32,17 +37,15 @@ function generateNewUserArray(name, email, password) {
 }
 
 function lookIfUsersAllreadyExists(email) {
-    const foundUser = users.find(user => user.email.toLowerCase() === `${email}`.toLowerCase());
+    let foundUser = users.find(user => user.email.toLowerCase() === `${email}`.toLowerCase());
     if (foundUser) {
-        console.log('found:' + foundUser);
         return true;
     } else {
-        console.log(foundUser);
         return false;
     }
 }
 
-/* handle signIn signUp */
+/* handle signIn signUp display */
 let signInDisplay = document.getElementById('login-card_frame');
 let signUpDisplay = document.getElementById('sign-up-card_frame');
 let paragraph = document.getElementById('switch-signIn-signUp_paragraph');
@@ -52,8 +55,7 @@ function handleSignInSignUp() {
     if (!signInDisplay.classList.contains('d-none')) {
         switchToSignUp();
     } else {
-        switchToLogIn();
-        document.getElementById('accaptPolicy').checked = false;
+        window.location.href = 'login.html'
     }
 }
 
@@ -62,13 +64,6 @@ function switchToSignUp() {
     signUpDisplay.classList.remove('d-none');
     paragraph.innerHTML = `Allready have an Account?`;
     button.innerHTML = `Log in`;
-}
-
-function switchToLogIn() {
-    signInDisplay.classList.remove('d-none');
-    signUpDisplay.classList.add('d-none');
-    paragraph.innerHTML = `Not a Join user?`;
-    button.innerHTML = `Sign up`;
 }
 
 function handleSignUpButton() {
@@ -87,3 +82,65 @@ animationsHelper.addEventListener('animationend', () => {
     animationsHelper.classList.add('d-none');
 });
 
+/* password login visibility */
+let pwImgs = document.querySelectorAll('.pw-img');
+let visibleImg = document.querySelectorAll('.visible-img');
+let pwInputs = document.querySelectorAll('.password-input');
+
+// für den focus
+pwInputs.forEach(input => {
+    input.addEventListener('focus', () => {
+        pwImgs.forEach(img => {
+            img.classList.add('d-none');
+        });
+        visibleImg.forEach(img => {
+            img.classList.remove('d-none');
+        });
+    });
+});
+
+// wenn man den focus verlässt
+pwInputs.forEach(input => {
+    input.addEventListener('blur', () => {
+        if (input.value === ``) {
+            pwImgs.forEach(img => {
+                img.classList.remove('d-none');
+            });
+            visibleImg.forEach(img => {
+                img.classList.add('d-none');
+            });
+        }
+    });
+});
+
+function handleVisibility() {
+    const isVisible = Array.from(visibleImg).some(img => img.classList.contains('visibility-off'));
+
+    if (isVisible) {
+        visibleImg.forEach(img => {
+            img.classList.remove('visibility-off');
+            img.src = './assets/img/icons/visibility.svg';
+            togglePasswordVisibility();
+        });
+    } else {
+        visibleImg.forEach(img => {
+            img.classList.add('visibility-off');
+            img.src = './assets/img/icons/visibility_off.svg';
+            togglePasswordVisibility();
+        });
+    }
+}
+
+    // password visibility
+let passwordInputs = document.querySelectorAll('input[type="password"]');
+
+
+function togglePasswordVisibility() {
+    passwordInputs.forEach(input => {
+        if (input.type === 'password') {
+            input.type = 'text';
+        } else {
+            input.type = 'password';
+        }
+    });
+}

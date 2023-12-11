@@ -167,3 +167,7 @@ label {
     color: #29ABE2;
     font-weight: 700;
 }
+
+.visible-img {
+    cursor: pointer;
+}
