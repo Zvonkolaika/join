@@ -1,4 +1,4 @@
-let contacts = [
+/* let testContacts = [
   {
     name: "Alice Adams",
     email: "alice@email.com",
@@ -129,9 +129,19 @@ let contacts = [
     email: "zoe@email.com",
     phone: "262626",
   },
-];
+]; */
+
+let contacts = [];
+
+async function init() {
+  await includeHTML();
+  await loadContacts();
+  renderContactList();
+}
 
 function renderContactList() {
+  document.getElementById("contact-list").innerHTML = "";
+
   for (let i = 0; i < contacts.length; i++) {
     let nameInitial = Array.from(contacts[i]["name"])[0];
 
@@ -175,6 +185,12 @@ function renderContactDetails(id) {
   document.getElementById("contact-email").href = `
   mailto:${contacts[id]["email"]}`;
   document.getElementById("contact-phone").innerHTML = contacts[id]["phone"];
+  document
+    .getElementById("contact-delete")
+    .setAttribute("onclick", `deleteContact(${id})`);
+  document
+    .getElementById("contact-edit")
+    .setAttribute("onclick", `editContact(${id})`);
 }
 
 function returnInitials(string) {
@@ -188,10 +204,55 @@ function returnInitials(string) {
   return innitials;
 }
 
-function showAddContactOverlay() {
+function showAddContactForm() {
   document.getElementById("add-contact-bg").classList.remove("d-none");
 }
 
-function hideAddContactOverlay() {
+function showEditContactForm() {
+  document.getElementById("edit-contact-bg").classList.remove("d-none");
+}
+
+async function createNewContact() {
+  contacts.push({
+    name: document.getElementById("add-contact-name").value,
+    email: document.getElementById("add-contact-email").value,
+    phone: document.getElementById("add-contact-phone").value,
+  });
+
+  await setItem("contacts", JSON.stringify(contacts));
+  closeAddContactForm();
+  renderContactList();
+}
+
+async function deleteContact(id) {
+  contacts.splice(id, 1);
+  await setItem("contacts", JSON.stringify(contacts));
+  document.getElementById("contact-details").classList.add("d-none");
+  renderContactList();
+}
+
+function editContact(id) {
+  showEditContactForm();
+  const contact = contacts[id];
+
+  /*  TODO */
+}
+
+async function loadContacts() {
+  try {
+    contacts = JSON.parse(await getItem("contacts"));
+  } catch (e) {
+    console.warn("no contacts found on server");
+  }
+}
+
+function closeAddContactForm() {
+  resetAddContactForm();
   document.getElementById("add-contact-bg").classList.add("d-none");
+}
+
+function resetAddContactForm() {
+  document.getElementById("add-contact-name").value = "";
+  document.getElementById("add-contact-email").value = "";
+  document.getElementById("add-contact-phone").value = "";
 }

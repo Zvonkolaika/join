@@ -8,14 +8,14 @@
   </div>
 
   <div class="contact-form-right">
-    <div class="close-btn-container" onclick="closeAddContactForm()">
+    <div class="close-btn-container" onclick="">
       <img src="./assets/img/icons/cancel.svg" />
     </div>
     <div class="contact-form-img-container">
       <img src="./assets/img/icons/person.svg" alt="contact picture" />
     </div>
 
-    <form class="contact-form-inputs" onsubmit="createNewContact(); return false">
+    <form class="contact-form-inputs" onsubmit="return false">
       <div class="input-container">
         <input
           class="input-field"
@@ -50,11 +50,7 @@
       </div>
 
       <div class="contact-form-button-container">
-        <button
-          class="button-secondary-w-icon"
-          onclick="closeAddContactForm()"
-          formnovalidate
-        >
+        <button class="button-secondary-w-icon" onclick="" formnovalidate>
           Cancel <img src="./assets/img/icons/cancel.svg" />
         </button>
         <button class="button-w-icon">
