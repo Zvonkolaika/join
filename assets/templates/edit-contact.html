@@ -1,26 +1,26 @@
 <div class="contact-form-container">
   <div class="contact-form-left">
     <div>
-      <img src="./assets/img/logo_white.svg" alt="JOin Logo" />
-      <h1>Add Contact</h1>
-      <p>Tasks are better with a team!</p>
+      <img src="./assets/img/logo_white.svg" alt="Join Logo" />
+      <h1>Edit Contact</h1>
+      <p></p>
     </div>
   </div>
 
   <div class="contact-form-right">
-    <div class="close-btn-container" onclick="">
+    <div class="close-btn-container" onclick="closeEditContactForm()">
       <img src="./assets/img/icons/cancel.svg" />
     </div>
     <div class="contact-form-img-container">
       <img src="./assets/img/icons/person.svg" alt="contact picture" />
     </div>
 
-    <form class="contact-form-inputs" onsubmit="return false">
+    <form id="edit-contact-form" class="contact-form-inputs">
       <div class="input-container">
         <input
           class="input-field"
           type="text"
-          id="add-contact-name"
+          id="edit-contact-name"
           placeholder="Name"
           required
         />
@@ -31,8 +31,8 @@
         <input
           class="input-field"
           type="email"
-          id="add-contact-email"
-          placeholder="email"
+          id="edit-contact-email"
+          placeholder="Email"
           required
         />
         <img src="./assets/img/icons/mail.svg" />
@@ -42,7 +42,7 @@
         <input
           class="input-field"
           type="text"
-          id="add-contact-phone"
+          id="edit-contact-phone"
           placeholder="Phone"
           required
         />
@@ -50,11 +50,15 @@
       </div>
 
       <div class="contact-form-button-container">
-        <button class="button-secondary-w-icon" onclick="" formnovalidate>
+        <button
+          class="button-secondary-w-icon"
+          onclick="closeEditContactForm()"
+          formnovalidate
+        >
           Cancel <img src="./assets/img/icons/cancel.svg" />
         </button>
         <button class="button-w-icon">
-          Create contact <img src="./assets/img/icons/check.svg" />
+          Save <img src="./assets/img/icons/check.svg" />
         </button>
       </div>
     </form>

@@ -1,136 +1,3 @@
-/* let testContacts = [
-  {
-    name: "Alice Adams",
-    email: "alice@email.com",
-    phone: "111111",
-  },
-  {
-    name: "Bob Brown",
-    email: "bob@email.com",
-    phone: "222222",
-  },
-  {
-    name: "Cindy Carter",
-    email: "cindy@email.com",
-    phone: "333333",
-  },
-  {
-    name: "David Davis",
-    email: "david@email.com",
-    phone: "444444",
-  },
-  {
-    name: "Eva Evans",
-    email: "eva@email.com",
-    phone: "555555",
-  },
-  {
-    name: "Frank Fisher",
-    email: "frank@email.com",
-    phone: "666666",
-  },
-  {
-    name: "Grace Gray",
-    email: "grace@email.com",
-    phone: "777777",
-  },
-  {
-    name: "Hannah Hill",
-    email: "hannah@email.com",
-    phone: "888888",
-  },
-  {
-    name: "Isaac Irwin",
-    email: "isaac@email.com",
-    phone: "999999",
-  },
-  {
-    name: "Jack Johnson",
-    email: "jack@email.com",
-    phone: "101010",
-  },
-  {
-    name: "Kelly King",
-    email: "kelly@email.com",
-    phone: "111111",
-  },
-  {
-    name: "Lucy Lee",
-    email: "lucy@email.com",
-    phone: "121212",
-  },
-  {
-    name: "Max Miller",
-    email: "max@email.com",
-    phone: "131313",
-  },
-  {
-    name: "Nora Nelson",
-    email: "nora@email.com",
-    phone: "141414",
-  },
-  {
-    name: "Oliver Olson",
-    email: "oliver@email.com",
-    phone: "151515",
-  },
-  {
-    name: "Peter Parker",
-    email: "peter@email.com",
-    phone: "161616",
-  },
-  {
-    name: "Quinn Quinn",
-    email: "quinn@email.com",
-    phone: "171717",
-  },
-  {
-    name: "Rachel Ross",
-    email: "rachel@email.com",
-    phone: "181818",
-  },
-  {
-    name: "Samuel Scott",
-    email: "samuel@email.com",
-    phone: "191919",
-  },
-  {
-    name: "Tina Taylor",
-    email: "tina@email.com",
-    phone: "202020",
-  },
-  {
-    name: "Ursula Underwood",
-    email: "ursula@email.com",
-    phone: "212121",
-  },
-  {
-    name: "Victor Vaughn",
-    email: "victor@email.com",
-    phone: "222222",
-  },
-  {
-    name: "Wendy Wilson",
-    email: "wendy@email.com",
-    phone: "232323",
-  },
-  {
-    name: "Xander Xavier",
-    email: "xander@email.com",
-    phone: "242424",
-  },
-  {
-    name: "Yvonne Young",
-    email: "yvonne@email.com",
-    phone: "252525",
-  },
-  {
-    name: "Zoe Zane",
-    email: "zoe@email.com",
-    phone: "262626",
-  },
-]; */
-
 let contacts = [];
 
 async function init() {
@@ -190,7 +57,7 @@ function renderContactDetails(id) {
     .setAttribute("onclick", `deleteContact(${id})`);
   document
     .getElementById("contact-edit")
-    .setAttribute("onclick", `editContact(${id})`);
+    .setAttribute("onclick", `showEditContactForm(${id})`);
 }
 
 function returnInitials(string) {
@@ -208,7 +75,8 @@ function showAddContactForm() {
   document.getElementById("add-contact-bg").classList.remove("d-none");
 }
 
-function showEditContactForm() {
+function showEditContactForm(id) {
+  loadEditContactValues(id);
   document.getElementById("edit-contact-bg").classList.remove("d-none");
 }
 
@@ -231,11 +99,28 @@ async function deleteContact(id) {
   renderContactList();
 }
 
-function editContact(id) {
-  showEditContactForm();
-  const contact = contacts[id];
+async function editContact(id) {
+  contacts[id] = {
+    name: document.getElementById("edit-contact-name").value,
+    email: document.getElementById("edit-contact-email").value,
+    phone: document.getElementById("edit-contact-phone").value,
+  };
 
-  /*  TODO */
+  await setItem("contacts", JSON.stringify(contacts));
+
+  closeEditContactForm();
+  renderContactList();
+  renderContactDetails(id);
+}
+
+function loadEditContactValues(id) {
+  const contact = contacts[id];
+  document.getElementById("edit-contact-name").value = contact["name"];
+  document.getElementById("edit-contact-phone").value = contact["phone"];
+  document.getElementById("edit-contact-email").value = contact["email"];
+  document
+    .getElementById("edit-contact-form")
+    .setAttribute("onsubmit", `editContact(${id}); return false`);
 }
 
 async function loadContacts() {
@@ -251,8 +136,39 @@ function closeAddContactForm() {
   document.getElementById("add-contact-bg").classList.add("d-none");
 }
 
+function closeEditContactForm() {
+  document.getElementById("edit-contact-bg").classList.add("d-none");
+}
+
 function resetAddContactForm() {
   document.getElementById("add-contact-name").value = "";
   document.getElementById("add-contact-email").value = "";
   document.getElementById("add-contact-phone").value = "";
+}
+
+async function addTestContacts() {
+  contacts = [
+    {
+      name: "Alice Adams",
+      email: "alice@email.com",
+      phone: "111111",
+    },
+    {
+      name: "Eva Evans",
+      email: "eva@email.com",
+      phone: "555555",
+    },
+    {
+      name: "Peter Parker",
+      email: "peter@email.com",
+      phone: "161616",
+    },
+    {
+      name: "Zoe Zane",
+      email: "zoe@email.com",
+      phone: "262626",
+    },
+  ];
+  await setItem("contacts", JSON.stringify(contacts));
+  renderContactList();
 }
