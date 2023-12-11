@@ -63,9 +63,6 @@ nav {
   position: absolute;
   top: 0;
   left: 0;
-  width: 232px;
-  height: 100%;
-  background-color: #2a3647;
 }
 
 main {
@@ -75,6 +72,7 @@ main {
   left: 232px;
   width: calc(100% - 232px);
   height: calc(100% - 96px);
+  background-color: #2a3647;
 }
 
 h1 {
