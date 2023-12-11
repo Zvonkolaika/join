@@ -171,3 +171,9 @@ label {
 .visible-img {
     cursor: pointer;
 }
+
+.warning {
+    font-size: 12px;
+    color: red;
+    margin-top: 12px;
+}

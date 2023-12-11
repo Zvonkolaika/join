@@ -16,14 +16,14 @@ function registerNewUser() {
     let email = document.getElementById('register_email-input');
 
     if (lookIfUsersAllreadyExists(email.value) === true) {
-        alert('A user with this email allready exists');
+        document.querySelector('.warning').innerHTML = `A user with this email allready exists`;
     } else {
         if (password.value === confirm.value) {
             let newUser = generateNewUserArray(name.value, email.value, password.value);
             users.push(newUser);
             window.location.href = 'login.html?msg=Du hast dich erfolgreich registriert';
         } else {
-            alert('Password dont match');
+            document.querySelector('.warning').innerHTML = `Ups! Your password don't match, try again`;
         }
     }
 }
@@ -87,7 +87,7 @@ let pwImgs = document.querySelectorAll('.pw-img');
 let visibleImg = document.querySelectorAll('.visible-img');
 let pwInputs = document.querySelectorAll('.password-input');
 
-// für den focus
+    // für den focus
 pwInputs.forEach(input => {
     input.addEventListener('focus', () => {
         pwImgs.forEach(img => {
@@ -99,7 +99,7 @@ pwInputs.forEach(input => {
     });
 });
 
-// wenn man den focus verlässt
+    // wenn man den focus verlässt
 pwInputs.forEach(input => {
     input.addEventListener('blur', () => {
         if (input.value === ``) {
