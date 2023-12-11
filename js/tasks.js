@@ -111,4 +111,3 @@ function disablePrioBtns(){
     disableBtnsDefault('medium-btn-clicked');
     disableBtnsDefault('low-btn-clicked');
 }
-
