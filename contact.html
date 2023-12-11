@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join | contacts</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./assets/fonts/inter.css" />
+    <link rel="stylesheet" href="./styles/contacts.css" />
+    <script src="script.js"></script>
+    <script src="./js/contacts.js"></script>
+  </head>
+
+  <body onload="init(), renderContactList()">
+    <div class="container">
+      <header w3-include-html="url">Header</header>
+      <!-- insert url to header -->
+
+      <nav w3-include-html="url">Sidebar</nav>
+      <!-- insert url to side menu -->
+
+      <main>
+        <div id="contact-list" class="contact-list">
+          <button class="button-w-icon" onclick="showAddContactOverlay()">
+            Add new contact
+            <img src="../assets/img/icons/person_add.svg" />
+          </button>
+
+          <!-- Contact List renders here -->
+        </div>
+
+        <div class="contact-container">
+          <div class="contact-header">
+            <h1>Contacts</h1>
+            <p>Better with a team</p>
+          </div>
+          <div id="contact-details" class="contact-details d-none">
+            <div class="contact-details-header">
+              <div class="acc-initials">
+                <p id="contact-innitials">AM</p>
+              </div>
+
+              <div>
+                <h2 id="contact-name">Anton Mayer</h2>
+                <div class="d-flex">
+                  <button>
+                    <img src="./assets/img/icons/edit.svg" />
+                    Edit
+                  </button>
+                  <button>
+                    <img src="./assets/img/icons/delete.svg" />
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <p>Contact Information</p>
+
+            <div>
+              <b>Email</b>
+              <a id="contact-email" href="mailto:anton@mail.de"
+                >anton@mail.de</a
+              >
+            </div>
+
+            <div>
+              <b>Phone</b>
+              <span id="contact-phone">365434534</span>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <div id="add-contact-bg" class="add-contact-bg d-none" w3-include-html="./assets/templates/add-contact.html">
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
