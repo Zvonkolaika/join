@@ -68,3 +68,13 @@
     height: 14.238px;
     flex-shrink: 0;
 }
+
+
+/*--- Header Responsive --- */
+
+@media screen and (max-width: 428px) {
+    .header_container {
+        width: 428px;
+        padding: 20px 16px;
+    }
+}
