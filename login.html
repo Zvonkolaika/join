@@ -35,16 +35,22 @@
 
 
                 <!-- login inputs -->
-                <form style="gap: 32px;" class="dp-flex flex-column" action="#">
+                <form onsubmit="logIn(); return false;" style="gap: 32px;" class="dp-flex flex-column" action="#">
                     <div style="width: 422px;" class="input-container">
-                        <input required class="input-field" type="email" placeholder="Email">
+                        <input id="login-email" required class="input-field" type="email" placeholder="Email">
                         <img src="./assets/img/icons/mail.svg" alt="mail">
                     </div>
-                    <div style="width: 422px;" class="input-container">
-                        <input required type="password" class="input-field password-input" placeholder="Password">
-                        <img class="pw-img" src="./assets/img/icons/lock.svg">
-                        <img onclick="handleVisibility()" class="d-none visible-img visibility-off" src="./assets/img/icons/visibility_off.svg" alt="">
+                    <div>
+                        <div style="width: 422px;" class="input-container">
+                            <input id="login-password" required type="password" class="input-field password-input"
+                                placeholder="Password">
+                            <img class="pw-img" src="./assets/img/icons/lock.svg">
+                            <img onclick="handleVisibility()" class="d-none visible-img visibility-off"
+                                src="./assets/img/icons/visibility_off.svg" alt="">
+                        </div>
+                        <div class="warning w100 dp-flex d-none"></div>
                     </div>
+
                     <div class="rememberMe dp-flex">
                         <input class="checkbox" type="checkbox" id="remember" name="remember" value="remember-login">
                         <label for="remember">remember me</label><br>
@@ -72,37 +78,44 @@
                         <div style="gap: 24px;" class="input-frame dp-flex flex-column">
                             <!-- name -->
                             <div style="width: 422px;" class="input-container">
-                                <input id="register_name-input" required class="input-field" type="text" placeholder="name">
+                                <input id="register_name-input" required class="input-field" type="text"
+                                    placeholder="name">
                                 <img src="./assets/img/icons/person.svg" alt="name">
                             </div>
                             <!-- email -->
                             <div style="width: 422px;" class="input-container">
-                                <input id="register_email-input" required class="input-field" type="email" placeholder="email">
+                                <input id="register_email-input" required class="input-field" type="email"
+                                    placeholder="email">
                                 <img src="./assets/img/icons/mail.svg" alt="mail">
                             </div>
                             <!-- password -->
                             <div style="width: 422px;" class="input-container">
-                                <input id="register_password-input" required class="input-field password-input" type="password" placeholder="password">
+                                <input id="register_password-input" required class="input-field password-input"
+                                    type="password" placeholder="password">
                                 <img class="pw-img" src="./assets/img/icons/lock.svg" alt="password">
-                                <img onclick="handleVisibility()" class="d-none visible-img visibility-off" src="./assets/img/icons/visibility_off.svg" alt="">
+                                <img onclick="handleVisibility()" class="d-none visible-img visibility-off"
+                                    src="./assets/img/icons/visibility_off.svg" alt="">
                             </div>
                             <!-- password confirm -->
                             <div style="width: 422px;" class="input-container">
-                                <input id="register_confirm-input" required class="input-field password-input" type="password" placeholder="confirm password">
+                                <input id="register_confirm-input" required class="input-field password-input"
+                                    type="password" placeholder="confirm password">
                                 <img class="pw-img" src="./assets/img/icons/lock.svg" alt="confirm password">
-                                <img onclick="handleVisibility()" class="d-none visible-img visibility-off" src="./assets/img/icons/visibility_off.svg" alt="">
+                                <img onclick="handleVisibility()" class="d-none visible-img visibility-off"
+                                    src="./assets/img/icons/visibility_off.svg" alt="">
                             </div>
                         </div>
 
                         <div class="warning"></div>
 
                         <div class="dp-flex">
-                            <input required class="checkbox" style="margin-right: 6px;" type="checkbox" id="accaptPolicy"
-                                onclick="handleSignUpButton()">
+                            <input required class="checkbox" style="margin-right: 6px;" type="checkbox"
+                                id="accaptPolicy" onclick="handleSignUpButton()">
                             <p>I accept the <a class="link" href="#">Privacy policy</a></p>
                         </div>
 
-                        <button style="margin-top: 12px;" id="signUp-button" class="button d-none" type="submit">Sign up</button>
+                        <button style="margin-top: 12px;" id="signUp-button" class="button d-none" type="submit">Sign
+                            up</button>
                     </form>
                 </div>
             </div>
@@ -116,6 +129,7 @@
     </div>
 
     <script src="./js/login.js"></script>
+    <script src="./js/storage.js"></script>
 </body>
 
 </html>

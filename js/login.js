@@ -1,27 +1,60 @@
 /* user array */
 let users = [
     {
-        name: 'Hubertus',
-        email: 'test123@test.de',
-        password: 'test123'
-    },
+        name: `andre`,
+        email: `test123@test.de`,
+        password: `test123`
+    }
 ];
 
+/* load user data */
+document.addEventListener('DOMContentLoaded', async function() {
+    convertData();
+  });
+
+  async function convertData() {
+    users = await getItem('users');
+    parsedData = JSON.parse(users.data.value);
+    users = parsedData;
+}
+
+/* login as existing user */
+function logIn() {
+    let email = document.getElementById('login-email').value;
+    let password = document.getElementById('login-password').value;
+    
+    let foundUser = users.find(user => {
+        return user.email === email && user.password === password;
+    });
+
+    if(foundUser) {
+       // code zum weiterleiten in die app
+        console.log('Successfully logged in')
+    } else {
+        logInWarning();
+    }
+}
+
+function logInWarning() {
+    document.querySelector('.warning').classList.remove('d-none');
+    document.querySelector('.warning').innerHTML = `Incorrect email address or incorrect password`;
+}
 
 /* register new user */
-function registerNewUser() {
+async function registerNewUser() {
     let password = document.getElementById('register_password-input');
     let confirm = document.getElementById('register_confirm-input');
     let name = document.getElementById('register_name-input');
     let email = document.getElementById('register_email-input');
 
-    if (lookIfUsersAllreadyExists(email.value) === true) {
+    if (await lookIfUsersAllreadyExists(email.value) === true) {
         document.querySelector('.warning').innerHTML = `A user with this email allready exists`;
     } else {
         if (password.value === confirm.value) {
             let newUser = generateNewUserArray(name.value, email.value, password.value);
             users.push(newUser);
-            window.location.href = 'login.html?msg=Du hast dich erfolgreich registriert';
+            await setItem('users', users);
+            window.location.href = 'login.html?msg=You have registered successfully';
         } else {
             document.querySelector('.warning').innerHTML = `Ups! Your password don't match, try again`;
         }
@@ -36,7 +69,8 @@ function generateNewUserArray(name, email, password) {
     }
 }
 
-function lookIfUsersAllreadyExists(email) {
+async function lookIfUsersAllreadyExists(email) {
+    await convertData();
     let foundUser = users.find(user => user.email.toLowerCase() === `${email}`.toLowerCase());
     if (foundUser) {
         return true;
