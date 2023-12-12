@@ -31,10 +31,6 @@ function addTask(title = 'title is empty',
     return task;
 } 
 
-async function resetRemoteTasks() {
-    await setItem('tasks', []).then();
-}
-
 async function createNewTask() {
 
     let title = document.getElementById('task-title').value;
@@ -45,7 +41,7 @@ async function createNewTask() {
                         date = new Date().getTime(document.getElementById('task-date').value), 
                         prio = taskPrio, 
                         assignedUsers = assignUserList); 
-    tasks = await getRemoteTasks();
+    tasks = await getRemote('tasks');
     tasks.push(task);
   
     await setItem('tasks', tasks);
@@ -110,4 +106,33 @@ function disablePrioBtns(){
     disableBtnsDefault('urgent-btn-clicked');
     disableBtnsDefault('medium-btn-clicked');
     disableBtnsDefault('low-btn-clicked');
+}
+
+async function renderUsersList() {
+    let dropdown = document.getElementById('select-dropdown');
+    let usersList = await getRemote('contacts');
+    usersList.forEach(user => {
+        console.log('usersList ' + user["name"]);
+        var option = document.createElement('div');
+        option.innerHTML = /*html*/`
+        <div role="option" class="contact-entry" onclick="selectOption(this)">
+            <div class="acc-initials">
+                <p>${returnInitials(user["name"])}</p>
+                </div>
+                <div>${user["name"]}</div>
+            </div>
+            `;
+        dropdown.appendChild(option);
+    });
+} 
+
+function toggleCustomSelect() {
+    let dropdown = document.getElementById('select-dropdown');
+    dropdown.classList.toggle("d-none-ni");
+}
+
+function selectOption(option) {
+    const selectedValue = document.querySelector(".selected-value");
+    selectedValue.textContent = option.textContent;
+    toggleCustomSelect(); // Close the dropdown after selection if needed
 }

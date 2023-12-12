@@ -1,5 +1,5 @@
 async function drawCards(){
-    let tasks = await getRemoteTasks();
+    let tasks = await getRemote('tasks');
     tasks.forEach(task => {
        renderTaskCard(task); 
     });

@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Task</title>
-    <link rel="stylesheet" href="add_task.css">
+    <link rel="stylesheet" href="/styles/add_task.css">
+    <link rel="stylesheet" href="/styles/contacts.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="./assets/fonts/inter.css">
+    <link rel="stylesheet" href="/assets/fonts/inter.css">
     <script src="script.js"></script>
-    <script src="./js/tasks.js"></script>
-    <script src="./js/storage.js"></script>
+    <script src="/js/contacts.js"></script>
+    <script src="/js/tasks.js"></script>
+    <script src="/js/storage.js"></script>
 </head>
 
 <body onload="disablePrioBtns()">
@@ -28,32 +30,63 @@
                 <div class="task-categories">
                     <span>Title*</span>
                     <div class="input-container">
-                    <input type="text" id="task-title" class="input-field" placeholder="Enter a title"/>
+                    <input type="text" id="task-title" class="input-field" placeholder="Enter a title" required>
                     </div>
                 </div>
                 <div class="task-categories description">
                     <span>Description</span>
                         <div class="input-container">
-                            <textarea type="text" id="task-description" class="input-field" placeholder="Enter a Description"></textarea>
+                            <textarea type="text" required id="task-description" class="input-field" placeholder="Enter a Description" required>
+                                
+                            </textarea>
+                            
                         </div>
                 </div>
+
                 <div class="task-categories">
                     <span>Assigned to</span>
-                    <select required class="dropdown" onchange="getSelectedUser()" id="user-select">
-                        <option value="User0">Select contacts to assign</option>
+
+                    <div class="custom-select">
+                        <button
+                          class="dropdown select-button"
+                          role="combobox"
+                          aria-labelledby="select button"
+                          aria-haspopup="listbox"
+                          aria-expanded="false"
+                          aria-controls="select-dropdown"
+                          onclick="toggleCustomSelect(); renderUsersList()"
+                        >
+                          <span class="selected-value">Select contacts to assign</span>
+                          <span class="arrow"></span>
+                        </button>
+                        <ul class="dropdown d-none-ni" role="listbox" id="select-dropdown">
+                        </ul>
+                      </div>
+                  
+                </div>
+
+                <div class="task-categories">
+                    <span>Assigned to</span>
+                    <select required class="dropdown" onchange="getSelectedUser()" id="user-select" aria-placeholder="Select contacts to assign">
+                        <!-- <option value="User0">Select contacts to assign</option> -->
                         <!-- Will be renedered in JS when we have list of users ready -->
                         <option value="User1" id="user1">User1</option>
                         <option value="User2" id="user2">User2</option>
-                        <option value="User3" id="user3">User3</option>
+                        <option value="User3" id="user3"><div class="contact-entry">
+                            <div class="acc-initials">
+                                <p>U3</p>
+                                </div>
+                                <div>User3</div>
+                            </div></option>
                     </select>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
         <div class="borderline"></div>
         <div class="date-prio-container">
             <div class="task-categories">
                 <span>Due date</span>
-                <input type="date" id="task-date" class="input-field date-task-inputfield" placeholder="dd/mm/yy"/>
+                <input type="date" id="task-date" class="input-field date-task-inputfield" placeholder="dd/mm/yy">
             </div>
 
             <div class="task-categories">
@@ -87,7 +120,7 @@
             </div> 
             <div class="task-categories">
                 <span>Category</span>
-                <select id="category-dropdown-menu category" class="dropdown" aria-placeholder="Select task category">
+                <select id="category-dropdown-menu" class="dropdown" aria-placeholder="Select task category">
                     <option value="new category">New category</option>
                     <option value="development" >Development</option>
                     <option value="design" >Design</option>
@@ -111,7 +144,7 @@
                 <button id="reset" type="reset" class="button-secondary-w-icon add-task-btn">
                     Clear   
                     <img src="/assets/img/icons/cancel.svg" id="clearIconHover" class="clearIconDefault">
-                    <img src="/assets/img/icons/iconoir_cancel.svg" id="clearIconDefault" class="clearIconBlue d-none">
+                    <img src="/assets/img/icons/iconoir_cancel.svg" id="clearIconDefault" class="clearIconBlue d-none-ni">
                 </button>
                 <button class="button-w-icon" type="submit" value="Submit">
                     Create Task
