@@ -6,6 +6,7 @@ let taskPrio = PRIO_MDM;
 let tasks = [];
 let assignUserList = [];
 let storedTasks = [];
+let usersList = [];
 
 // use default parameters to set JSON values 
 function addTask(title = 'title is empty',
@@ -106,33 +107,105 @@ function disablePrioBtns(){
     disableBtnsDefault('urgent-btn-clicked');
     disableBtnsDefault('medium-btn-clicked');
     disableBtnsDefault('low-btn-clicked');
+    disableBtnsDefault('user-select-button');
 }
 
-async function renderUsersList() {
+async function renderFullUsersList() {
+    usersList = await getRemote('contacts');
+    renderHTMLUsersList(usersList);
+}
+
+function renderHTMLUsersList(usersList){
     let dropdown = document.getElementById('select-dropdown');
-    let usersList = await getRemote('contacts');
+    dropdown.innerHTML = '';
     usersList.forEach(user => {
-        console.log('usersList ' + user["name"]);
+        //console.log('usersList ' + user["name"]);
         var option = document.createElement('div');
+        option.style.display = "flex";
+        option.style.flexDirection = "row";
+        option.style.flexWrap = "wrap";
+        option.style.justifyContent = "space-between";
+        option.style.paddingBottom = "10px";
+        const userName = user['name'];
         option.innerHTML = /*html*/`
-        <div role="option" class="contact-entry" onclick="selectOption(this)">
-            <div class="acc-initials">
-                <p>${returnInitials(user["name"])}</p>
+                <div class="initials-name">
+                    <div class="acc-initials">
+                        <p>${returnInitials(user['name'])}</p>
+                        </div>
+                        <div>${user['name']}</div>
+                    </div>
                 </div>
-                <div>${user["name"]}</div>
-            </div>
-            `;
+                <input type="checkbox" role="option" class="contact-entry-task" data-name="${userName}" onclick="selectOption(this, '${userName}')"/>
+
+        `;
         dropdown.appendChild(option);
     });
 } 
 
 function toggleCustomSelect() {
     let dropdown = document.getElementById('select-dropdown');
+    let dropdownIcon = document.getElementById('dropdown-icon-users');
+    dropdownIcon.classList.toggle("rotate");
     dropdown.classList.toggle("d-none-ni");
 }
 
-function selectOption(option) {
-    const selectedValue = document.querySelector(".selected-value");
-    selectedValue.textContent = option.textContent;
-    toggleCustomSelect(); // Close the dropdown after selection if needed
+
+function toggleCategoriesSelect() {
+    let dropdown = document.getElementById('select-dropdown-categories');
+    let dropdownIcon = document.getElementById('dropdown-icon-categories');
+    dropdownIcon.classList.toggle("rotate");
+    dropdown.classList.toggle("d-none-ni");
+}
+
+function selectOption(checkbox, id) {
+    if (checkbox.checked) {
+        let selectedName = checkbox.getAttribute('data-name');
+        
+        // Create a div element for the icon with initials
+        var iconDiv = document.createElement('div');
+        iconDiv.className = 'selected-icon';
+        iconDiv.id = 'selected-icon-user-assigned-' + id.toString();
+        iconDiv.innerHTML = /*html*/`
+            <div class="acc-initials">
+                <p>${returnInitials(selectedName)}</p>
+            </div>
+        `;
+        
+        // Append the icon div under the dropdown
+        document.getElementById('selected-users-container').appendChild(iconDiv);
+      //  toggleCustomSelect(); // Close the dropdown after selection if needed
+    } else {
+        // If checkbox is unchecked, remove the corresponding icon div
+        const selectedIcon = document.getElementById('selected-icon-user-assigned-' + id.toString());
+        if (selectedIcon) {
+            selectedIcon.remove();
+           // toggleCustomSelect();
+        }
+    }
+}
+
+function changeIconDropDownCategory(){
+    let dropdownIcon = document.getElementById('category-dropdown-menu');
+    dropdownIcon.classList.toggle("rotate-icon-background");
+}
+
+async function filterUsers() {
+    let search = document.getElementById('search').value;
+    search = search.toLowerCase();
+    if(usersList.length == 0){
+        usersList = await getRemote('contacts');
+    }
+    let filteredList = [];
+    if (search != '') {
+        for (let i = 0; i < usersList.length; i++) {
+            let name = usersList[i].name;
+            if (name.toLowerCase().includes(search)) {
+                filteredList.push(usersList[i]);
+            }
+        }
+    }
+    if (filteredList.length == 0) {
+        filteredList = usersList;
+    }
+    renderHTMLUsersList(filteredList);
 }

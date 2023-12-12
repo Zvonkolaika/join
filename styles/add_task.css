@@ -51,6 +51,14 @@ span {
     flex-direction: column;
 }
 
+#category-dropdown-menu {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: white url(/assets/img/icons/arrow_drop_downaa.svg) no-repeat;
+    background-position: right 16px center;
+}
+
 .description{
     margin-bottom: 24px;
 }
@@ -208,15 +216,41 @@ input[type=date] {
     display: none;
 }
 
-/*  *//*  *//*  *//*  *//*  *//*  *//*  *//*  */v
+/*  *//*  *//*  *//*  *//*  *//*  *//*  *//*  */
+
+.contact-entry-task {
+    padding: 15px 24px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+.initials-name{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.select-user {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.selected-users-container{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
 
 .custom-select {
     position: relative;
     width: 400px;
     max-width: 100%;
     font-size: 1.15rem;
-    color: #000;
-    margin-top: 3rem;
   }
   
   .select-button {
@@ -235,13 +269,20 @@ input[type=date] {
   
   .selected-value {
     text-align: left;
+    border: none;
+    font-size: 21px;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
   
-  .arrow {
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 6px solid #000;
-    transition: transform ease-in-out 0.3s;
+  .rotate{
+    transform: rotate(179deg);
+    transition: 0.5s ease;
+  }
+
+  .rotate-icon-background{
+    background: white url(/assets/img/icons/arrow_drop_downtop.svg) no-repeat !important;
+    background-position: right 16px center !important;
   }
   
   .select-dropdown {
@@ -258,20 +299,16 @@ input[type=date] {
     transition: 0.5s ease;
   }
   
-  .select-dropdown li {
-    position: relative;
-    cursor: pointer;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+  .dropdown:focus-within {
+    border: 1px solid #29abe2;
   }
+
+  .date-task-inputfield:focus-within {
+    border: 1px solid #29abe2 !important;
+}
   
-  .select-dropdown li label {
-    padding: 8px 10px;
-    cursor: pointer;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+  #select-dropdown {
+    margin: 0;
   }
   
   .select-dropdown::-webkit-scrollbar {
@@ -287,19 +324,12 @@ input[type=date] {
     border-radius: 25px;
   }
   
-  .select-dropdown li:hover,
   .select-dropdown input:checked ~ label {
     background-color: #f2f2f2;
   }
   
   .select-dropdown input:focus ~ label {
     background-color: #dfdfdf;
-  }
-  
-  .select-dropdown input[type="radio"] {
-    position: absolute;
-    left: 0;
-    opacity: 0;
   }
   
   /* interactivity */

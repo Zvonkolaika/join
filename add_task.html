@@ -30,13 +30,13 @@
                 <div class="task-categories">
                     <span>Title*</span>
                     <div class="input-container">
-                    <input type="text" id="task-title" class="input-field" placeholder="Enter a title" required>
+                    <input type="text" id="task-title" class="input-field" placeholder="Enter a title">
                     </div>
                 </div>
                 <div class="task-categories description">
                     <span>Description</span>
                         <div class="input-container">
-                            <textarea type="text" required id="task-description" class="input-field" placeholder="Enter a Description" required>
+                            <textarea type="text" required id="task-description" class="input-field" placeholder="Enter a Description">
                                 
                             </textarea>
                             
@@ -54,31 +54,20 @@
                           aria-haspopup="listbox"
                           aria-expanded="false"
                           aria-controls="select-dropdown"
-                          onclick="toggleCustomSelect(); renderUsersList()"
+                          onclick="toggleCustomSelect(); filterUsers()"
+                          id="user-select-button"
                         >
-                          <span class="selected-value">Select contacts to assign</span>
-                          <span class="arrow"></span>
+                          <!-- <span class="selected-value" >Select contacts to assign</span> -->
+                          <input placeholder="Select contacts to assign" type="text" autocomplete="off" class="selected-value" id="search" oninput="filterUsers()">
+                          <img class="dropdown-icon" id="dropdown-icon-users" src="/assets/img/icons/arrow_drop_downaa.svg" alt="dropdown icon">
                         </button>
+                        <div>
+                            <span id="list"></span>
+                        </div>
                         <ul class="dropdown d-none-ni" role="listbox" id="select-dropdown">
                         </ul>
                       </div>
-                  
-                </div>
-
-                <div class="task-categories">
-                    <span>Assigned to</span>
-                    <select required class="dropdown" onchange="getSelectedUser()" id="user-select" aria-placeholder="Select contacts to assign">
-                        <!-- <option value="User0">Select contacts to assign</option> -->
-                        <!-- Will be renedered in JS when we have list of users ready -->
-                        <option value="User1" id="user1">User1</option>
-                        <option value="User2" id="user2">User2</option>
-                        <option value="User3" id="user3"><div class="contact-entry">
-                            <div class="acc-initials">
-                                <p>U3</p>
-                                </div>
-                                <div>User3</div>
-                            </div></option>
-                    </select>
+                      <div class="selected-users-container" id="selected-users-container">
                 </div>
             <!-- </div> -->
         </div>
@@ -118,12 +107,34 @@
                     </button>
                 </div>
             </div> 
+            <!-- <div class="custom-select">
+                <button
+                  class="dropdown select-button"
+                  role="combobox"
+                  aria-labelledby="select button"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  aria-controls="select-dropdown"
+                  onclick="toggleCategoriesSelect()"
+                  id="user-select-button"
+                >-->
+                  <!-- <span class="selected-value" >Select contacts to assign</span> -->
+                  <!--   <input placeholder="Select task category" type="text" autocomplete="off" class="selected-value">
+                  <img class="dropdown-icon" id="dropdown-icon-categories" src="/assets/img/icons/arrow_drop_downaa.svg" alt="dropdown icon">
+                </button>
+             
+                <ul class="dropdown d-none-ni" role="listbox" id="select-dropdown-categories">
+                </ul>
+              </div>
+              <div class="selected-users-container" id="selected-categories-container">
+                <input type="checkbox" role="option" class="contact-entry-task" onclick="selectOption(this, '${userName}')"/>
+        </div> -->
             <div class="task-categories">
                 <span>Category</span>
-                <select id="category-dropdown-menu" class="dropdown" aria-placeholder="Select task category">
+                <select id="category-dropdown-menu" class="dropdown" aria-placeholder="Select task category" onclick="changeIconDropDownCategory()">
                     <option value="new category">New category</option>
                     <option value="development" >Development</option>
-                    <option value="design" >Design</option>
+                    <option value="design">Design</option>
                     <option value="project and task management">Project and Task Management</option>
                     <option value="collaboration and communication">Collaboration and Communication</option>
                     <option value="management">Management</option>
