@@ -9,7 +9,7 @@ let users = [
 
 /* load user data */
 document.addEventListener('DOMContentLoaded', async function() {
-    convertData();
+    await convertData();
   });
 
   async function convertData() {
