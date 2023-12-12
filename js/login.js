@@ -1,15 +1,10 @@
 /* user array */
-let users = [
-    {
-        name: `andre`,
-        email: `test123@test.de`,
-        password: `test123`
-    }
-];
+let users = [];
 
 /* load user data */
 document.addEventListener('DOMContentLoaded', async function() {
     await convertData();
+    loadRememberedLoginData();
   });
 
   async function convertData() {
@@ -28,6 +23,7 @@ function logIn() {
     });
 
     if(foundUser) {
+        rememberMe();
        // code zum weiterleiten in die app
         console.log('Successfully logged in')
     } else {
@@ -38,6 +34,32 @@ function logIn() {
 function logInWarning() {
     document.querySelector('.warning').classList.remove('d-none');
     document.querySelector('.warning').innerHTML = `Incorrect email address or incorrect password`;
+}
+
+/* remember me */
+let rememberedUser = [];
+
+function rememberMe() {
+    let checkbox = document.getElementById('remember');
+    if(checkbox.checked) {
+        rememberedUser.push({
+            email: `${document.getElementById('login-email').value}`,
+            password: `${document.getElementById('login-password').value}`
+        });
+        localStorage.setItem('rememberMe', JSON.stringify(rememberedUser));
+    }
+}
+
+function loadRememberedLoginData() {
+    if (localStorage.getItem('rememberMe')){
+        let emailInput = document.getElementById('login-email');
+        let passwordInput = document.getElementById('login-password');
+
+
+        rememberedUser = JSON.parse(localStorage.getItem('rememberMe'));
+        emailInput.value = rememberedUser[0].email;
+        passwordInput.value = rememberedUser[0].password;
+    }
 }
 
 /* register new user */
@@ -118,29 +140,29 @@ animationsHelper.addEventListener('animationend', () => {
 
 /* password login visibility */
 let pwImgs = document.querySelectorAll('.pw-img');
-let visibleImg = document.querySelectorAll('.visible-img');
+let visibleImgs = document.querySelectorAll('.visible-img');
 let pwInputs = document.querySelectorAll('.password-input');
 
-    // für den focus
+    // while focus
 pwInputs.forEach(input => {
     input.addEventListener('focus', () => {
         pwImgs.forEach(img => {
             img.classList.add('d-none');
         });
-        visibleImg.forEach(img => {
+        visibleImgs.forEach(img => {
             img.classList.remove('d-none');
         });
     });
 });
 
-    // wenn man den focus verlässt
+    // if you leave focus
 pwInputs.forEach(input => {
     input.addEventListener('blur', () => {
         if (input.value === ``) {
             pwImgs.forEach(img => {
                 img.classList.remove('d-none');
             });
-            visibleImg.forEach(img => {
+            visibleImgs.forEach(img => {
                 img.classList.add('d-none');
             });
         }
@@ -148,16 +170,16 @@ pwInputs.forEach(input => {
 });
 
 function handleVisibility() {
-    const isVisible = Array.from(visibleImg).some(img => img.classList.contains('visibility-off'));
+    const isVisible = Array.from(visibleImgs).some(img => img.classList.contains('visibility-off'));
 
     if (isVisible) {
-        visibleImg.forEach(img => {
+        visibleImgs.forEach(img => {
             img.classList.remove('visibility-off');
             img.src = './assets/img/icons/visibility.svg';
             togglePasswordVisibility();
         });
     } else {
-        visibleImg.forEach(img => {
+        visibleImgs.forEach(img => {
             img.classList.add('visibility-off');
             img.src = './assets/img/icons/visibility_off.svg';
             togglePasswordVisibility();
