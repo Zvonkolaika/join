@@ -15,3 +15,8 @@ async function includeHTML() {
     }
   }
 }
+
+
+function showSubmenu() {
+  document.getElementById('submenu_container').classList.toggle('show_submenu');
+}
