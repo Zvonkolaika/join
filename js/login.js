@@ -47,11 +47,14 @@ function rememberMe() {
             password: `${document.getElementById('login-password').value}`
         });
         localStorage.setItem('rememberMe', JSON.stringify(rememberedUser));
+    } else {
+        localStorage.removeItem('rememberMe');
     }
 }
 
 function loadRememberedLoginData() {
     if (localStorage.getItem('rememberMe')){
+        document.getElementById('remember').checked = true;
         let emailInput = document.getElementById('login-email');
         let passwordInput = document.getElementById('login-password');
 
@@ -69,7 +72,7 @@ async function registerNewUser() {
     let name = document.getElementById('register_name-input');
     let email = document.getElementById('register_email-input');
 
-    if (await lookIfUsersAllreadyExists(email.value) === true) {
+    if (await lookIfUserAllreadyExists(email.value) === true) {
         document.querySelector('.warning').innerHTML = `A user with this email allready exists`;
     } else {
         if (password.value === confirm.value) {
@@ -91,7 +94,7 @@ function generateNewUserArray(name, email, password) {
     }
 }
 
-async function lookIfUsersAllreadyExists(email) {
+async function lookIfUserAllreadyExists(email) {
     await convertData();
     let foundUser = users.find(user => user.email.toLowerCase() === `${email}`.toLowerCase());
     if (foundUser) {
