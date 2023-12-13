@@ -6,14 +6,31 @@ async function init() {
   renderContactList();
 }
 
+async function loadContacts() {
+  try {
+    contacts = JSON.parse(await getItem("contacts"));
+  } catch (e) {
+    console.warn("no contacts found on server");
+  }
+}
+
 function renderContactList() {
   document.getElementById("contact-list").innerHTML = "";
 
   for (let i = 0; i < contacts.length; i++) {
-    let nameInitial = Array.from(contacts[i]["name"])[0];
+    let nameInitial = Array.from(contacts[i]["name"])[0].toUpperCase();
+    let contactListCategory = document.getElementById(
+      `contact-category-${nameInitial}`
+    );
 
-    document.getElementById("contact-list").innerHTML +=
-      returnContactListCategory(nameInitial) + returnContactListEntry([i]);
+    console.log(contactListCategory);
+
+    if (contactListCategory === null) {
+      document.getElementById("contact-list").innerHTML +=
+        returnContactListCategory(nameInitial) + returnContactListEntry([i]);
+    } else {
+      contactListCategory.innerHTML += returnContactListEntry([i]);
+    }
   }
 }
 
@@ -60,24 +77,8 @@ function renderContactDetails(id) {
     .setAttribute("onclick", `showEditContactForm(${id})`);
 }
 
-function returnInitials(string) {
-  let words = string.split(" ");
-  let innitials = "";
-
-  for (let i = 0; i < words.length; i++) {
-    innitials += words[i].charAt(0).toUpperCase();
-  }
-
-  return innitials;
-}
-
 function showAddContactForm() {
   document.getElementById("add-contact-bg").classList.remove("d-none");
-}
-
-function showEditContactForm(id) {
-  loadEditContactValues(id);
-  document.getElementById("edit-contact-bg").classList.remove("d-none");
 }
 
 async function createNewContact() {
@@ -87,30 +88,32 @@ async function createNewContact() {
     phone: document.getElementById("add-contact-phone").value,
   });
 
-  await setItem("contacts", JSON.stringify(contacts));
+  await sortAndPushContacts();
   closeAddContactForm();
   renderContactList();
 }
 
+function closeAddContactForm() {
+  resetAddContactForm();
+  document.getElementById("add-contact-bg").classList.add("d-none");
+}
+
+function resetAddContactForm() {
+  document.getElementById("add-contact-name").value = "";
+  document.getElementById("add-contact-email").value = "";
+  document.getElementById("add-contact-phone").value = "";
+}
+
 async function deleteContact(id) {
   contacts.splice(id, 1);
-  await setItem("contacts", JSON.stringify(contacts));
+  await sortAndPushContacts();
   document.getElementById("contact-details").classList.add("d-none");
   renderContactList();
 }
 
-async function editContact(id) {
-  contacts[id] = {
-    name: document.getElementById("edit-contact-name").value,
-    email: document.getElementById("edit-contact-email").value,
-    phone: document.getElementById("edit-contact-phone").value,
-  };
-
-  await setItem("contacts", JSON.stringify(contacts));
-
-  closeEditContactForm();
-  renderContactList();
-  renderContactDetails(id);
+function showEditContactForm(id) {
+  loadEditContactValues(id);
+  document.getElementById("edit-contact-bg").classList.remove("d-none");
 }
 
 function loadEditContactValues(id) {
@@ -123,27 +126,21 @@ function loadEditContactValues(id) {
     .setAttribute("onsubmit", `editContact(${id}); return false`);
 }
 
-async function loadContacts() {
-  try {
-    contacts = JSON.parse(await getItem("contacts"));
-  } catch (e) {
-    console.warn("no contacts found on server");
-  }
-}
+async function editContact(id) {
+  contacts[id] = {
+    name: document.getElementById("edit-contact-name").value,
+    email: document.getElementById("edit-contact-email").value,
+    phone: document.getElementById("edit-contact-phone").value,
+  };
 
-function closeAddContactForm() {
-  resetAddContactForm();
-  document.getElementById("add-contact-bg").classList.add("d-none");
+  await sortAndPushContacts();
+  closeEditContactForm();
+  renderContactList();
+  renderContactDetails(id);
 }
 
 function closeEditContactForm() {
   document.getElementById("edit-contact-bg").classList.add("d-none");
-}
-
-function resetAddContactForm() {
-  document.getElementById("add-contact-name").value = "";
-  document.getElementById("add-contact-email").value = "";
-  document.getElementById("add-contact-phone").value = "";
 }
 
 async function addTestContacts() {
@@ -171,4 +168,31 @@ async function addTestContacts() {
   ];
   await setItem("contacts", JSON.stringify(contacts));
   renderContactList();
+}
+
+function returnInitials(string) {
+  let words = string.split(" ");
+  let innitials = "";
+
+  for (let i = 0; i < words.length; i++) {
+    innitials += words[i].charAt(0).toUpperCase();
+  }
+
+  return innitials;
+}
+
+async function sortAndPushContacts() {
+  await sortContactsAtoZ();
+  await setItem("contacts", JSON.stringify(contacts));
+  renderContactList();
+}
+
+async function sortContactsAtoZ() {
+  contacts = contacts.sort((a, b) => {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
+  });
 }
