@@ -1,30 +1,55 @@
 /* user array */
-let users = [];
+let users = [
+    {
+        name: 'hubertus',
+        email: 'test123@test.de',
+        password: 'test123'
+    },
+];
 
 /* load user data */
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     await convertData();
-    loadRememberedLoginData();
-  });
+    if (lookIfMSGParameterIsInLink() === true) {
+        displayRegisterSuccessMSG();
+    } else {
+        loadRememberedLoginData();
+    }
+});
 
-  async function convertData() {
+async function convertData() {
     users = await getItem('users');
     parsedData = JSON.parse(users.data.value);
     users = parsedData;
+}
+
+/* After registration */
+const urlParams = new URLSearchParams(window.location.search);
+const message = urlParams.get('msg');
+
+function lookIfMSGParameterIsInLink() {
+    if (message === 'You have registered successfully') {
+        return true;
+    }
+}
+
+function displayRegisterSuccessMSG() {
+    document.querySelector('.registerWasASuccess').classList.remove('d-none')
+    document.querySelector('.registerWasASuccess').innerHTML += `${message}`;
 }
 
 /* login as existing user */
 function logIn() {
     let email = document.getElementById('login-email').value;
     let password = document.getElementById('login-password').value;
-    
+
     let foundUser = users.find(user => {
         return user.email === email && user.password === password;
     });
 
-    if(foundUser) {
+    if (foundUser) {
         rememberMe();
-       // code zum weiterleiten in die app
+        // code zum weiterleiten in die app
         console.log('Successfully logged in')
     } else {
         logInWarning();
@@ -32,8 +57,9 @@ function logIn() {
 }
 
 function logInWarning() {
-    document.querySelector('.warning').classList.remove('d-none');
-    document.querySelector('.warning').innerHTML = `Incorrect email address or incorrect password`;
+    document.querySelector('#warning').classList.remove('d-none');
+    document.querySelector('.forgot-password').classList.remove('d-none');
+    document.querySelector('#warning').innerHTML = `Incorrect email address or incorrect password`;
 }
 
 /* remember me */
@@ -41,7 +67,7 @@ let rememberedUser = [];
 
 function rememberMe() {
     let checkbox = document.getElementById('remember');
-    if(checkbox.checked) {
+    if (checkbox.checked) {
         rememberedUser.push({
             email: `${document.getElementById('login-email').value}`,
             password: `${document.getElementById('login-password').value}`
@@ -53,7 +79,7 @@ function rememberMe() {
 }
 
 function loadRememberedLoginData() {
-    if (localStorage.getItem('rememberMe')){
+    if (localStorage.getItem('rememberMe')) {
         document.getElementById('remember').checked = true;
         let emailInput = document.getElementById('login-email');
         let passwordInput = document.getElementById('login-password');
@@ -72,8 +98,8 @@ async function registerNewUser() {
     let name = document.getElementById('register_name-input');
     let email = document.getElementById('register_email-input');
 
-    if (await lookIfUserAllreadyExists(email.value) === true) {
-        document.querySelector('.warning').innerHTML = `A user with this email allready exists`;
+    if (await lookIfUsersAllreadyExists(email.value) === true) {
+        document.querySelector('#register_warning').innerHTML = `A user with this email allready exists`;
     } else {
         if (password.value === confirm.value) {
             let newUser = generateNewUserArray(name.value, email.value, password.value);
@@ -81,7 +107,7 @@ async function registerNewUser() {
             await setItem('users', users);
             window.location.href = 'login.html?msg=You have registered successfully';
         } else {
-            document.querySelector('.warning').innerHTML = `Ups! Your password don't match, try again`;
+            document.querySelector('#register_warning').innerHTML = `Ups! Your password don't match, try again`;
         }
     }
 }
@@ -94,7 +120,7 @@ function generateNewUserArray(name, email, password) {
     }
 }
 
-async function lookIfUserAllreadyExists(email) {
+async function lookIfUsersAllreadyExists(email) {
     await convertData();
     let foundUser = users.find(user => user.email.toLowerCase() === `${email}`.toLowerCase());
     if (foundUser) {
@@ -146,7 +172,7 @@ let pwImgs = document.querySelectorAll('.pw-img');
 let visibleImgs = document.querySelectorAll('.visible-img');
 let pwInputs = document.querySelectorAll('.password-input');
 
-    // while focus
+// while focus
 pwInputs.forEach(input => {
     input.addEventListener('focus', () => {
         pwImgs.forEach(img => {
@@ -158,7 +184,7 @@ pwInputs.forEach(input => {
     });
 });
 
-    // if you leave focus
+// if you leave focus
 pwInputs.forEach(input => {
     input.addEventListener('blur', () => {
         if (input.value === ``) {
@@ -190,7 +216,7 @@ function handleVisibility() {
     }
 }
 
-    // password visibility
+// password visibility
 let passwordInputs = document.querySelectorAll('input[type="password"]');
 
 
