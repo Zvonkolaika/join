@@ -194,17 +194,18 @@ label {
 
 /* Register Success Msg */
 .registerWasASuccess {
-    width: 300px;
-    height: 124px;
+    width: 262px;
+    height: 74px;
+    padding-inline: 25px;
     position: absolute;
-    bottom: 48px;
+    bottom: 72px;
     right: 48px;
-    background-color: white;
-    border: 3px solid #29ABE2;
-    border-radius: 15px;
+    background-color: #2A3647;
+    border-radius: 20px;
     animation: registerWasASuccess 0.75s ease-in-out 3.5s forwards;
     text-align: center;
-    color: #A8A8A8;
+    color: white;
+    font-size: 16px;
 }
 
 @keyframes registerWasASuccess {
@@ -213,5 +214,26 @@ label {
     }
     100% {
         opacity: 0%;
+    }
+}
+
+/* mediaquerrys */
+@media(max-width: 1024px) {
+    .login-logo {
+        top: 32px;
+    }
+
+    .switch-to-sign-up_frame {
+        right: 24px;
+    }
+}
+
+@media(max-width: 670px) {
+    .login-card {
+        width: 100%;
+    }
+
+    .login-logo {
+        left: 24px;
     }
 }
