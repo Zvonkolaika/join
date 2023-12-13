@@ -59,7 +59,7 @@ span {
     background-position: right 16px center;
 }
 
-.description{
+.description, .title, .date, .prio-categories, .subtask {
     margin-bottom: 24px;
 }
 
@@ -84,10 +84,21 @@ input[type=date] {
     border-radius: 10px;
     border: 1px solid #DADADA;
 }
+input:focus-visible{
+    outline: none;
+}
 
 .description-task-inputfield {
     outline: none;
     padding-left: 8px;
+}
+
+.dropdown-position{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 10px;
 }
 
 .date-task-inputfield {
@@ -273,24 +284,27 @@ input[type=date] {
     font-size: 21px;
     margin-top: 5px;
     margin-bottom: 5px;
+    width: 100%;
+  }
+
+  .dropdown:hover{
+    cursor: pointer;
   }
   
   .rotate{
-    transform: rotate(179deg);
-    transition: 0.5s ease;
+    transform: rotate(180deg);
+    transition: 100ms ease-in-out;
   }
 
-  .rotate-icon-background{
+ /*  .rotate-icon-background{
     background: white url(/assets/img/icons/arrow_drop_downtop.svg) no-repeat !important;
     background-position: right 16px center !important;
-  }
+  } */
   
   .select-dropdown {
     position: absolute;
     list-style: none;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    background-color: #fff;
-    border: 1px solid #caced1;
     border-radius: 4px;
     padding: 10px;
     margin-top: 10px;
@@ -307,7 +321,7 @@ input[type=date] {
     border: 1px solid #29abe2 !important;
 }
   
-  #select-dropdown {
+  #select-dropdown-users, #select-dropdown-categories {
     margin: 0;
   }
   
@@ -315,21 +329,11 @@ input[type=date] {
     width: 7px;
   }
   .select-dropdown::-webkit-scrollbar-track {
-    background: #f1f1f1;
     border-radius: 25px;
   }
   
   .select-dropdown::-webkit-scrollbar-thumb {
-    background: #ccc;
     border-radius: 25px;
-  }
-  
-  .select-dropdown input:checked ~ label {
-    background-color: #f2f2f2;
-  }
-  
-  .select-dropdown input:focus ~ label {
-    background-color: #dfdfdf;
   }
   
   /* interactivity */
@@ -343,13 +347,15 @@ input[type=date] {
     visibility: visible;
     transform: scaleY(1);
   }
-  
-  /*=============
-  Aesthetics 
-  =========================*/
-  
-  * {
-    box-sizing: border-box;
+
+  .subtask-item{
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+  }
+
+  .subtask-icons{
+    display: flex;
   }
 
 

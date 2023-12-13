@@ -108,6 +108,7 @@ function disablePrioBtns(){
     disableBtnsDefault('medium-btn-clicked');
     disableBtnsDefault('low-btn-clicked');
     disableBtnsDefault('user-select-button');
+    disableBtnsDefault('categories-select-button');
 }
 
 async function renderFullUsersList() {
@@ -116,7 +117,7 @@ async function renderFullUsersList() {
 }
 
 function renderHTMLUsersList(usersList){
-    let dropdown = document.getElementById('select-dropdown');
+    let dropdown = document.getElementById('select-dropdown-users');
     dropdown.innerHTML = '';
     usersList.forEach(user => {
         //console.log('usersList ' + user["name"]);
@@ -143,51 +144,42 @@ function renderHTMLUsersList(usersList){
 } 
 
 function toggleCustomSelect() {
-    let dropdown = document.getElementById('select-dropdown');
+    let dropdown = document.getElementById('select-dropdown-users');
     let dropdownIcon = document.getElementById('dropdown-icon-users');
     dropdownIcon.classList.toggle("rotate");
     dropdown.classList.toggle("d-none-ni");
 }
 
-
-function toggleCategoriesSelect() {
-    let dropdown = document.getElementById('select-dropdown-categories');
-    let dropdownIcon = document.getElementById('dropdown-icon-categories');
-    dropdownIcon.classList.toggle("rotate");
-    dropdown.classList.toggle("d-none-ni");
+function toggleInputUsers() {
+    let dropdown = document.getElementById('select-dropdown-users');
+    dropdown.classList.remove("d-none-ni");
 }
 
 function selectOption(checkbox, id) {
+    const selectedUsersContainer = document.getElementById('selected-users-container');
+
     if (checkbox.checked) {
         let selectedName = checkbox.getAttribute('data-name');
         
-        // Create a div element for the icon with initials
-        var iconDiv = document.createElement('div');
-        iconDiv.className = 'selected-icon';
-        iconDiv.id = 'selected-icon-user-assigned-' + id.toString();
-        iconDiv.innerHTML = /*html*/`
-            <div class="acc-initials">
-                <p>${returnInitials(selectedName)}</p>
+        // Create a div element for the icon with initials using innerHTML
+        selectedUsersContainer.innerHTML += /*html*/`
+            <div class="selected-icon" id="selected-icon-user-assigned-${id.toString()}">
+                <div class="acc-initials">
+                    <p>${returnInitials(selectedName)}</p>
+                </div>
             </div>
         `;
-        
-        // Append the icon div under the dropdown
-        document.getElementById('selected-users-container').appendChild(iconDiv);
-      //  toggleCustomSelect(); // Close the dropdown after selection if needed
     } else {
         // If checkbox is unchecked, remove the corresponding icon div
         const selectedIcon = document.getElementById('selected-icon-user-assigned-' + id.toString());
         if (selectedIcon) {
             selectedIcon.remove();
-           // toggleCustomSelect();
         }
     }
+
+    // toggleCustomSelect(); // Close the dropdown after selection if needed
 }
 
-function changeIconDropDownCategory(){
-    let dropdownIcon = document.getElementById('category-dropdown-menu');
-    dropdownIcon.classList.toggle("rotate-icon-background");
-}
 
 async function filterUsers() {
     let search = document.getElementById('search').value;
@@ -209,3 +201,99 @@ async function filterUsers() {
     }
     renderHTMLUsersList(filteredList);
 }
+
+document.addEventListener('click', function (event) {
+    const dropdown = document.getElementById('select-dropdown-users');
+    const dropdownContainer = document.getElementById('select-users');
+    const dropdownIcon = document.getElementById('dropdown-icon-users');
+
+    if (!dropdownContainer.contains(event.target)) {
+        // Click is outside the dropdown, close it
+        dropdown.classList.add('d-none-ni');
+        dropdownIcon.classList.remove('rotate');
+        document.getElementById('search').value = "";
+    }
+});
+
+function toggleCategoriesSelect() {
+    let dropdown = document.getElementById('select-dropdown-categories');
+    let dropdownIcon = document.getElementById('dropdown-icon-categories');
+    dropdownIcon.classList.toggle("rotate");
+    dropdown.classList.toggle("d-none-ni");
+}
+
+function selectOptionCat(element) {
+    const selectedCategoryInput = document.getElementById('selected-category');
+    const selectedCategoryValue = element.querySelector('.initials-name').getAttribute('value');
+
+    // Update the input value and close the dropdown
+    selectedCategoryInput.value = selectedCategoryValue;
+    toggleCategoriesSelect();
+}
+
+document.addEventListener('click', function (event) {
+    const dropdown = document.getElementById('select-dropdown-categories');
+    const dropdownContainer = document.getElementById('categories-select-button');
+    const dropdownIcon = document.getElementById('dropdown-icon-categories');
+
+    if (!dropdownContainer.contains(event.target)) {
+        // Click is outside the dropdown, close it
+        dropdown.classList.add('d-none-ni');
+        dropdownIcon.classList.remove('rotate');
+    }
+});
+
+/**
+ * Adds the first subtask to the list if the input is not empty.
+ * Generates a unique ID for the subtask, creates a list item,
+ * and resets the subtask input field.
+ */
+function incertSubtask() {
+    const subtaskInput = document.getElementById('subtask-input');
+    const subtaskText = subtaskInput.value.trim();
+    if (subtaskText !== '') {
+        //const subtaskId = generateUniqueID();
+        createSubtaskListItem(subtaskText);
+        resetSubtaskInput(subtaskInput);
+    }
+}
+
+function addToSubtaskArrays(subtaskText, subtaskId) {
+    subtaskTextsArray.push(subtaskText);
+    subtaskIdsArray.push(subtaskId);
+}
+
+function createSubtaskListItem(subtaskText) {
+    const subtaskId = generateUniqueID();
+    const selectSubtaskList = document.getElementById('select-subtask');
+
+    const subtaskItem = document.createElement('li');
+    subtaskItem.innerHTML = /*html*/`
+        <div class="subtask-item" id="${subtaskId}">
+            <div>${subtaskText}</div>
+            <div class="subtask-icons">       
+                <div class="pencil_icon_div">
+                    <img class="addSubTaskIcons icon pencil" src="/assets/img/icons/Property 1=edit.svg" alt="" onclick="editSubtask(event)">
+                </div>
+                <div class="delete_icon_div">
+                    <img class="addSubTaskIcons icon delete" src="/assets/img/icons/Property 1=delete.svg" alt="" onclick="deleteSubtask(event)">
+                </div>
+        </div>
+    `;
+    selectSubtaskList.appendChild(subtaskItem);
+}
+
+// Example of generating a unique ID
+function generateUniqueID() {
+    return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function resetSubtaskInput(subtaskInput) {
+    // Clear the input value
+    subtaskInput.value = '';
+}
+
+
+
+
+
