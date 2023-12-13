@@ -49,7 +49,7 @@ body {
 }
 
 header {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   width: calc(100% - 232px);
@@ -217,6 +217,10 @@ small {
 
 /* --- Header design --- */
 
+#header_mobile_logo_container {
+  display: none;
+}
+
 .header_icons_container {
   display: flex;
   align-items: center;
@@ -244,6 +248,7 @@ small {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .header_user_initials_box {
@@ -261,11 +266,9 @@ small {
 
 .header_user_initials_box:hover {
   cursor: pointer;
-  background: linear-gradient(
-      0deg,
+  background: linear-gradient(0deg,
       rgba(12, 46, 98, 0.12) 0%,
-      rgba(12, 46, 98, 0.12) 100%
-    ),
+      rgba(12, 46, 98, 0.12) 100%),
     #fff;
 }
 
@@ -275,10 +278,78 @@ small {
   flex-shrink: 0;
 }
 
+#submenu_container {
+  position: absolute;
+  right: 0;
+  top: 96px;
+  display: inline-flex;
+  padding: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 20px 0px 20px 20px;
+  background: var(--version-2-main-color, #2A3647);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+  z-index: 10;
+  transform: translateX(158px);
+  transition: all 100ms ease-out;
+}
+
+.show_submenu {
+  transform: translateX(0) !important;
+}
+
+.submenu_button {
+  display: flex;
+  width: 100%;
+  height: 46px;
+  padding: 8px 16px;
+  align-items: center;
+  gap: 8px;
+  transition: all 100ms ease-in;
+}
+
+.submenu_button:hover {
+  cursor: pointer;
+  background: #2a3d59;
+}
+
+/*--- Header Responsive --- */
+
 @media screen and (max-width: 428px) {
   header {
     width: 428px;
     padding: 20px 16px;
+  }
+
+  #header_mobile_logo_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #header_mobile_logo {
+    width: 32px;
+    height: 39.016px;
+
+  }
+
+  #header_headline {
+    display: none;
+  }
+
+  #header_help_icon {
+    display: none;
+  }
+
+  .header_user_initials_container {
+    width: auto;
+    height: auto;
+  }
+
+  .header_user_initials_box {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -371,12 +442,11 @@ small {
   nav {
     position: fixed;
     bottom: 0;
-    display: inline-flex;
+    display: flex;
     height: 80px;
     width: 100%;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
     padding: 0;
   }
 
@@ -431,6 +501,24 @@ small {
   .sidebar_button_typography {
     font-size: 14px;
   }
+
+  /* muss ins dropdownmenu */
+  .sidebar_footer_container {
+    display: none;
+  }
+
+  /* --- Sidebar design end --- */
+
+  /* --- Main responsive --- */
+  main {
+    z-index: 0;
+    position: inherit;
+    /* only to overwrite position: absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+  }
 }
 
-/* --- Sidebar design end --- */
+/* --- Main responsive end --- */
