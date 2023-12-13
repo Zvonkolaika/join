@@ -317,7 +317,7 @@ small {
 
 @media screen and (max-width: 428px) {
   header {
-    width: 428px;
+    width: 100%;
     padding: 20px 16px;
   }
 
