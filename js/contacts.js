@@ -1,4 +1,58 @@
 let contacts = [];
+let sortedContacts = [];
+
+const backgroundColors = [
+  "#3498db",
+  "#2ecc71",
+  "#9b59b6",
+  "#e74c3c",
+  "#f39c12",
+  "#1abc9c",
+  "#34495e",
+  "#95a5a6",
+  "#d35400",
+  "#27ae60",
+  "#2980b9",
+  "#8e44ad",
+  "#c0392b",
+  "#f1c40f",
+  "#16a085",
+  "#2c3e50",
+  "#7f8c8d",
+  "#e67e22",
+  "#1abc9c",
+  "#3498db",
+  "#f39c12",
+  "#d35400",
+  "#2ecc71",
+  "#8e44ad",
+  "#34495e",
+  "#e74c3c",
+  "#2980b9",
+  "#16a085",
+  "#95a5a6",
+  "#c0392b",
+  "#f1c40f",
+  "#27ae60",
+  "#7f8c8d",
+  "#e67e22",
+  "#1abc9c",
+  "#3498db",
+  "#f39c12",
+  "#d35400",
+  "#2ecc71",
+  "#8e44ad",
+  "#34495e",
+  "#e74c3c",
+  "#2980b9",
+  "#16a085",
+  "#95a5a6",
+  "#c0392b",
+  "#f1c40f",
+  "#27ae60",
+  "#7f8c8d",
+  "#e67e22",
+];
 
 async function init() {
   await includeHTML();
@@ -6,14 +60,31 @@ async function init() {
   renderContactList();
 }
 
+async function loadContacts() {
+  try {
+    contacts = JSON.parse(await getItem("contacts"));
+  } catch (e) {
+    console.warn("no contacts found on server");
+  }
+}
+
 function renderContactList() {
   document.getElementById("contact-list").innerHTML = "";
 
-  for (let i = 0; i < contacts.length; i++) {
-    let nameInitial = Array.from(contacts[i]["name"])[0];
+  sortContactsAtoZ();
 
-    document.getElementById("contact-list").innerHTML +=
-      returnContactListCategory(nameInitial) + returnContactListEntry([i]);
+  for (let i = 0; i < sortedContacts.length; i++) {
+    let nameInitial = Array.from(sortedContacts[i]["name"])[0].toUpperCase();
+    let contactListCategory = document.getElementById(
+      `contact-category-${nameInitial}`
+    );
+
+    if (contactListCategory === null) {
+      document.getElementById("contact-list").innerHTML +=
+        returnContactListCategory(nameInitial) + returnContactListEntry([i]);
+    } else {
+      contactListCategory.innerHTML += returnContactListEntry([i]);
+    }
   }
 }
 
@@ -31,15 +102,26 @@ function returnContactListEntry(id) {
 
   return `
     <div class="contact-entry" onclick="renderContactDetails(${id})">
-    <div class="acc-initials">
-      <p>${returnInitials(contact["name"])}</p>
-    </div>
+    ${renderContactInitials(returnInitials(contact["name"]))}
     <div>
       <name>${contact["name"]}</name>
       <email>${contact["email"]}</email>
     </div>
   </div>
 `;
+}
+
+function renderContactInitials(initials) {
+  const randomBgColorIndex = Math.floor(
+    Math.random() * backgroundColors.length
+  );
+  const color = backgroundColors[randomBgColorIndex];
+
+  return `
+  <div class="acc-initials" style="background-color:${color}">
+      <p>${initials}</p>
+    </div>
+  `;
 }
 
 function renderContactDetails(id) {
@@ -60,57 +142,45 @@ function renderContactDetails(id) {
     .setAttribute("onclick", `showEditContactForm(${id})`);
 }
 
-function returnInitials(string) {
-  let words = string.split(" ");
-  let innitials = "";
-
-  for (let i = 0; i < words.length; i++) {
-    innitials += words[i].charAt(0).toUpperCase();
-  }
-
-  return innitials;
-}
-
 function showAddContactForm() {
   document.getElementById("add-contact-bg").classList.remove("d-none");
 }
 
-function showEditContactForm(id) {
-  loadEditContactValues(id);
-  document.getElementById("edit-contact-bg").classList.remove("d-none");
-}
-
 async function createNewContact() {
   contacts.push({
+    id: contacts.length,
     name: document.getElementById("add-contact-name").value,
     email: document.getElementById("add-contact-email").value,
     phone: document.getElementById("add-contact-phone").value,
   });
 
   await setItem("contacts", JSON.stringify(contacts));
+
   closeAddContactForm();
   renderContactList();
 }
 
+function closeAddContactForm() {
+  resetAddContactForm();
+  document.getElementById("add-contact-bg").classList.add("d-none");
+}
+
+function resetAddContactForm() {
+  document.getElementById("add-contact-name").value = "";
+  document.getElementById("add-contact-email").value = "";
+  document.getElementById("add-contact-phone").value = "";
+}
+
 async function deleteContact(id) {
   contacts.splice(id, 1);
-  await setItem("contacts", JSON.stringify(contacts));
+  await sortAndPushContacts();
   document.getElementById("contact-details").classList.add("d-none");
   renderContactList();
 }
 
-async function editContact(id) {
-  contacts[id] = {
-    name: document.getElementById("edit-contact-name").value,
-    email: document.getElementById("edit-contact-email").value,
-    phone: document.getElementById("edit-contact-phone").value,
-  };
-
-  await setItem("contacts", JSON.stringify(contacts));
-
-  closeEditContactForm();
-  renderContactList();
-  renderContactDetails(id);
+function showEditContactForm(id) {
+  loadEditContactValues(id);
+  document.getElementById("edit-contact-bg").classList.remove("d-none");
 }
 
 function loadEditContactValues(id) {
@@ -123,52 +193,77 @@ function loadEditContactValues(id) {
     .setAttribute("onsubmit", `editContact(${id}); return false`);
 }
 
-async function loadContacts() {
-  try {
-    contacts = JSON.parse(await getItem("contacts"));
-  } catch (e) {
-    console.warn("no contacts found on server");
-  }
-}
+async function editContact(id) {
+  contacts[id] = {
+    name: document.getElementById("edit-contact-name").value,
+    email: document.getElementById("edit-contact-email").value,
+    phone: document.getElementById("edit-contact-phone").value,
+  };
 
-function closeAddContactForm() {
-  resetAddContactForm();
-  document.getElementById("add-contact-bg").classList.add("d-none");
+  await setItem("contacts", JSON.stringify(contacts));
+  closeEditContactForm();
+  renderContactList();
+  renderContactDetails(id);
 }
 
 function closeEditContactForm() {
   document.getElementById("edit-contact-bg").classList.add("d-none");
 }
 
-function resetAddContactForm() {
-  document.getElementById("add-contact-name").value = "";
-  document.getElementById("add-contact-email").value = "";
-  document.getElementById("add-contact-phone").value = "";
-}
-
 async function addTestContacts() {
   contacts = [
     {
-      name: "Alice Adams",
-      email: "alice@email.com",
-      phone: "111111",
-    },
-    {
+      id: 0,
       name: "Eva Evans",
       email: "eva@email.com",
       phone: "555555",
     },
     {
+      id: 1,
       name: "Peter Parker",
       email: "peter@email.com",
       phone: "161616",
     },
     {
+      id: 2,
       name: "Zoe Zane",
       email: "zoe@email.com",
       phone: "262626",
     },
+    {
+      id: 3,
+      name: "Alice Adams",
+      email: "alice@email.com",
+      phone: "111111",
+    },
   ];
   await setItem("contacts", JSON.stringify(contacts));
   renderContactList();
+}
+
+function returnInitials(string) {
+  let words = string.split(" ");
+  let innitials = "";
+
+  for (let i = 0; i < words.length; i++) {
+    innitials += words[i].charAt(0).toUpperCase();
+  }
+
+  return innitials;
+}
+
+function sortContactsAtoZ() {
+  sortedContacts = contacts;
+  sortedContacts.sort((a, b) => {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+    let charsA = nameA.split("");
+    let charsB = nameB.split("");
+
+    for (let i = 0; i < charsA.length; i++) {
+      if (charsA[i] < charsB[i]) return -1;
+      if (charsA[i] > charsB[i]) return 1;
+      return 0;
+    }
+  });
 }
