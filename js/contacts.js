@@ -143,7 +143,11 @@ function renderContactDetails(id) {
 }
 
 function showAddContactForm() {
+  document
+    .getElementById("add-contact-form-container")
+    .classList.remove("fadeOut");
   document.getElementById("add-contact-bg").classList.remove("d-none");
+  document.getElementById("add-contact-form-container").classList.add("fadeIn");
 }
 
 async function createNewContact() {
@@ -161,11 +165,17 @@ async function createNewContact() {
 }
 
 function closeAddContactForm() {
-  resetAddContactForm();
-  document.getElementById("add-contact-bg").classList.add("d-none");
+  document
+    .getElementById("add-contact-form-container")
+    .classList.remove("fadeIn");
+  document
+    .getElementById("add-contact-form-container")
+    .classList.add("fadeOut");
+  setTimeout(resetAddContactForm, 950);
 }
 
 function resetAddContactForm() {
+  document.getElementById("add-contact-bg").classList.add("d-none");
   document.getElementById("add-contact-name").value = "";
   document.getElementById("add-contact-email").value = "";
   document.getElementById("add-contact-phone").value = "";
@@ -180,7 +190,13 @@ async function deleteContact(id) {
 
 function showEditContactForm(id) {
   loadEditContactValues(id);
+  document
+    .getElementById("edit-contact-form-container")
+    .classList.remove("fadeOut");
   document.getElementById("edit-contact-bg").classList.remove("d-none");
+  document
+    .getElementById("edit-contact-form-container")
+    .classList.add("fadeIn");
 }
 
 function loadEditContactValues(id) {
@@ -206,8 +222,21 @@ async function editContact(id) {
   renderContactDetails(id);
 }
 
-function closeEditContactForm() {
+function resetEditContactForm() {
   document.getElementById("edit-contact-bg").classList.add("d-none");
+  document.getElementById("edit-contact-name").value = "";
+  document.getElementById("edit-contact-email").value = "";
+  document.getElementById("edit-contact-phone").value = "";
+}
+
+function closeEditContactForm() {
+  document
+    .getElementById("edit-contact-form-container")
+    .classList.remove("fadeIn");
+  document
+    .getElementById("edit-contact-form-container")
+    .classList.add("fadeOut");
+  setTimeout(resetEditContactForm, 950);
 }
 
 async function addTestContacts() {
