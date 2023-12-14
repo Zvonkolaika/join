@@ -227,6 +227,10 @@ main {
   gap: 32px;
 }
 
+.contact-form-inputs .invalid {
+  border: 1px solid red;
+}
+
 .contact-form-img-container {
   background-color: #d1d1d1;
   width: 120px;
@@ -236,6 +240,7 @@ main {
   align-items: center;
   border-radius: 100%;
   margin-right: 72px;
+  flex-shrink: 0;
 }
 
 .contact-form-button-container {
