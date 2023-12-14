@@ -319,6 +319,7 @@ small {
 
 @media screen and (max-width: 428px) {
   header {
+    position: fixed;
     width: 100%;
     padding: 20px 16px;
   }
