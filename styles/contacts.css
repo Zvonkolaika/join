@@ -1,0 +1,261 @@
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- contact-list --- */
+
+.contact-list {
+  width: 40%;
+  height: 100%;
+  padding: 32px 24px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.08);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.contact-list button {
+  gap: 16px;
+}
+
+.contact-category {
+  padding: 17px 36px;
+  border-bottom: 1px solid #d1d1d1;
+}
+
+.contact-entry {
+  width: 100%;
+  padding: 15px 24px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.contact-entry:hover,
+.contact-entry-active {
+  background-color: #2a3647;
+  color: #fff;
+}
+
+.contact-entry email {
+  display: block;
+  color: #007cee;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.acc-initials {
+  height: 42px;
+  width: 42px;
+  background-color: #ff7a00;
+  color: white;
+  border-radius: 100%;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 35px;
+  flex-shrink: 0;
+}
+
+/* --- contact-list ends --- */
+
+/* --- contact-info --- */
+
+.contact-container {
+  height: 100%;
+  width: 60%;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.contact-header {
+  margin-top: 80px;
+  margin-left: 64px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.contact-header h1 {
+  border-right: 3px solid #29abe2;
+  padding-right: 30px;
+}
+.contact-header p {
+  font-size: 27px;
+  color: #2a3647;
+}
+
+.contact-details {
+  margin-left: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.contact-details-header {
+  display: flex;
+  align-items: center;
+}
+
+.contact-details .acc-initials {
+  height: 120px;
+  width: 120px;
+  font-size: 47px;
+  font-weight: 500;
+  margin-right: 54px;
+}
+
+.contact-details h2 {
+  margin: 0 0 16px;
+  font-size: 47px;
+  font-weight: 500;
+}
+
+.contact-details button {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+}
+
+.contact-details button:hover {
+  color: #29abe2;
+  font-weight: 600;
+}
+
+.contact-details b {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.contact-details span,
+.contact-details a {
+  font-size: 16px;
+}
+
+.contact-details a {
+  text-decoration: none;
+  color: #29abe2;
+}
+
+/* --- contact info ends --- */
+
+/* --- add contact overlay ---  */
+
+.contact-form-bg {
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-form-container {
+  height: 65%;
+  width: 90%;
+  display: flex;
+}
+
+.contact-form-left {
+  background-color: #2a3647;
+  height: 100%;
+  width: 40%;
+  padding: 66px 48px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-form-left div {
+  position: relative;
+}
+
+.contact-form-left img {
+  position: absolute;
+  top: -70px;
+  width: 57px;
+}
+
+.contact-form-left h1,
+.contact-form-left p {
+  color: #fff;
+  margin: 0;
+}
+
+.contact-form-left p {
+  font-size: 27px;
+}
+
+.contact-form-right {
+  background-color: #fff;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  position: relative;
+  height: 100%;
+  width: 60%;
+  padding: 66px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-form-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.contact-form-img-container {
+  background-color: #d1d1d1;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  margin-right: 72px;
+}
+
+.contact-form-button-container {
+  display: flex;
+  gap: 24px;
+}
+
+.close-btn-container {
+  position: absolute;
+  top: 48px;
+  right: 48px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+
+.close-btn-container:hover {
+  background-color: #d1d1d1;
+}
+
+/* --- add contact overlay end ---  */

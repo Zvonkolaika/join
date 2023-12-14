@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | Login</title>
+    <link rel="stylesheet" href="./styles/login.css">
+    <link rel="stylesheet" href="./assets/fonts/inter.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body onload="renderLogIn()">
+    <div class="content">
+        <!-- login logo -->
+        <div id="animations-helper" class="start-animations-helper"></div>
+        <img class="login-logo" src="../assets/img/icons/join-login-logo.svg" alt="">
+
+
+        <!-- sign up -->
+        <div class="switch-to-sign-up_frame dp-flex">
+            <p>Not a Join user?</p>
+            <button onclick="renderSignUp()" class="button">Sign up</button>
+        </div>
+
+
+        <!-- Login Card -->
+        <div id="sign-in-up-card_frame" class="signUp-card-frame">
+            <div id="sign-in-up_card" class="signUp-card dp-flex flex-column">
+                <!-- -- rendered content -- -->
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="./js/login.js"></script>
+</body>
+
+</html>

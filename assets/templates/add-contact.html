@@ -1,0 +1,66 @@
+<div class="contact-form-container">
+  <div class="contact-form-left">
+    <div>
+      <img src="./assets/img/logo_white.svg" alt="Join Logo" />
+      <h1>Add Contact</h1>
+      <p>Tasks are better with a team!</p>
+    </div>
+  </div>
+
+  <div class="contact-form-right">
+    <div class="close-btn-container" onclick="closeAddContactForm()">
+      <img src="./assets/img/icons/cancel.svg" />
+    </div>
+    <div class="contact-form-img-container">
+      <img src="./assets/img/icons/person.svg" alt="contact picture" />
+    </div>
+
+    <form class="contact-form-inputs" onsubmit="createNewContact(); return false">
+      <div class="input-container">
+        <input
+          class="input-field"
+          type="text"
+          id="add-contact-name"
+          placeholder="Name"
+          required
+        />
+        <img src="./assets/img/icons/person_grey.svg" />
+      </div>
+
+      <div class="input-container">
+        <input
+          class="input-field"
+          type="email"
+          id="add-contact-email"
+          placeholder="Email"
+          required
+        />
+        <img src="./assets/img/icons/mail.svg" />
+      </div>
+
+      <div class="input-container">
+        <input
+          class="input-field"
+          type="text"
+          id="add-contact-phone"
+          placeholder="Phone"
+          required
+        />
+        <img src="./assets/img/icons/call.svg" />
+      </div>
+
+      <div class="contact-form-button-container">
+        <button
+          class="button-secondary-w-icon"
+          onclick="closeAddContactForm()"
+          formnovalidate
+        >
+          Cancel <img src="./assets/img/icons/cancel.svg" />
+        </button>
+        <button class="button-w-icon">
+          Create contact <img src="./assets/img/icons/check.svg" />
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
