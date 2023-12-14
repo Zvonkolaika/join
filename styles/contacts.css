@@ -155,7 +155,7 @@ main {
 
 /* --- contact info ends --- */
 
-/* --- add contact overlay ---  */
+/* --- contact form ---  */
 
 .contact-form-bg {
   z-index: 1000;
@@ -167,6 +167,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .contact-form-container {
@@ -226,6 +227,10 @@ main {
   gap: 32px;
 }
 
+.contact-form-inputs .invalid {
+  border: 1px solid red;
+}
+
 .contact-form-img-container {
   background-color: #d1d1d1;
   width: 120px;
@@ -235,6 +240,7 @@ main {
   align-items: center;
   border-radius: 100%;
   margin-right: 72px;
+  flex-shrink: 0;
 }
 
 .contact-form-button-container {
@@ -258,4 +264,40 @@ main {
   background-color: #d1d1d1;
 }
 
-/* --- add contact overlay end ---  */
+/* --- contact form end---  */
+
+/* --- contact form animation---  */
+
+@keyframes fadeIn {
+  from {
+    position: relative;
+    left: 100%;
+  }
+
+  to {
+    position: relative;
+    left: 0%;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    position: relative;
+    left: 0%;
+  }
+
+  to {
+    position: relative;
+    left: 100%;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 1s ease;
+}
+
+.fadeOut {
+  animation: fadeOut 1s ease;
+}
+
+/* --- contact form animation end ---  */

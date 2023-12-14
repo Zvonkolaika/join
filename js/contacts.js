@@ -102,7 +102,7 @@ function returnContactListEntry(id) {
 
   return `
     <div class="contact-entry" onclick="renderContactDetails(${id})">
-    ${renderContactInitials(returnInitials(contact["name"]))}
+    ${renderContactInitials(returnInitials(contact["name"]), id)}
     <div>
       <name>${contact["name"]}</name>
       <email>${contact["email"]}</email>
@@ -111,24 +111,29 @@ function returnContactListEntry(id) {
 `;
 }
 
-function renderContactInitials(initials) {
-  const randomBgColorIndex = Math.floor(
-    Math.random() * backgroundColors.length
-  );
-  const color = backgroundColors[randomBgColorIndex];
-
+function renderContactInitials(initials, id) {
   return `
-  <div class="acc-initials" style="background-color:${color}">
+  <div class="acc-initials" style="background-color:${contacts[id]["bgColor"]}" >
       <p>${initials}</p>
     </div>
   `;
 }
 
+function returnInitials(string) {
+  let words = string.split(" ");
+  let innitials = "";
+
+  for (let i = 0; i < words.length; i++) {
+    innitials += words[i].charAt(0).toUpperCase();
+  }
+
+  return innitials;
+}
+
 function renderContactDetails(id) {
   document.getElementById("contact-details").classList.remove("d-none");
-  document.getElementById("contact-innitials").innerHTML = returnInitials(
-    contacts[id]["name"]
-  );
+  document.getElementById("contact-innitials").innerHTML =
+    renderContactInitials(returnInitials(contacts[id]["name"]), id);
   document.getElementById("contact-name").innerHTML = contacts[id]["name"];
   document.getElementById("contact-email").innerHTML = contacts[id]["email"];
   document.getElementById("contact-email").href = `
@@ -143,15 +148,24 @@ function renderContactDetails(id) {
 }
 
 function showAddContactForm() {
+  document
+    .getElementById("add-contact-form-container")
+    .classList.remove("fadeOut");
   document.getElementById("add-contact-bg").classList.remove("d-none");
+  document.getElementById("add-contact-form-container").classList.add("fadeIn");
 }
 
 async function createNewContact() {
+  const randomBgColorIndex = Math.floor(
+    Math.random() * backgroundColors.length
+  );
+
   contacts.push({
-    id: contacts.length,
+    id: Date.now(),
     name: document.getElementById("add-contact-name").value,
     email: document.getElementById("add-contact-email").value,
     phone: document.getElementById("add-contact-phone").value,
+    bgColor: backgroundColors[randomBgColorIndex],
   });
 
   await setItem("contacts", JSON.stringify(contacts));
@@ -161,11 +175,17 @@ async function createNewContact() {
 }
 
 function closeAddContactForm() {
-  resetAddContactForm();
-  document.getElementById("add-contact-bg").classList.add("d-none");
+  document
+    .getElementById("add-contact-form-container")
+    .classList.remove("fadeIn");
+  document
+    .getElementById("add-contact-form-container")
+    .classList.add("fadeOut");
+  setTimeout(resetAddContactForm, 950);
 }
 
 function resetAddContactForm() {
+  document.getElementById("add-contact-bg").classList.add("d-none");
   document.getElementById("add-contact-name").value = "";
   document.getElementById("add-contact-email").value = "";
   document.getElementById("add-contact-phone").value = "";
@@ -180,7 +200,13 @@ async function deleteContact(id) {
 
 function showEditContactForm(id) {
   loadEditContactValues(id);
+  document
+    .getElementById("edit-contact-form-container")
+    .classList.remove("fadeOut");
   document.getElementById("edit-contact-bg").classList.remove("d-none");
+  document
+    .getElementById("edit-contact-form-container")
+    .classList.add("fadeIn");
 }
 
 function loadEditContactValues(id) {
@@ -195,9 +221,11 @@ function loadEditContactValues(id) {
 
 async function editContact(id) {
   contacts[id] = {
+    id: contacts[id]["id"],
     name: document.getElementById("edit-contact-name").value,
     email: document.getElementById("edit-contact-email").value,
     phone: document.getElementById("edit-contact-phone").value,
+    bgColor: contacts[id]["bgColor"],
   };
 
   await setItem("contacts", JSON.stringify(contacts));
@@ -206,50 +234,56 @@ async function editContact(id) {
   renderContactDetails(id);
 }
 
-function closeEditContactForm() {
+function resetEditContactForm() {
   document.getElementById("edit-contact-bg").classList.add("d-none");
+  document.getElementById("edit-contact-name").value = "";
+  document.getElementById("edit-contact-email").value = "";
+  document.getElementById("edit-contact-phone").value = "";
+}
+
+function closeEditContactForm() {
+  document
+    .getElementById("edit-contact-form-container")
+    .classList.remove("fadeIn");
+  document
+    .getElementById("edit-contact-form-container")
+    .classList.add("fadeOut");
+  setTimeout(resetEditContactForm, 950);
 }
 
 async function addTestContacts() {
   contacts = [
     {
-      id: 0,
+      id: Date.now() + 0,
       name: "Eva Evans",
       email: "eva@email.com",
       phone: "555555",
+      bgColor: "#d35400",
     },
     {
-      id: 1,
+      id: Date.now() + 1,
       name: "Peter Parker",
       email: "peter@email.com",
       phone: "161616",
+      bgColor: "#2ecc71",
     },
     {
-      id: 2,
+      id: Date.now() + 2,
       name: "Zoe Zane",
       email: "zoe@email.com",
       phone: "262626",
+      bgColor: "#8e44ad",
     },
     {
-      id: 3,
+      id: Date.now() + 3,
       name: "Alice Adams",
       email: "alice@email.com",
       phone: "111111",
+      bgColor: "#34495e",
     },
   ];
   await setItem("contacts", JSON.stringify(contacts));
   renderContactList();
-}
-
-function returnInitials(string) {
-  let words = string.split(" ");
-  let innitials = "";
-
-  for (let i = 0; i < words.length; i++) {
-    innitials += words[i].charAt(0).toUpperCase();
-  }
-
-  return innitials;
 }
 
 function sortContactsAtoZ() {

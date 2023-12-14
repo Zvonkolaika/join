@@ -1,4 +1,4 @@
-<div class="contact-form-container">
+<div id="add-contact-form-container" class="contact-form-container">
   <div class="contact-form-left">
     <div>
       <img src="./assets/img/logo_white.svg" alt="Join Logo" />
@@ -15,11 +15,18 @@
       <img src="./assets/img/icons/person.svg" alt="contact picture" />
     </div>
 
-    <form class="contact-form-inputs" onsubmit="createNewContact(); return false">
+    <form
+      class="contact-form-inputs"
+      onsubmit="createNewContact(); return false"
+    >
       <div class="input-container">
         <input
           class="input-field"
           type="text"
+          pattern="[a-z A-Z]+"
+          title="max 30 letters - no numbers or special characters"
+          minlength="3"
+          maxlength="30"
           id="add-contact-name"
           placeholder="Name"
           required
@@ -41,8 +48,10 @@
       <div class="input-container">
         <input
           class="input-field"
-          type="text"
+          type="tel"
+          pattern="[0-9]{3,15}"
           id="add-contact-phone"
+          title="3-15 digits - no special characters"
           placeholder="Phone"
           required
         />
@@ -57,7 +66,7 @@
         >
           Cancel <img src="./assets/img/icons/cancel.svg" />
         </button>
-        <button class="button-w-icon">
+        <button class="button-w-icon" onmouseover="highlightInvalidInput()">
           Create contact <img src="./assets/img/icons/check.svg" />
         </button>
       </div>
