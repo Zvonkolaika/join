@@ -161,7 +161,7 @@ async function createNewContact() {
   );
 
   contacts.push({
-    id: contacts.length + "_" + Date.now(),
+    id: Date.now(),
     name: document.getElementById("add-contact-name").value,
     email: document.getElementById("add-contact-email").value,
     phone: document.getElementById("add-contact-phone").value,
@@ -254,28 +254,28 @@ function closeEditContactForm() {
 async function addTestContacts() {
   contacts = [
     {
-      id: 0,
+      id: Date.now() + 0,
       name: "Eva Evans",
       email: "eva@email.com",
       phone: "555555",
       bgColor: "#d35400",
     },
     {
-      id: 1,
+      id: Date.now() + 1,
       name: "Peter Parker",
       email: "peter@email.com",
       phone: "161616",
       bgColor: "#2ecc71",
     },
     {
-      id: 2,
+      id: Date.now() + 2,
       name: "Zoe Zane",
       email: "zoe@email.com",
       phone: "262626",
       bgColor: "#8e44ad",
     },
     {
-      id: 3,
+      id: Date.now() + 3,
       name: "Alice Adams",
       email: "alice@email.com",
       phone: "111111",
