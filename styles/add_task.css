@@ -350,13 +350,75 @@ input:focus-visible{
 
   .subtask-item{
     display: flex;
+    padding-bottom: 8px;
+    justify-content: space-between;
+    padding-right: 16px;
+    padding-left: 16px;
     align-items: center;
-    padding-bottom: 10px;
+    padding-top: 8px;
   }
 
   .subtask-icons{
     display: flex;
   }
+
+  #select-subtask{
+    border-radius: 10px;
+    width: 440px;
+  }
+
+.ul-edit{
+    padding-inline-start: 0px;
+}
+
+.display-block{
+    display: block;
+}
+
+.width-small{
+    width: 400px !important;
+}
+
+#select-subtask:hover  .subtask-li:hover{
+    background-color: #DDDEDF;
+}
+
+.subtask-li{
+    border-radius: 10px;
+   
+}
+
+ .add-subtaskicons {
+    padding-right: 10px;
+    padding-left: 10px;
+ }
+
+ .subtask-item .subtask-icons {
+    visibility: hidden;
+    transition: 100ms ease-in-out;
+}
+
+.subtask-item:hover .subtask-icons {
+    transition: 100ms ease-in-out;
+    visibility: visible;
+}
+
+.user-option:hover{
+    background-color: #2a3647;
+    color: #fff;
+}
+
+.user-option{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    cursor: pointer;
+    padding: 12px 16px;
+    border-radius: 10px;
+}
+
 
 
 @media (max-width: 1200px){

@@ -124,11 +124,16 @@
                     
                     <div class="task-categories subtask">
                         <span>Subtasks</span>
-                        <div class="input-container">
-                            <input class="input-field" type="text" id="subtask-input" placeholder="Add new subtask"/>
-                            <img class="subtask-img icon" src="/assets/img/icons/Subtasks icons11.svg" alt="" onclick="incertSubtask()">
+                        <div class="input-container" id="subtask-input-container">
+                            <input class="input-field" type="text" id="subtask-input" placeholder="Add new subtask" onclick="editModeSubtask()" ondblclick="incertSubtask()">
+                            <img class="subtask-img icon" id="subtask-plus-icon" src="/assets/img/icons/Property 1=add.svg" alt="" onclick="editModeSubtask()">
+                            <img class="subtask-img icon d-none-ni" id="subtask-close-icon" src="/assets/img/icons/Property 1=close.svg" alt="" onclick="closeEditSubtask()">
+                            <img class="subtask-img icon d-none-ni" id="subtask-vector-icon" src="/assets/img/icons/Vector 19.svg">
+                            <img class="subtask-img icon d-none-ni" id="subtask-check-icon" src="/assets/img/icons/Property 1=check.svg" alt="" onclick="incertSubtask()">
                         </div>
                         <ul id="select-subtask" class=""></ul>
+
+                        <div id="select-subtask-edit" class=""></div>
                     </div>
                 </div>
             </div>
