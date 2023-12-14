@@ -39,6 +39,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  scroll-margin: 15px;
 }
 
 .contact-entry:hover,
@@ -227,7 +228,7 @@ main {
   gap: 32px;
 }
 
-.contact-form-inputs .invalid {
+.input-container:has(input:invalid) {
   border: 1px solid red;
 }
 
@@ -301,3 +302,30 @@ main {
 }
 
 /* --- contact form animation end ---  */
+
+.contact-created {
+  display: inline;
+  border-radius: 20px;
+  background-color: #2a3647;
+  color: #fff;
+  padding: 24px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes created {
+  from {
+    position: relative;
+    left: 100%;
+    bottom: 20%;
+  }
+
+  to {
+    position: relative;
+    left: 60%;
+    bottom: 20%;
+  }
+}
+
+.createdNotification {
+  animation: created 1s cubic-bezier(0.3, 1, 0.3, 1) 2 alternate;
+}
