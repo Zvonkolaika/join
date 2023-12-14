@@ -1,5 +1,4 @@
 let contacts = [];
-let sortedContacts = [];
 
 const backgroundColors = [
   "#3498db",
