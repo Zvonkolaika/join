@@ -47,6 +47,7 @@ body {
   max-height: 1024px;
   background: #f6f7f8;
   position: relative;
+  overflow: hidden;
 }
 
 header {

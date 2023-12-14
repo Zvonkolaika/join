@@ -101,7 +101,9 @@ function returnContactListEntry(id) {
   let contact = contacts[id];
 
   return `
-    <div class="contact-entry" onclick="renderContactDetails(${id})">
+    <div id="contact-id-${
+      contact["id"]
+    }" class="contact-entry" onclick="renderContactDetails(${id}), highlightActiveContact(this)">
     ${renderContactInitials(returnInitials(contact["name"]), id)}
     <div>
       <name>${contact["name"]}</name>
@@ -128,6 +130,13 @@ function returnInitials(string) {
   }
 
   return innitials;
+}
+
+function highlightActiveContact(element) {
+  Array.from(document.querySelectorAll(".contact-entry-active")).forEach((el) =>
+    el.classList.remove("contact-entry-active")
+  );
+  element.classList.add("contact-entry-active");
 }
 
 function renderContactDetails(id) {
@@ -170,8 +179,26 @@ async function createNewContact() {
 
   await setItem("contacts", JSON.stringify(contacts));
 
-  closeAddContactForm();
   renderContactList();
+  highlightLatestContact();
+  closeAddContactForm();
+  setTimeout(showContactCreatedNotification, 2000);
+}
+
+function highlightLatestContact() {
+  const idOfmostRecentObject = Math.max(...contacts.map((e) => e.id));
+  const index = contacts.findIndex((i) => i.id == idOfmostRecentObject);
+
+  let element = document.getElementById(`contact-id-${idOfmostRecentObject}`);
+
+  Array.from(document.querySelectorAll(".contact-entry-active")).forEach((el) =>
+    el.classList.remove("contact-entry-active")
+  );
+
+  element.classList.add("contact-entry-active");
+  element.scrollIntoView(false);
+
+  renderContactDetails(index);
 }
 
 function closeAddContactForm() {
@@ -300,4 +327,14 @@ function sortContactsAtoZ() {
       return 0;
     }
   });
+}
+
+async function showContactCreatedNotification() {
+  document.getElementById("contact-created").classList.remove("d-none");
+  document
+    .getElementById("contact-created")
+    .classList.add("createdNotification");
+  await setTimeout(() => {
+    document.getElementById("contact-created").classList.add("d-none");
+  }, 1950);
 }
