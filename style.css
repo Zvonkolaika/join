@@ -490,7 +490,6 @@ small {
   .sidebar_button:hover {
     cursor: pointer;
     background: #2a3d59;
-    border-radius: 8px;
   }
 
   .sidebar_button_icon {
