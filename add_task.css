@@ -1,0 +1,242 @@
+.add-task-form {
+    padding-left: 96px;
+    padding-top: 110px;
+    padding-right: 135px;
+}
+
+.header-div h1 {
+    font-size: 61px;
+    margin-top: 0px;
+    margin-bottom: 0;
+    width: 100%;
+    font-weight: bold;
+}
+
+.content-add-task {
+    background-color: #F5F5F5;
+    overflow-y: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.title-description-div {
+    flex-direction: column;
+    display: flex;
+   
+    justify-content: space-between;
+}
+
+.date-prio-container {
+    width: 100%;
+}
+
+.borderline {
+    border: 1px solid #D1D1D1;
+    margin-right: 48px;
+    margin-left: 48px;
+    display: flex;
+    height: 424px;
+}
+
+span {
+    font-size: 21px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.task-categories {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.description{
+    margin-bottom: 24px;
+}
+
+textarea,
+input[type=text],
+input[type=date] {
+    font-family: Inter, sans-serif;
+}
+
+/* ::placeholder {
+    color: #D1D1D1;
+    opacity: 1;
+} */
+
+::placeholder {
+    color: #d1d1d1;
+  }
+
+.title-task-inputfield {
+    outline: none;
+    padding-left: 8px;
+    border-radius: 10px;
+    border: 1px solid #DADADA;
+}
+
+.description-task-inputfield {
+    outline: none;
+    padding-left: 8px;
+}
+
+.date-task-inputfield {
+    width: 440px;
+    padding-right: 10px;
+    outline: none;
+    padding-left: 8px;
+    border-radius: 10px;
+    border: 1px solid #DADADA !important;
+    line-height: 200% !important;
+}
+
+.prio-btn-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.prio{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 24px;
+    outline: none;
+    border-radius: 8px;
+    margin-right: 16px;
+    border: 0px solid #DAD4D2;
+    width: 136px;
+    gap: 10px;
+}
+
+.urgent-btn,
+.medium-btn,
+.low-btn {
+    background-color: #FFFFFF;
+}
+
+/* .urgent-btn :hover,
+.medium-btn :hover,
+.low-btn :hover {
+    cursor: pointer;
+    box-shadow: 0px 3px 4px 1px rgba(168, 168, 168, 0.75);
+    border: 0px solid #DAD4D2;
+} */
+
+.medium-btn-clicked {
+    background-color: #FFB62A;
+    color: #FFFFFF;
+}
+
+.low-btn-clicked {
+    background-color: #7DE32E;
+    color: #FFFFFF;
+}
+
+.urgent-btn-clicked {
+    background-color: #FF3E01;
+    color: #FFFFFF;
+}
+
+.prio-icon {
+    margin-left: 5px;
+}
+
+.subtask-img {
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+}
+
+.subtask-img:hover {
+    border-radius: 8px;
+    background-color: #DDDEDF;
+}
+
+.subtask-item:hover .icon {
+    display: inline;
+}
+
+::-webkit-scrollbar-track {
+    margin-top: 10px;
+    background-color: transparent;
+}
+
+.create-delete-task-container {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding: 0px;
+    gap: 25px;
+    padding-bottom: 30px;
+    padding-right: 5px;
+    padding-top: 30px;
+}
+
+.create-delete-task-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.add-task-btn {
+    margin-right: 10px;
+    align-items: center;
+    display: flex;
+}
+
+.add-task-btn:hover .clearIconBlue {
+    display: inline;
+}
+
+.add-task-btn:hover .clearIconDefault {
+    display: none;
+}
+
+.clearIconBlue,
+.clearIconDefault {
+    padding-left: 4px;
+}
+
+.d-none {
+    display: none;
+}
+
+@media (max-width: 1200px){
+    #add-task-form-container {
+        overflow-y: auto;
+        display: block;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .add-task-form {
+        width: 90%;
+        margin-top: -80px;
+        flex-direction: column;
+        overflow-y: auto;
+        display: flex;
+    }
+
+    .content-add-task {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .borderline{
+        display: none;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
