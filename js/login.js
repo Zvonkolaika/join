@@ -145,6 +145,7 @@ function handleSignInSignUp() {
 }
 
 function switchToSignUp() {
+    lookIfWindowIs670px();
     signInDisplay.classList.add('d-none');
     signUpDisplay.classList.remove('d-none');
     paragraph.innerHTML = `Allready have an Account?`;
@@ -158,6 +159,14 @@ function handleSignUpButton() {
     } else {
         button.classList.add('d-none');
     }
+}
+
+function lookIfWindowIs670px() {
+    if (window.innerWidth <= 670) {
+        document.querySelector('.switch-to-sign-up_frame').classList.add('d-none');
+      } else {
+        document.querySelector('.switch-to-sign-up_frame').classList.remove('d-none');
+      }
 }
 
 /* eventlistener for animation */

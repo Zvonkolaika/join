@@ -28,7 +28,7 @@
 
         <div class="card_frame dp-flex flex-column">
             <!-- Login Card -->
-            <div id="login-card_frame" class="login-card-frame">
+            <div id="login-card_frame" class="login-card-frame dp-flex flex-column">
                 <div id="login_card" class="login-card dp-flex flex-column">
                     <!-- headline -->
                     <div class="headline-frame dp-flex flex-column">
@@ -43,7 +43,7 @@
                             <input id="login-email" required class="input-field" type="email" placeholder="Email">
                             <img src="./assets/img/icons/mail.svg" alt="mail">
                         </div>
-                        <div>
+                        <div class="input-container_frame dp-flex flex-column">
                             <div style="width: 422px;" class="input-container">
                                 <input id="login-password" required type="password" class="input-field password-input"
                                     placeholder="Password">
@@ -60,8 +60,8 @@
                                 value="remember-login">
                             <label for="remember">remember me</label><br>
                         </div>
-                        <div class="login-button_frame dp-flex">
-                            <button type="sumbit" class="button">Log in</button>
+                        <div class="login-button_frame dp-flex w100">
+                            <button type="sumbit" class="button button-login">Log in</button>
                             <div class="button-secondary">Guest Log in</div>
                         </div>
                     </form>
@@ -69,12 +69,17 @@
             </div>
 
             <!-- sing up card -->
+            
+
             <div id="sign-up-card_frame" class="signUp-card-frame d-none">
+
+                <img onclick="handleSignInSignUp()" src="./assets/img/icons/arrow-left-line.svg" alt="back to login" class="back-to-login">
+
                 <div id="sign-up_card" class="signUp-card dp-flex flex-column">
                     <div style="gap: 32px;" class="dp-flex flex-column">
                         <!-- headline -->
                         <div class="headline-frame dp-flex flex-column">
-                            <h1 style="text-align: center; margin: 0; margin-bottom: 16px;">Sign up</h1>
+                            <h1>Sign up</h1>
                             <div class="headline-underline"></div>
                         </div>
 
@@ -113,7 +118,7 @@
 
                             <div id="register_warning" class="warning"></div>
 
-                            <div class="dp-flex">
+                            <div id="privacy_frame" class="dp-flex">
                                 <input required class="checkbox" style="margin-right: 6px;" type="checkbox"
                                     id="accaptPolicy" onclick="handleSignUpButton()">
                                 <p>I accept the <a class="link" href="#">Privacy policy</a></p>
