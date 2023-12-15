@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <link rel="icon" href="assets/img/logo_white.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles/board.css" />
+    <link rel="stylesheet" href="./assets/fonts/inter.css" />
+    <script src="script.js"></script>
+    <script src="./js/board.js"></script>
+</head>
+
+<body onload="init()">
+    <div class="container">
+        <header w3-include-html="./assets/templates/header.html"></header>
+        <nav w3-include-html="./assets/templates/sidebar.html"></nav>
+
+        <main>
+            <div class="board_header_container">
+                <div class="board_header">
+                    <div class="board_headline_container">
+                        <h1>Board</h1>
+                        <button class="button_add_task" id="button_add_task_mobile"><img src="assets/img/icons/add.svg"></button>
+                    </div>
+                    <div class="board_search_task_container">
+                        <div class="input-container">
+                            <input class="input-field">
+                        </div>
+                        <button id="button_add_task_desktop"><span>Add task</span><img src="assets/img/icons/add.svg"></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
