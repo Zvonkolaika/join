@@ -7,6 +7,8 @@ let tasks = [];
 let assignUserList = [];
 let storedTasks = [];
 let usersList = [];
+let subtaskTextsArray = []; // Assuming this is your array to store subtask texts
+let subtaskIdsArray = []; 
 
 // use default parameters to set JSON values 
 function addTask(title = 'title is empty',
@@ -127,6 +129,7 @@ function renderHTMLUsersList(usersList){
         option.style.flexWrap = "wrap";
         option.style.justifyContent = "space-between";
         option.style.paddingBottom = "10px";
+        option.className = "user-option";
         const userName = user['name'];
         option.innerHTML = /*html*/`
                 <div class="initials-name">
@@ -179,7 +182,6 @@ function selectOption(checkbox, id) {
 
     // toggleCustomSelect(); // Close the dropdown after selection if needed
 }
-
 
 async function filterUsers() {
     let search = document.getElementById('search').value;
@@ -248,15 +250,100 @@ document.addEventListener('click', function (event) {
  * Generates a unique ID for the subtask, creates a list item,
  * and resets the subtask input field.
  */
+function editModeSubtask(){
+    const subTaskPlusIcon = document.getElementById('subtask-plus-icon');
+    const subTaskCheckIcon = document.getElementById('subtask-check-icon');
+    const subTaskVectorIcon = document.getElementById('subtask-vector-icon');
+    const subTaskCloseIcon = document.getElementById('subtask-close-icon');
+    subTaskPlusIcon.classList.add('d-none-ni');
+    subTaskCheckIcon.classList.remove('d-none-ni');
+    subTaskCloseIcon.classList.remove('d-none-ni');
+    subTaskVectorIcon.classList.remove('d-none-ni');
+}
+
 function incertSubtask() {
     const subtaskInput = document.getElementById('subtask-input');
     const subtaskText = subtaskInput.value.trim();
+    
     if (subtaskText !== '') {
         //const subtaskId = generateUniqueID();
         createSubtaskListItem(subtaskText);
         resetSubtaskInput(subtaskInput);
+        closeEditSubtask();
+    }
+    else{
+        closeEditSubtask();
     }
 }
+
+function closeEditSubtask(){
+    const subtaskInput = document.getElementById('subtask-input');
+    const subTaskPlusIcon = document.getElementById('subtask-plus-icon');
+    const subTaskCheckIcon = document.getElementById('subtask-check-icon');
+    const subTaskVectorIcon = document.getElementById('subtask-vector-icon');
+    const subTaskCloseIcon = document.getElementById('subtask-close-icon');
+    subTaskPlusIcon.classList.remove('d-none-ni');
+    subTaskCheckIcon.classList.toggle('d-none-ni');
+    subTaskCloseIcon.classList.toggle('d-none-ni');
+    subTaskVectorIcon.classList.toggle('d-none-ni');
+    resetSubtaskInput(subtaskInput);
+}
+
+function renderEditModeSavedSubtask(subtaskText, subtaskId) {
+    return /*html*/`
+    <div class="subtask-item input-container width-small" id="${subtaskId}-input"> 
+        <input class="input-field" type="text" value="${subtaskText}" id="${subtaskId}-edit-subtask-input">
+        <div class="subtask-icons" id="subtask-icons-saved-edit-${subtaskId}">
+            <div class="check_icon_div">
+                <img class="subtask-img icon" id="subtask-check-icon" src="/assets/img/icons/Property 1=check.svg" alt="" onclick="updateSavedSubtask('${subtaskText}', '${subtaskId}')">
+            </div>
+            <div class="vector_icon_div">
+                    <img class="add-subtaskicons icon vector" src="/assets/img/icons/Vector 19.svg" alt="">
+                </div>
+            <div class="delete_icon_div">
+                <img class="subtask-img icon" id="subtask-close-icon" src="/assets/img/icons/Property 1=close.svg" alt="" onclick="closeEditSavedSubtask('${subtaskText}', '${subtaskId}')">
+            </div>
+        </div>
+    </div>
+`;
+}
+
+function editModeSavedSubtask(subtaskText, subtaskId) {
+    const selectSubtaskEdit = document.getElementById(`${subtaskId}`);
+    selectSubtaskEdit.classList.add('display-block');
+    selectSubtaskEdit.innerHTML = renderEditModeSavedSubtask(subtaskText, subtaskId);
+
+    // Set focus on the input field
+    focusEditSavedSubtask('edit-subtask-input');
+}
+
+function closeEditSavedSubtask(subtaskText, subtaskId) {
+    let selectSubtaskEditItem = document.getElementById(`${subtaskId}`);
+    if (selectSubtaskEditItem) {
+        selectSubtaskEditItem.innerHTML = "";
+        selectSubtaskEditItem.innerHTML = renderSubtaskListItem(subtaskText, subtaskId);    }
+}
+ // Set focus to the edit mode input
+
+function focusEditSavedSubtask(elementId){
+    const editSubtaskInput = document.getElementById(elementId);
+    if (editSubtaskInput) {
+        editSubtaskInput.focus();
+    }
+}
+
+function updateSavedSubtask(subtaskText, subtaskId) {
+    const editSubtaskInput = document.getElementById(`${subtaskId}-edit-subtask-input`);
+    const updatedText = editSubtaskInput.value.trim();
+
+    if (updatedText !== '') {
+
+        editSubtaskInput.value = updatedText;
+        subtaskText = updatedText;
+    }
+    closeEditSavedSubtask(subtaskText, subtaskId);
+}
+
 
 function addToSubtaskArrays(subtaskText, subtaskId) {
     subtaskTextsArray.push(subtaskText);
@@ -264,28 +351,52 @@ function addToSubtaskArrays(subtaskText, subtaskId) {
 }
 
 function createSubtaskListItem(subtaskText) {
-    const subtaskId = generateUniqueID();
     const selectSubtaskList = document.getElementById('select-subtask');
-
-    const subtaskItem = document.createElement('li');
-    subtaskItem.innerHTML = /*html*/`
-        <div class="subtask-item" id="${subtaskId}">
-            <div>${subtaskText}</div>
-            <div class="subtask-icons">       
-                <div class="pencil_icon_div">
-                    <img class="addSubTaskIcons icon pencil" src="/assets/img/icons/Property 1=edit.svg" alt="" onclick="editSubtask(event)">
-                </div>
-                <div class="delete_icon_div">
-                    <img class="addSubTaskIcons icon delete" src="/assets/img/icons/Property 1=delete.svg" alt="" onclick="deleteSubtask(event)">
-                </div>
-        </div>
-    `;
-    selectSubtaskList.appendChild(subtaskItem);
+    const subtaskId = generateUniqueID();
+    selectSubtaskList.innerHTML += renderSubtaskListItem(subtaskText, subtaskId);
+    addToSubtaskArrays(subtaskText, subtaskId);
 }
 
-// Example of generating a unique ID
+function renderSubtaskListItem(subtaskText, subtaskId) {
+    return /*html*/`
+    <li id="${subtaskId}" class="subtask-li" ondblclick="editModeSavedSubtask('${subtaskText}', '${subtaskId}')">
+        <div class="subtask-item">
+            <div>${subtaskText}</div>
+            <div class="subtask-icons" id="subtask-icons-edit-${subtaskId}">       
+                <div class="pencil_icon_div">
+                    <img class="add-subtaskicons icon pencil" src="/assets/img/icons/Property 1=edit.svg" alt="" onclick="editModeSavedSubtask('${subtaskText}', '${subtaskId}')">
+                </div>
+                <div class="vector_icon_div">
+                    <img class="add-subtaskicons icon vector" src="/assets/img/icons/Vector 19.svg" alt="">
+                </div>
+                <div class="delete_icon_div">
+                    <img class="add-subtaskicons icon delete" src="/assets/img/icons/Property 1=delete.svg" alt="" onclick="deleteSubtask(event, '${subtaskId}')">
+                </div>
+            </div>
+        </div>
+    </li>
+`;
+}
+
+
+function deleteSubtask(event, subtaskId) {
+    const subtaskItem = event.target.closest('li');
+    if (subtaskItem) {
+        // Find the index of the subtask in the arrays
+        const index = subtaskIdsArray.indexOf(subtaskId);
+        // If the subtask is found in the arrays, remove it
+        if (index !== -1) {
+            subtaskIdsArray.splice(index, 1);
+            subtaskTextsArray.splice(index, 1);
+        }
+        // Remove the subtaskItem from the DOM
+        subtaskItem.remove();
+    }
+}
+
 function generateUniqueID() {
-    return '_' + Math.random().toString(36).substr(2, 9);
+    const timestamp = new Date().getTime();
+    return `${timestamp}`;
 }
 
 function resetSubtaskInput(subtaskInput) {
