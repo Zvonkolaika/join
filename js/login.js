@@ -244,7 +244,6 @@ function togglePasswordVisibility() {
 window.addEventListener('resize', insertMobileLogo);
 
 function insertMobileLogo() {
-    console.log(window.innerWidth)
     if(window.innerWidth <= 670) {
         document.querySelector('.content').innerHTML += generateMobileLogo();
     }
