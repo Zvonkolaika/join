@@ -1,8 +1,9 @@
 const PRIO_URG = 1;
 const PRIO_MDM = 2;
 const PRIO_LOW = 3;
-const TASK_ID = 0;
-const TASK_TEXT = 1;
+const SUBTASK_ID = 0;
+const SUBTASK_TEXT = 1;
+const SUBTASK_DONE = 2;
 
 let taskPrio = PRIO_MDM;
 let tasks = [];
@@ -364,9 +365,9 @@ function updateSavedSubtask(subtaskText, subtaskId) {
 
         editSubtaskInput.value = updatedText;
         subtaskText = updatedText;
-        const index = subtasks.findIndex((task) => task[TASK_ID] === subtaskId);
+        const index = subtasks.findIndex((task) => task[SUBTASK_ID] === subtaskId);
         if (index !== -1) {
-            subtasks[index][TASK_TEXT] = subtaskText;
+            subtasks[index][SUBTASK_TEXT] = subtaskText;
         }
     }
     closeEditSavedSubtask(subtaskText, subtaskId);
@@ -376,7 +377,7 @@ function createSubtaskListItem(subtaskText) {
     const selectSubtaskList = document.getElementById('select-subtask');
     const subtaskId = generateUniqueID();
     selectSubtaskList.innerHTML += renderSubtaskListItem(subtaskText, subtaskId);
-    subtasks.push([subtaskId, subtaskText]);
+    subtasks.push([subtaskId, subtaskText, false]);
 }
 
 function renderSubtaskListItem(subtaskText, subtaskId) {
@@ -405,7 +406,7 @@ function deleteSubtask(event, subtaskId) {
     const subtaskItem = event.target.closest('li');
     if (subtaskItem) {
         // Find the index of the subtask in the arrays
-        const index = subtasks.findIndex((task) => task[TASK_ID] === subtaskId);
+        const index = subtasks.findIndex((task) => task[SUBTASK_ID] === subtaskId);
         // If the subtask is found in the arrays, remove it
         if (index !== -1) {
             subtasks.splice(index, 1);
@@ -417,7 +418,7 @@ function deleteSubtask(event, subtaskId) {
 
 function generateUniqueID() {
     const timestamp = new Date().getTime();
-    return `${timestamp}`;
+    return timestamp;
 }
 
 function resetSubtaskInput(subtaskInput) {

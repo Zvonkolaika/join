@@ -1,7 +1,45 @@
 async function drawCards(){
     let tasks = await getRemote('tasks');
     tasks.forEach(task => {
-       renderTaskCard(task); 
+       renderTaskCard(task);
+       renderSubtasks(task);
+    });
+}
+
+async function selectSubtaskStatus(checkbox, taskID, subtaskID){
+    const selectedSubtaskContainer = document.getElementById(`selected-subtask-${subtaskID}`);
+    let tasks = await getRemote('tasks');
+    const taskIdx = tasks.findIndex((task) => task.taskID === taskID);
+    const subtaskIdx = tasks[taskIdx].subtasks.findIndex((subtask) => subtask[SUBTASK_ID] === subtaskID);
+
+    if (subtaskIdx !== -1) {
+        if (checkbox.checked) {
+            tasks[taskIdx].subtasks[subtaskIdx][SUBTASK_DONE] = true;
+        } else {
+            tasks[taskIdx].subtasks[subtaskIdx][SUBTASK_DONE][SUBTASK_DONE] = false;
+        }
+        await setItem('tasks', tasks);
+    } else {
+        debugger;
+        console.log('subtask not found in tasks[' + taskIdx + ']');
+    }
+}
+
+ function renderSubtask(taskID, subtask){
+    const checked = subtask[SUBTASK_DONE] ? "checked" : "";
+    return /*html*/`
+    <div>${subtask[SUBTASK_TEXT]}
+        <input type="checkbox" role="option" class="subtask-entry-task" id="selected-subtask-${subtask[SUBTASK_ID]}" ${checked}
+        onclick="selectSubtaskStatus(this, ${taskID}, ${subtask[SUBTASK_ID]})"/>
+    </div>  
+        `;
+}
+
+function renderSubtasks(task){
+    const subtaskContainerList = document.getElementById("subtask-container-list");
+    subtaskContainerList.innerHTML = "";
+    task.subtasks.forEach(subtask => { 
+        subtaskContainerList.innerHTML += renderSubtask(task.taskID, subtask);
     });
 }
 
@@ -38,7 +76,7 @@ function renderTaskCard(task){
     </div>
     <div class="task-categories">
         <span>Subtasks</span>
-        </div>
+        <div class="subtask-container-list" id="subtask-container-list">
     </div>       
     <div class="create-delete-task-container">
         <div class="create-delete-task-btn" id="create-delete-task-btns-container">
