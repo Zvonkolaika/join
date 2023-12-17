@@ -124,8 +124,20 @@ async function renderFullUsersList() {
 function renderHTMLUsersList(usersList){
     let dropdown = document.getElementById('select-dropdown-users');
     dropdown.innerHTML = '';
-    usersList.forEach(user => {
-        //console.log('usersList ' + user["name"]);
+    console.log('usersList ' + usersList);
+    for (let index = 0; index < usersList.length; index++) {
+        let user = usersList[index];
+    
+        console.log('usersList ' + user["name"] + " user['id'] " +  user["id"] + " assignUserList " + assignUserList.length);
+        if (assignUserList.length != 0) {
+
+            const userIndex = assignUserList.findIndex((assignedUser) => assignedUser['id'] === user['id']);
+            if (userIndex != -1) {
+                console.log('user ' + user['name'] + ' alredy is assigned');
+               continue;
+            }
+        }
+
         var option = document.createElement('div');
         option.style.display = "flex";
         option.style.flexDirection = "row";
@@ -142,11 +154,12 @@ function renderHTMLUsersList(usersList){
                         <div>${user['name']}</div>
                     </div>
                 </div>
-                <input type="checkbox" role="option" class="contact-entry-task" data-name="${userName}" onclick="selectOption(this, '${userName}')"/>
+                <input type="checkbox" role="option" class="contact-entry-task"
+                 data-name="${userName}" onclick="selectOption(this, ${user.id})"/>
 
         `;
         dropdown.appendChild(option);
-    });
+    }
 } 
 
 function toggleCustomSelect() {
@@ -175,6 +188,12 @@ function selectOption(checkbox, id) {
                 </div>
             </div>
         `;
+        const index = usersList.findIndex((user) => user.id === id);
+        console.log('usersList ' + usersList.length + ' index ' + index +  ' id ' + id );
+         if (index != -1) {
+            console.log('id ' + id);
+            assignUserList.push(usersList[index]);
+         }
     } else {
         // If checkbox is unchecked, remove the corresponding icon div
         const selectedIcon = document.getElementById('selected-icon-user-assigned-' + id.toString());
@@ -212,11 +231,13 @@ document.addEventListener('click', function (event) {
     const dropdownContainer = document.getElementById('select-users');
     const dropdownIcon = document.getElementById('dropdown-icon-users');
 
+    if(dropdownContainer){
     if (!dropdownContainer.contains(event.target)) {
         // Click is outside the dropdown, close it
         dropdown.classList.add('d-none-ni');
         dropdownIcon.classList.remove('rotate');
         document.getElementById('search').value = "";
+        }
     }
 });
 
