@@ -1,13 +1,15 @@
 const PRIO_URG = 1;
 const PRIO_MDM = 2;
 const PRIO_LOW = 3;
+const TASK_ID = 0;
+const TASK_TEXT = 1;
 
 let taskPrio = PRIO_MDM;
 let tasks = [];
 let assignUserList = [];
 let storedTasks = [];
 let usersList = [];
-let subtaskTextsArray = []; // Assuming this is your array to store subtask texts
+let subtasks = [];
 let subtaskIdsArray = []; 
 
 // use default parameters to set JSON values 
@@ -18,7 +20,8 @@ function addTask(title = 'title is empty',
                     assignedUsers = assignUserList,
                     category = 0,
                     taskStatus = 0,
-                    taskID = new Date().getTime()) 
+                    taskID = new Date().getTime(),
+                    subtasksSubmit = subtasks)
 {
     let task = {
         'title': title,
@@ -29,7 +32,7 @@ function addTask(title = 'title is empty',
         'category': category,
         'taskStatus': taskStatus,
         'taskID': taskID,
-        'prio': prio,
+        'subtasks': subtasksSubmit,
     };
     return task;
 } 
@@ -293,7 +296,7 @@ function renderEditModeSavedSubtask(subtaskText, subtaskId) {
     return /*html*/`
     <div class="subtask-item input-container width-small" id="${subtaskId}-input"> 
         <input class="input-field" type="text" value="${subtaskText}" id="${subtaskId}-edit-subtask-input">
-        <div class="subtask-icons" id="subtask-icons-saved-edit-${subtaskId}">
+        <div class="subtask-icons visible" id="subtask-icons-saved-edit-${subtaskId}">
             <div class="check_icon_div">
                 <img class="subtask-img icon" id="subtask-check-icon" src="/assets/img/icons/Property 1=check.svg" alt="" onclick="updateSavedSubtask('${subtaskText}', '${subtaskId}')">
             </div>
@@ -340,21 +343,19 @@ function updateSavedSubtask(subtaskText, subtaskId) {
 
         editSubtaskInput.value = updatedText;
         subtaskText = updatedText;
+        const index = subtasks.findIndex((task) => task[TASK_ID] === subtaskId);
+        if (index !== -1) {
+            subtasks[index][TASK_TEXT] = subtaskText;
+        }
     }
     closeEditSavedSubtask(subtaskText, subtaskId);
-}
-
-
-function addToSubtaskArrays(subtaskText, subtaskId) {
-    subtaskTextsArray.push(subtaskText);
-    subtaskIdsArray.push(subtaskId);
 }
 
 function createSubtaskListItem(subtaskText) {
     const selectSubtaskList = document.getElementById('select-subtask');
     const subtaskId = generateUniqueID();
     selectSubtaskList.innerHTML += renderSubtaskListItem(subtaskText, subtaskId);
-    addToSubtaskArrays(subtaskText, subtaskId);
+    subtasks.push([subtaskId, subtaskText]);
 }
 
 function renderSubtaskListItem(subtaskText, subtaskId) {
@@ -383,11 +384,10 @@ function deleteSubtask(event, subtaskId) {
     const subtaskItem = event.target.closest('li');
     if (subtaskItem) {
         // Find the index of the subtask in the arrays
-        const index = subtaskIdsArray.indexOf(subtaskId);
+        const index = subtasks.findIndex((task) => task[TASK_ID] === subtaskId);
         // If the subtask is found in the arrays, remove it
         if (index !== -1) {
-            subtaskIdsArray.splice(index, 1);
-            subtaskTextsArray.splice(index, 1);
+            subtasks.splice(index, 1);
         }
         // Remove the subtaskItem from the DOM
         subtaskItem.remove();
