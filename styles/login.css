@@ -360,10 +360,18 @@ label {
         margin-bottom: 8px;
         font-size: 48px;
     }
+
+    #join-logo {
+        opacity: 0;
+    }
 }
 
 @media (min-width: 670px) {
     .back-to-login {
         display: none;
+    }
+
+    #mobile-login-logo {
+        opacity: 0;
     }
 }
