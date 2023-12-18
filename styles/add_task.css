@@ -406,6 +406,10 @@ input:focus-visible{
     transition: 100ms ease-in-out;
 }
 
+.visible{
+    visibility: visible!important;
+}
+
 .subtask-item:hover .subtask-icons {
     transition: 100ms ease-in-out;
     visibility: visible;
