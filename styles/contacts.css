@@ -121,6 +121,7 @@ main {
   margin: 0 0 16px;
   font-size: 47px;
   font-weight: 500;
+  line-height: 120%;
 }
 
 .contact-details button {
