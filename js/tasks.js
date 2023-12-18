@@ -218,14 +218,13 @@ function renderUserIcon(userID, userColour, userName) {
 
 function selectOption(checkbox, id) {
     const selectedUsersContainer = document.getElementById('selected-users-container');
-
     if (checkbox.checked) {
         let selectedName = checkbox.getAttribute('data-name');
         
         // Create a div element for the icon with initials using innerHTML
         const index = usersList.findIndex((user) => user.id === id);
         console.log('usersList ' + usersList.length + ' index ' + index +  ' id ' + id );
-         if (index != -1) {
+        if (index != -1) {
             console.log('id ' + id);
             assignUserList.push(usersList[index]);
         }
@@ -268,11 +267,11 @@ document.addEventListener('click', function (event) {
     const dropdownIcon = document.getElementById('dropdown-icon-users');
 
     if(dropdownContainer){
-    if (!dropdownContainer.contains(event.target)) {
-        // Click is outside the dropdown, close it
-        dropdown.classList.add('d-none-ni');
-        dropdownIcon.classList.remove('rotate');
-        document.getElementById('search').value = "";
+        if (!dropdownContainer.contains(event.target)) {
+            // Click is outside the dropdown, close it
+            dropdown.classList.add('d-none-ni');
+            dropdownIcon.classList.remove('rotate');
+            document.getElementById('search').value = "";
         }
     }
 });
@@ -465,7 +464,6 @@ function renderSubtaskListItem(subtaskText, subtaskId) {
     </li>
 `;
 }
-
 
 function deleteSubtask(event, subtaskId) {
     const subtaskItem = event.target.closest('li');

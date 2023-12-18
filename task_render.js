@@ -20,7 +20,6 @@ async function selectSubtaskStatus(checkbox, taskID, subtaskID){
         }
         await setItem('tasks', tasks);
     } else {
-        debugger;
         console.log('subtask not found in tasks[' + taskIdx + ']');
     }
 }
