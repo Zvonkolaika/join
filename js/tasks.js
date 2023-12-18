@@ -198,6 +198,14 @@ function toggleInputUsers() {
     dropdown.classList.remove("d-none-ni");
 }
 
+function removeAssignedUser(id) {
+    document.getElementById('selected-icon-user-assigned-' + id.toString()).remove();
+    const index = assignUserList.findIndex((user) => user.id === id);
+    if (index != -1) {
+        assignUserList.splice(index, 1);
+    }
+}
+
 function renderUserIcon(userID, userColour, userName) {
     return /*html*/`
             <div class="selected-icon" id="selected-icon-user-assigned-${userID.toString()}" ondblclick="removeAssignedUser(${userID})">
