@@ -42,6 +42,14 @@ function renderSubtasks(task){
     });
 }
 
+function renderAssignedUserIcons(assignedUserList){
+    let html = "";
+    assignedUserList.forEach(user => {
+        html += renderUserIconDropdown(user);
+    });
+    return html;
+}
+
 function renderTaskCard(task){
     let taskCard = document.getElementById("task-card");
     taskCard.innerHTML += /*html*/`
@@ -71,7 +79,10 @@ function renderTaskCard(task){
         </div>
     </div>
     <div class="task-categories">
-        <span>Assigned to: ${task['assignedUsers']}</span>
+        <span>Assigned to:</span>
+        <div id="assigned-user-icons-container">
+            ${renderAssignedUserIcons(task['assignedUsers'])}
+        </div>       
     </div>
     <div class="task-categories">
         <span>Subtasks</span>

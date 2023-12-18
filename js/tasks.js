@@ -145,6 +145,18 @@ async function renderFullUsersList() {
     renderHTMLUsersList(usersList);
 }
 
+function renderUserIconDropdown(user){
+    return /*html*/`
+        <div class="initials-name">
+            <div class="acc-initials" style="background-color:${user['bgColor']}">
+                <p>${returnInitials(user['name'])}</p>
+                </div>
+                <div>${user['name']}</div>
+            </div>
+        </div>
+    `;
+}
+
 function renderHTMLUsersList(usersList){
     let dropdown = document.getElementById('select-dropdown-users');
     dropdown.innerHTML = '';
@@ -170,17 +182,10 @@ function renderHTMLUsersList(usersList){
         option.style.paddingBottom = "10px";
         option.className = "user-option";
         const userName = user['name'];
-        option.innerHTML = /*html*/`
-                <div class="initials-name">
-                    <div class="acc-initials" style="background-color:${user['bgColor']}">
-                        <p>${returnInitials(user['name'])}</p>
-                        </div>
-                        <div>${user['name']}</div>
-                    </div>
-                </div>
-                <input type="checkbox" role="option" class="contact-entry-task"
-                 data-name="${userName}" onclick="selectOption(this, ${user.id})"/>
-
+        option.innerHTML = renderUserIconDropdown(user);
+        option.innerHTML += /*html*/`
+            <input type="checkbox" role="option" class="contact-entry-task"
+                data-name="${userName}" onclick="selectOption(this, ${user.id})"/>
         `;
         dropdown.appendChild(option);
     }
