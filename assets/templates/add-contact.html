@@ -16,6 +16,7 @@
     </div>
 
     <form
+      autocomplete="off"
       class="contact-form-inputs"
       onsubmit="createNewContact(); return false"
     >
@@ -61,7 +62,7 @@
       <div class="contact-form-button-container">
         <button
           class="button-secondary-w-icon cancel-btn"
-          onclick="closeAddContactForm()"
+          onclick="closeAddContactForm(); return false;"
           formnovalidate
         >
           Cancel <img src="./assets/img/icons/cancel.svg" />

@@ -75,7 +75,7 @@ function renderContactList() {
   sortContactsAtoZ();
 
   for (let i = 0; i < sortedContacts.length; i++) {
-    let nameInitial = Array.from(sortedContacts[i]["name"])[0].toUpperCase();
+    let nameInitial = sortedContacts[i]["name"].charAt(0).toUpperCase();
     let contactListCategory = document.getElementById(
       `contact-category-${nameInitial}`
     );

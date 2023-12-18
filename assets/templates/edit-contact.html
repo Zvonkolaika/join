@@ -15,7 +15,7 @@
       <img src="./assets/img/icons/person.svg" alt="contact picture" />
     </div>
 
-    <form id="edit-contact-form" class="contact-form-inputs">
+    <form autocomplete="off" id="edit-contact-form" class="contact-form-inputs">
       <div class="input-container">
         <input
           class="input-field"
@@ -58,7 +58,7 @@
       <div class="contact-form-button-container">
         <button
           class="button-secondary-w-icon cancel-btn"
-          onclick="closeEditContactForm()"
+          onclick="closeEditContactForm(); return false;"
           formnovalidate
         >
           Cancel <img src="./assets/img/icons/cancel.svg" />

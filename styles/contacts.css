@@ -506,9 +506,10 @@ main {
 
   .contact-form-container {
     position: absolute;
-    top: 96px;
-    height: calc(100% - 96px - 80px);
+    top: 80px;
+    height: calc(100% - 80px - 80px);
     width: 95%;
+    max-width: 428px;
     flex-direction: column;
   }
 
@@ -574,7 +575,7 @@ main {
     }
 
     to {
-      top: 96px;
+      top: 80px;
     }
   }
 
