@@ -404,7 +404,7 @@ function editModeSavedSubtask(subtaskText, subtaskId) {
     selectSubtaskEdit.innerHTML = renderEditModeSavedSubtask(subtaskText, subtaskId);
 
     // Set focus on the input field
-    focusEditSavedSubtask('edit-subtask-input');
+    focusEditSavedSubtask(`${subtaskId}-edit-subtask-input`);
 }
 
 function closeEditSavedSubtask(subtaskText, subtaskId) {
