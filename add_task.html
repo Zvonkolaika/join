@@ -98,30 +98,14 @@
                     <div class="task-categories categories">
                         <span>Categories</span>
                         <div class="custom-select">
-                            <button class="dropdown select-button" role="combobox" id="categories-select-button"  onclick="toggleCategoriesSelect()" >
+                            <button class="dropdown select-button" role="combobox" id="categories-select-button"  onclick="toggleCategoriesSelect();">
                                 <input placeholder="Select task category" type="text" autocomplete="off" class="selected-value" id="selected-category" readonly>
                                 <img class="dropdown-icon" id="dropdown-icon-categories" src="/assets/img/icons/arrow_drop_downaa.svg" alt="dropdown icon">
                             </button>
-                            <ul class="dropdown d-none-ni" role="listbox" id="select-dropdown-categories">
-                                <div class="dropdown-position" onclick="selectOptionCat(this)">
-                                    <div class="initials-name" value="Development">Development</div>
-                                </div>
-                                <div class="dropdown-position" onclick="selectOptionCat(this)">
-                                    <div class="initials-name" value="Design">Design</div>
-                                </div>
-                                <div class="dropdown-position" onclick="selectOptionCat(this)">
-                                    <div class="initials-name" value="Project and Task Management">Project and Task Management</div>
-                                </div>
-                                <div class="dropdown-position" onclick="selectOptionCat(this)">
-                                    <div class="initials-name" value="Collaboration and Communication">Collaboration and Communication</div>
-                                </div>
-                                <div class="dropdown-position" onclick="selectOptionCat(this)">
-                                    <div class="initials-name" value="Management">Management</div>
-                                </div>
+                            <ul id="categories-list" class="dropdown d-none-ni" role="listbox">
                             </ul>
                         </div>
-                    </div>
-                    
+                    </div> 
                     <div class="task-categories subtask">
                         <span>Subtasks</span>
                         <div class="input-container" id="subtask-input-container">

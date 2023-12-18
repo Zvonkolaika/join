@@ -290,6 +290,14 @@ input:focus-visible{
   .dropdown:hover{
     cursor: pointer;
   }
+
+  #categories-list{
+    margin-block-start: 0;
+  }
+
+  .categories-colour{
+    margin-right: 0 !important;
+  }
   
   .rotate{
     transform: rotate(180deg);

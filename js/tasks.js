@@ -11,7 +11,30 @@ let assignUserList = [];
 let storedTasks = [];
 let usersList = [];
 let subtasks = [];
-let subtaskIdsArray = []; 
+let category = [];
+
+const categories = [
+    {
+        name: 'Development',
+        colour: '#462F8A',
+    },
+    {
+        name: 'Design',
+        colour: '#FF7A00',
+    },
+    {
+        name: 'Project and Task Management',
+        colour: '#1FD7C1',
+    },
+    {
+        name: 'Collaboration and Communication',
+        colour: '#0038FF',
+    },
+    {
+        name: 'Management',
+        colour: '#9C27B0',
+    },
+];
 
 // use default parameters to set JSON values 
 function addTask(title = 'title is empty',
@@ -19,7 +42,7 @@ function addTask(title = 'title is empty',
                     date = new Date().getTime(),
                     prio = PRIO_MDM,
                     assignedUsers = assignUserList,
-                    category = 0,
+                    categorySubmit = category,
                     taskStatus = 0,
                     taskID = new Date().getTime(),
                     subtasksSubmit = subtasks)
@@ -30,7 +53,7 @@ function addTask(title = 'title is empty',
         'date': date,
         'prio': prio,
         'assignedUsers': assignedUsers,
-        'category': category,
+        'category': categorySubmit,
         'taskStatus': taskStatus,
         'taskID': taskID,
         'subtasks': subtasksSubmit,
@@ -242,31 +265,61 @@ document.addEventListener('click', function (event) {
     }
 });
 
+function renderCategoriesList(name, colour, index) {
+    return /*html*/`
+            <div class="dropdown-position" onclick="selectOptionCat(this, ${index})">
+                <div class="initials-name" value="${index}" name="${name}">
+                ${name}
+                </div>
+                <div class="acc-initials categories-colour" style="background-color: ${colour}">
+                </div>
+            </div>
+        `;
+    }
+
 function toggleCategoriesSelect() {
-    let dropdown = document.getElementById('select-dropdown-categories');
-    let dropdownIcon = document.getElementById('dropdown-icon-categories');
+    let categoriesList = document.getElementById('categories-list');
+    categoriesList.innerHTML = '';
+    
+    
+    for (let index = 0; index < categories.length; index++) {
+        let name = categories[index]['name'];
+        let colour = categories[index]['colour'];
+        categoriesList.innerHTML += renderCategoriesList(name, colour, index);
+    }   
+    const dropdown = document.getElementById('categories-list');
+    const dropdownIcon = document.getElementById('dropdown-icon-categories');
     dropdownIcon.classList.toggle("rotate");
     dropdown.classList.toggle("d-none-ni");
 }
 
-function selectOptionCat(element) {
+ async function getTaskCategorieList() {
+    return categories;
+ }
+
+async function selectOptionCat(element, index) {
     const selectedCategoryInput = document.getElementById('selected-category');
-    const selectedCategoryValue = element.querySelector('.initials-name').getAttribute('value');
+    const selectedEntry = element.querySelector('.initials-name').getAttribute('name');
 
     // Update the input value and close the dropdown
-    selectedCategoryInput.value = selectedCategoryValue;
+    selectedCategoryInput.value = selectedEntry;
     toggleCategoriesSelect();
+    const selectedCategory = await getTaskCategorieList();
+    
+    category = selectedCategory[index];
 }
 
 document.addEventListener('click', function (event) {
-    const dropdown = document.getElementById('select-dropdown-categories');
+    const dropdown = document.getElementById('categories-list');
     const dropdownContainer = document.getElementById('categories-select-button');
     const dropdownIcon = document.getElementById('dropdown-icon-categories');
 
-    if (!dropdownContainer.contains(event.target)) {
-        // Click is outside the dropdown, close it
-        dropdown.classList.add('d-none-ni');
-        dropdownIcon.classList.remove('rotate');
+    if(dropdownContainer){
+        if (!dropdownContainer.contains(event.target)) {
+            // Click is outside the dropdown, close it
+            dropdown.classList.add('d-none-ni');
+            dropdownIcon.classList.remove('rotate');
+        }
     }
 });
 

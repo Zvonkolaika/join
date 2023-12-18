@@ -49,7 +49,7 @@ function renderTaskCard(task){
         
     <div class="container dp-flex flex-column" style="align-items: flex-start; margin: 40px; padding: 40px;">
     <div class="task-categories">
-        <span>${task['category']}</span> 
+        <span>${task['category']['name']}</span> 
     </div>
 
     <div class="task-categories">
