@@ -15,23 +15,27 @@ async function getItem(key) {
         .then(res => res.json().then(res => res.data.value));
 }
 
-async function getRemoteTasks() {
-    let storedTasksPromise = await getItem('tasks');
-    // console.log('storedTasksPromise ' + storedTasksPromise);
-    storedTasks = JSON.parse(storedTasksPromise);
-    // console.log('storedTasks ' + storedTasks);
+async function resetRemote(key) {
+    await setItem(key, []).then();
+}
 
+async function getRemote(key) {
+    let values = [];
+    let storedPromise = await getItem(key);
+    // console.log('storedPromise ' + storedPromise);
+    storedValue = JSON.parse(storedPromise);
+    // console.log('storedValue ' + storedValue);
     
-    if(!isJSON(storedTasks)){
-        console.log('#### storedTasks is not JSON');
+    if(!isJSON(storedValue)){
+        console.log('#### storedValue is not JSON');
         console.log('All stored tasks are gone.');
-        resetTasks()
+        resetTasks(key)
     } else {
-        tasks = storedTasks;
+        values = storedValue;
     }
     // console.log('getRemoteTasks() ' + tasks);
     
-    return tasks;
+    return values;
 }
 
 function printAllTasks(tasks){
