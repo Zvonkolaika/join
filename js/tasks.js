@@ -172,7 +172,7 @@ function renderHTMLUsersList(usersList){
         const userName = user['name'];
         option.innerHTML = /*html*/`
                 <div class="initials-name">
-                    <div class="acc-initials">
+                    <div class="acc-initials" style="background-color:${user['bgColor']}">
                         <p>${returnInitials(user['name'])}</p>
                         </div>
                         <div>${user['name']}</div>
@@ -198,6 +198,16 @@ function toggleInputUsers() {
     dropdown.classList.remove("d-none-ni");
 }
 
+function renderUserIcon(userID, userColour, userName) {
+    return /*html*/`
+            <div class="selected-icon" id="selected-icon-user-assigned-${userID.toString()}" ondblclick="removeAssignedUser(${userID})">
+            <div class="acc-initials" style="background-color:${userColour}">
+                    <p>${returnInitials(userName)}</p>
+                </div>
+            </div>
+        `;
+}
+
 function selectOption(checkbox, id) {
     const selectedUsersContainer = document.getElementById('selected-users-container');
 
@@ -205,19 +215,13 @@ function selectOption(checkbox, id) {
         let selectedName = checkbox.getAttribute('data-name');
         
         // Create a div element for the icon with initials using innerHTML
-        selectedUsersContainer.innerHTML += /*html*/`
-            <div class="selected-icon" id="selected-icon-user-assigned-${id.toString()}">
-                <div class="acc-initials">
-                    <p>${returnInitials(selectedName)}</p>
-                </div>
-            </div>
-        `;
         const index = usersList.findIndex((user) => user.id === id);
         console.log('usersList ' + usersList.length + ' index ' + index +  ' id ' + id );
          if (index != -1) {
             console.log('id ' + id);
             assignUserList.push(usersList[index]);
-         }
+        }
+        selectedUsersContainer.innerHTML += renderUserIcon(id, usersList[index].bgColor, usersList[index].name);
     } else {
         // If checkbox is unchecked, remove the corresponding icon div
         const selectedIcon = document.getElementById('selected-icon-user-assigned-' + id.toString());
