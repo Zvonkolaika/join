@@ -67,6 +67,8 @@ async function loadContacts() {
   }
 }
 
+/* --- Contact List --- */
+
 function renderContactList() {
   document.getElementById("contact-list").innerHTML = "";
 
@@ -120,25 +122,47 @@ function renderContactInitials(initials, id) {
   `;
 }
 
-function returnInitials(string) {
-  let words = string.split(" ");
-  let innitials = "";
-
-  for (let i = 0; i < words.length; i++) {
-    innitials += words[i].charAt(0).toUpperCase();
-  }
-
-  return innitials;
-}
-
 function highlightActiveContact(element) {
-  Array.from(document.querySelectorAll(".contact-entry-active")).forEach((el) =>
-    el.classList.remove("contact-entry-active")
-  );
-  element.classList.add("contact-entry-active");
+  if (window.innerWidth >= 1024) {
+    Array.from(document.querySelectorAll(".contact-entry-active")).forEach(
+      (el) => el.classList.remove("contact-entry-active")
+    );
+    element.classList.add("contact-entry-active");
+  }
 }
+
+function sortContactsAtoZ() {
+  sortedContacts = contacts;
+  sortedContacts.sort((a, b) => {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+    let charsA = nameA.split("");
+    let charsB = nameB.split("");
+
+    for (let i = 0; i < charsA.length; i++) {
+      if (charsA[i] < charsB[i]) return -1;
+      if (charsA[i] > charsB[i]) return 1;
+      return 0;
+    }
+  });
+}
+
+/* --- Contact List ends --- */
+
+/* --- Contact Details --- */
 
 function renderContactDetails(id) {
+  if (window.innerWidth <= 1024) {
+    document.getElementById("contact-container").classList.add("d-flex");
+    document.getElementById("contact-list-container").classList.add("d-none");
+    document
+      .getElementById("contact-mobile-delete")
+      .setAttribute("onclick", `deleteContact(${id}),hideMore()`);
+    document
+      .getElementById("contact-mobile-edit")
+      .setAttribute("onclick", `showEditContactForm(${id}),hideMore()`);
+  }
+
   document.getElementById("contact-details").classList.remove("d-none");
   document.getElementById("contact-innitials").innerHTML =
     renderContactInitials(returnInitials(contacts[id]["name"]), id);
@@ -155,6 +179,13 @@ function renderContactDetails(id) {
     .setAttribute("onclick", `showEditContactForm(${id})`);
 }
 
+function hideContactDetails() {
+  document.getElementById("contact-container").classList.remove("d-flex");
+  document.getElementById("contact-list-container").classList.remove("d-none");
+}
+/* --- Contact Details end --- */
+
+/* --- Add New Contact --- */
 function showAddContactForm() {
   document
     .getElementById("add-contact-form-container")
@@ -184,22 +215,6 @@ async function createNewContact() {
   setTimeout(showContactCreatedNotification, 2000);
 }
 
-function highlightLatestContact() {
-  const idOfmostRecentObject = Math.max(...contacts.map((e) => e.id));
-  const index = contacts.findIndex((i) => i.id == idOfmostRecentObject);
-
-  let element = document.getElementById(`contact-id-${idOfmostRecentObject}`);
-
-  Array.from(document.querySelectorAll(".contact-entry-active")).forEach((el) =>
-    el.classList.remove("contact-entry-active")
-  );
-
-  element.classList.add("contact-entry-active");
-  element.scrollIntoView(false);
-
-  renderContactDetails(index);
-}
-
 function closeAddContactForm() {
   document
     .getElementById("add-contact-form-container")
@@ -217,12 +232,50 @@ function resetAddContactForm() {
   document.getElementById("add-contact-phone").value = "";
 }
 
+function highlightLatestContact() {
+  const idOfmostRecentObject = Math.max(...contacts.map((e) => e.id));
+  const index = contacts.findIndex((i) => i.id == idOfmostRecentObject);
+
+  let element = document.getElementById(`contact-id-${idOfmostRecentObject}`);
+
+  Array.from(document.querySelectorAll(".contact-entry-active")).forEach((el) =>
+    el.classList.remove("contact-entry-active")
+  );
+
+  element.classList.add("contact-entry-active");
+  element.scrollIntoView(false);
+
+  renderContactDetails(index);
+}
+
+async function showContactCreatedNotification() {
+  document.getElementById("contact-created").classList.remove("d-none");
+  document
+    .getElementById("contact-created")
+    .classList.add("createdNotification");
+  await setTimeout(() => {
+    document.getElementById("contact-created").classList.add("d-none");
+  }, 1950);
+}
+
+/* --- Add New Contact end --- */
+
+/* --- Delete Contact --- */
+
 async function deleteContact(id) {
   contacts.splice(id, 1);
-  await sortAndPushContacts();
+  await setItem("contacts", JSON.stringify(contacts));
   document.getElementById("contact-details").classList.add("d-none");
   renderContactList();
+
+  if (window.innerWidth <= 1024) {
+    hideContactDetails();
+  }
 }
+
+/* --- Delete Contact end--- */
+
+/* --- Edit Contact --- */
 
 function showEditContactForm(id) {
   loadEditContactValues(id);
@@ -277,6 +330,8 @@ function closeEditContactForm() {
   setTimeout(resetEditContactForm, 950);
 }
 
+/* --- Edit Contact end --- */
+
 async function addTestContacts() {
   contacts = [
     {
@@ -312,28 +367,33 @@ async function addTestContacts() {
   renderContactList();
 }
 
-function sortContactsAtoZ() {
-  sortedContacts = contacts;
-  sortedContacts.sort((a, b) => {
-    const nameA = a.name.toUpperCase();
-    const nameB = b.name.toUpperCase();
-    let charsA = nameA.split("");
-    let charsB = nameB.split("");
-
-    for (let i = 0; i < charsA.length; i++) {
-      if (charsA[i] < charsB[i]) return -1;
-      if (charsA[i] > charsB[i]) return 1;
-      return 0;
-    }
-  });
+function showMore() {
+  document.getElementById("content-container-more").classList.remove("d-none");
+  document
+    .getElementById("content-container-more")
+    .classList.remove("fadeOutMore");
+  document.getElementById("content-container-more").classList.add("fadeInMore");
 }
 
-async function showContactCreatedNotification() {
-  document.getElementById("contact-created").classList.remove("d-none");
+function hideMore() {
   document
-    .getElementById("contact-created")
-    .classList.add("createdNotification");
-  await setTimeout(() => {
-    document.getElementById("contact-created").classList.add("d-none");
-  }, 1950);
+    .getElementById("content-container-more")
+    .classList.remove("fadeInMore");
+  document
+    .getElementById("content-container-more")
+    .classList.add("fadeOutMore");
+  setTimeout(() => {
+    document.getElementById("content-container-more").classList.add("d-none");
+  }, 950);
+}
+
+function returnInitials(string) {
+  let words = string.split(" ");
+  let innitials = "";
+
+  for (let i = 0; i < words.length; i++) {
+    innitials += words[i].charAt(0).toUpperCase();
+  }
+
+  return innitials;
 }

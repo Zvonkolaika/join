@@ -236,6 +236,7 @@ main {
   height: 65%;
   width: 90%;
   display: flex;
+  position: relative;
 }
 
 .contact-form-left {
@@ -311,9 +312,10 @@ main {
 }
 
 .close-btn-container {
+  z-index: 50;
   position: absolute;
-  top: 48px;
-  right: 48px;
+  top: 32px;
+  right: 32px;
   width: 32px;
   height: 32px;
   display: flex;
@@ -501,4 +503,98 @@ main {
     font-size: 27px;
     font-weight: 400;
   }
+
+  .contact-form-container {
+    position: absolute;
+    top: 96px;
+    height: calc(100% - 96px - 80px);
+    width: 95%;
+    flex-direction: column;
+  }
+
+  .contact-form-left {
+    height: 40%;
+    width: 100%;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 30px;
+  }
+  .contact-form-left img {
+    display: none;
+  }
+  .contact-form-left p {
+    font-size: 20px;
+  }
+
+  .contact-form-right {
+    height: 60%;
+    width: 100%;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 30px;
+  }
+
+  .contact-form-img-container {
+    position: absolute;
+    top: -60px;
+    margin: 0;
+  }
+
+  .contact-form-inputs {
+    gap: 15px;
+  }
+
+  .input-container {
+    width: unset;
+  }
+
+  .contact-form-button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .cancel-btn {
+    display: none;
+  }
+
+  .close-btn-container:hover {
+    cursor: pointer;
+    background-color: transparent;
+  }
+
+  .close-btn-container img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7410%)
+      hue-rotate(12deg) brightness(120%) contrast(94%);
+  }
+
+  /* --- contact form animation mobile---  */
+
+  @keyframes fadeIn {
+    from {
+      top: 100%;
+    }
+
+    to {
+      top: 96px;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      top: 0%;
+    }
+
+    to {
+      top: 100%;
+    }
+  }
+
+  .fadeIn {
+    animation: fadeIn 1s ease;
+  }
+
+  .fadeOut {
+    animation: fadeOut 1s ease;
+  }
+
+  /* --- contact form animation mobile end ---  */
 }

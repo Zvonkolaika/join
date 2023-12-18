@@ -1,4 +1,7 @@
 <div id="edit-contact-form-container" class="contact-form-container">
+  <div class="close-btn-container" onclick="closeEditContactForm()">
+    <img src="./assets/img/icons/cancel.svg" />
+  </div>
   <div class="contact-form-left">
     <div>
       <img src="./assets/img/logo_white.svg" alt="Join Logo" />
@@ -8,9 +11,6 @@
   </div>
 
   <div class="contact-form-right">
-    <div class="close-btn-container" onclick="closeEditContactForm()">
-      <img src="./assets/img/icons/cancel.svg" />
-    </div>
     <div class="contact-form-img-container">
       <img src="./assets/img/icons/person.svg" alt="contact picture" />
     </div>
@@ -57,7 +57,7 @@
 
       <div class="contact-form-button-container">
         <button
-          class="button-secondary-w-icon"
+          class="button-secondary-w-icon cancel-btn"
           onclick="closeEditContactForm()"
           formnovalidate
         >

@@ -27,7 +27,7 @@ body {
 }
 
 .d-flex {
-  display: flex;
+  display: flex !important;
 }
 
 .flex-column {
@@ -215,6 +215,11 @@ small {
   color: #29abe2;
   border: 1px solid #29abe2;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.button-secondary-w-icon:hover img {
+  filter: brightness(0) saturate(100%) invert(64%) sepia(34%) saturate(6235%)
+    hue-rotate(169deg) brightness(105%) contrast(77%);
 }
 
 /* --- Header design --- */
