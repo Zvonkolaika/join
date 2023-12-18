@@ -61,7 +61,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px 20px 348px;
+  padding: 20px 40px;
 }
 
 nav {
@@ -318,7 +318,7 @@ small {
 
 /*--- Header Responsive --- */
 
-@media screen and (max-width: 428px) {
+@media screen and (max-width: 1024px) {
   header {
     position: fixed;
     width: 100%;
@@ -441,7 +441,7 @@ small {
 }
 
 /*--- Sidebar Responsive --- */
-@media screen and (max-width: 428px) {
+@media screen and (max-width: 1024px) {
   nav {
     position: fixed;
     bottom: 0;
@@ -509,17 +509,17 @@ small {
     display: none;
   }
 
-  /* --- Sidebar design end --- */
+  /* --- Sidebar responsive end --- */
 
   /* --- Main responsive --- */
   main {
     z-index: 0;
-    position: inherit;
+    position: absolute;
     /* only to overwrite position: absolute */
-    top: 0;
+    top: 96px;
     left: 0;
+    height: calc(100% - 96px - 80px);
     width: 100%;
-    height: auto;
   }
 }
 
