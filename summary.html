@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <link
+      rel="icon"
+      href="assets/img/logo_white.svg"
+      sizes="any"
+      type="image/svg+xml"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./assets/fonts/inter.css" />
+    <link rel="stylesheet" href="./styles/summary.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body onload="init()">
+    <div class="container">
+      <header w3-include-html="./assets/templates/header.html"></header>
+      <nav w3-include-html="./assets/templates/sidebar.html"></nav>
+      <main>
+        <div class="summary-header">
+          <h1>Join 360</h1>
+          <span>Key Metrics at a Glance</span>
+        </div>
+        <div>
+          <div class="card">
+            <div class="icon-container">
+              <img src="./assets/img/icons/edit.svg" alt="edit" />
+            </div>
+            <div class="metric-container">
+              <b id="todo">1</b>
+              <span>To-do</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="icon-container">
+              <img src="./assets/img/icons/check.svg" alt="check" />
+            </div>
+            <div class="metric-container">
+              <b id="done">1</b>
+              <span>Done</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="icon-container-urgent">
+              <img
+                src="./assets/img/icons/Prio alta-white.svg"
+                alt="high priority"
+              />
+            </div>
+            <div class="metric-container">
+              <b id="priority">1</b>
+              <span>Urgent</span>
+            </div>
+            <div class="vector"></div>
+            <div class="metric-container">
+              <span id="deadline">October 16, 2022</span>
+              <span>Upcoming Deadline</span>
+            </div>
+          </div>
+
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
