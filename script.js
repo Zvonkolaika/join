@@ -1,8 +1,12 @@
 
+let currentUrl;
+let currentPageName;
+let pageToDeactivate;
+
 
 async function init() {
   await includeHTML();
-  setCurrentPageActive();
+  setCurrentPageLinkActive('board');
 }
 
 
@@ -25,58 +29,52 @@ function showSubmenu() {
   document.getElementById('submenu_container').classList.toggle('show_submenu');
 }
 
-// let currentUrl;
-// let CurrentPageName;
-// let pageToDeactivate;
+
+// -- Links --
+function goToPage(clickedLink) {
+  window.open(`./${clickedLink}.html`, '_self');
+}
 
 
-// function goToPage(clickedLink) {
-//   localStorage.removeItem('clickedLink');
-//   window.open(`./${clickedLink}.html`, '_self');
-//   localStorage.setItem('clickedLink', clickedLink);
-// }
+function getCurrentPageName(pageName) {
+  currentPageName = pageName;
+  return currentPageName;
+}
 
 
-// function getCurrentURL() {
-//   currentUrl = window.location.href;
-//   console.log(`${window.location.href}`);
-// }
+function setCurrentPageLinkActive(pageName) {
+  getCurrentPageName(pageName);
+  checkIfLinkIsActive();
+  setMenuLinkActive();
+  changeMenuLinkImage();
+}
 
 
-// function setCurrentPageActive() {
-//   CurrentPageName = localStorage.getItem('clickedLink');
-//   console.log(localStorage.getItem('clickedLink'));
-//   // checkIfLinkIsActive();
-//   // setMenuLinkActive();
-//   // changeMenuLinkImage();
-// }
+function checkIfLinkIsActive() {
+  if (!pageToDeactivate) {
+    setMenuLinkActive();
+  }
+  else {
+    removeMenuLinkActive();
+    setMenuLinkActive();
+  }
+}
 
 
-// function checkIfLinkIsActive() {
-//   if (!pageToDeactivate) {
-//     setMenuLinkActive();
-//   }
-//   else {
-//     removeMenuLinkActive();
-//     setMenuLinkActive();
-//   }
-// }
+function setMenuLinkActive() {
+  const menuLink = document.getElementById(`sidebar_link_${currentPageName}`);
+  menuLink.classList.add('sidebar_link_active', 'sidebar_link_active:hover');
+  pageToDeactivate = currentPageName;
+}
 
 
-// function setMenuLinkActive() {
-//   const menuLink = document.getElementById(`sidebar_link_${CurrentPageName}`);
-//   menuLink.classList.add('sidebar_link_active', 'sidebar_link_active:hover');
-//   pageToDeactivate = CurrentPageName;
-// }
+function removeMenuLinkActive() {
+  const menuLink = document.getElementById(`sidebar_link_${pageToDeactivate}`);
+  menuLink.classList.remove('sidebar_link_active', 'sidebar_link_active:hover');
+}
 
 
-// function removeMenuLinkActive() {
-//   const menuLink = document.getElementById(`sidebar_link_${pageToDeactivate}`);
-//   menuLink.classList.remove('sidebar_link_active', 'sidebar_link_active:hover');
-// }
-
-
-// function changeMenuLinkImage() {
-//   const image = document.getElementById(`menu_icon_${CurrentPageName}`);
-//   image.src = `assets/img/icons/${CurrentPageName}_icon_white.svg`;
-// }
+function changeMenuLinkImage() {
+  const image = document.getElementById(`menu_icon_${currentPageName}`);
+  image.src = `assets/img/icons/${currentPageName}_icon_white.svg`;
+}

@@ -58,6 +58,7 @@ async function init() {
   await includeHTML();
   await loadContacts();
   renderContactList();
+  setCurrentPageLinkActive('contacts');
 }
 
 async function loadContacts() {
