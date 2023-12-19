@@ -83,6 +83,7 @@ main {
   left: 232px;
   width: calc(100% - 232px);
   height: calc(100% - 96px);
+  overflow-y: auto;
 }
 
 h1 {
