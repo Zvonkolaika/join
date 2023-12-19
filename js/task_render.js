@@ -50,6 +50,35 @@ function renderAssignedUserIcons(assignedUserList){
     return html;
 }
 
+function renderPriority(prio, renderName){
+    let html = "";
+    switch(prio){
+        case PRIO_URG: {
+            if(renderName) {
+                html += /*html*/ `<span>Urgent</span>`;
+            } 
+            html += /*html*/ `<img class="prio-icon" src="/assets/img/icons/Prio alta.svg" alt="">`;
+            break;
+        }
+        case PRIO_MDM: {
+            if(renderName) {
+                html += /*html*/ `<span>Medium</span>`;
+            }
+            html += /*html*/ `<img class="prio-icon" src="/assets/img/icons/Prio media.svg" alt="">`;
+            break;
+        }
+        case PRIO_LOW: {
+            if(renderName) {
+                html += /*html*/ `<span>Low</span>`;
+            }
+            html += /*html*/ `<img class="prio-icon" src="/assets/img/icons/Prio baja.svg" alt="">`;
+            break;
+        }
+    }
+    return html;
+}
+
+
 function renderTaskCard(task){
     let taskCard = document.getElementById("task-card");
     taskCard.innerHTML += /*html*/`
@@ -70,13 +99,7 @@ function renderTaskCard(task){
         <span>Due date: ${task['date']}</span>
     </div>
     <div class="task-categories">
-        <span>Priority:</span>
-        <div class="prio-btn-container">
-            <button class="prio urgent-btn" id="urgent-btn">
-                    <span>${task['prio']}</span>
-                    <img class="prio-icon" src="/assets/img/icons/Prio alta.svg" alt="">
-            </button>
-        </div>
+        <span>Priority: ${renderPriority(task['prio'], true)}</span>
     </div>
     <div class="task-categories">
         <span>Assigned to:</span>
