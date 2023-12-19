@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="./assets/fonts/inter.css" />
     <link rel="stylesheet" href="./styles/summary.css" />
     <script src="script.js"></script>
+    <script src="./js/summary.js"></script>
+    <script src="./js/storage.js"></script>
   </head>
 
   <body onload="init()">
@@ -36,7 +38,7 @@
                 <img src="./assets/img/icons/edit.svg" alt="edit" />
               </div>
               <div class="metric-container">
-                <b id="todo">1</b>
+                <b id="todo"></b>
                 <span>To-do</span>
               </div>
             </div>
@@ -46,7 +48,7 @@
                 <img src="./assets/img/icons/check_black.svg" alt="check" />
               </div>
               <div class="metric-container">
-                <b id="done">1</b>
+                <b id="done"></b>
                 <span>Done</span>
               </div>
             </div>
@@ -60,7 +62,7 @@
                   />
                 </div>
                 <div class="metric-container">
-                  <b id="priority">1</b>
+                  <b id="priority"></b>
                   <span>Urgent</span>
                 </div>
               </div>
@@ -80,7 +82,7 @@
               </svg>
               <div class="dual-card-right">
                 <div class="metric-container">
-                  <span id="deadline">October 16, 2022</span>
+                  <span id="deadline"></span>
                   <span>Upcoming Deadline</span>
                 </div>
               </div>
@@ -88,20 +90,20 @@
 
             <div class="card">
               <div class="metric-container">
-                <b id="total-tasks">5</b>
+                <b id="total-tasks"></b>
                 <span>Tasks in</br>Board</span>
               </div>
             </div>
             <div class="card">
               <div class="metric-container">
-                <b id="in-progress-tasks">2</b>
+                <b id="in-progress-tasks"></b>
                 <span>Tasks in</br>Progress</span>
               </div>
             </div>
 
             <div class="card">
               <div class="metric-container">
-                <b id="awaiting-feedback-tasks">2</b>
+                <b id="awaiting-feedback-tasks"></b>
                 <span>Awaiting</br>Feedback</span>
               </div>
             </div>
