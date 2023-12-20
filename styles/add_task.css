@@ -1,7 +1,7 @@
 .add-task-form {
-    padding-left: 96px;
-    padding-top: 110px;
-    padding-right: 135px;
+    padding-left: 32px;
+    padding-top: 59px;
+    padding-right: 32px;
 }
 
 .header-div h1 {
@@ -434,20 +434,19 @@ input:focus-visible{
 
 
 @media (max-width: 1200px){
-    #add-task-form-container {
-        overflow-y: auto;
-        display: block;
+
+    .add-task-form {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
-    }
-    
-    .add-task-form {
-        width: 90%;
-        margin-top: -80px;
-        flex-direction: column;
+        box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.08);
+        overflow-x: hidden;
         overflow-y: auto;
-        display: flex;
+        width: 100%;
+        padding-top: 0;
     }
 
     .content-add-task {

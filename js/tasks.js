@@ -68,7 +68,7 @@ async function createNewTask() {
     let date = document.getElementById('task-date').value;
     let task = addTask(title = title, 
                         description = description, 
-                        date = new Date().getTime(document.getElementById('task-date').value), 
+                        date = new Date().getTime(date), 
                         prio = taskPrio, 
                         assignedUsers = assignUserList); 
     tasks = await getRemote('tasks');
