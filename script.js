@@ -4,9 +4,8 @@ let currentPageName;
 let pageToDeactivate;
 
 
-async function init() {
+async function loadTemplates() {
   await includeHTML();
-  setCurrentPageLinkActive('board');
 }
 
 
