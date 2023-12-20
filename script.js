@@ -79,6 +79,6 @@ function changeMenuLinkImage() {
 }
 
 /* essential for sidebar pls not delete */
-function open(p) {
+function openNewSite(p) {
   window.location.href = `${p}.html`;
 }
