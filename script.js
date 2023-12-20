@@ -20,3 +20,8 @@ async function includeHTML() {
 function showSubmenu() {
   document.getElementById('submenu_container').classList.toggle('show_submenu');
 }
+
+/* essential for sidebar pls not delete */
+function open(p) {
+  window.location.href = `${p}.html`;
+}

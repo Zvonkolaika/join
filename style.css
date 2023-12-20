@@ -379,6 +379,7 @@ small {
   justify-content: center;
   align-items: flex-start;
   gap: 15px;
+  width: 100%;
 }
 
 .sidebar_button {

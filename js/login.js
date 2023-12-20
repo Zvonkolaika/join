@@ -280,3 +280,7 @@ function generateMobileLogo() {
     </svg>
     `;
 }
+
+function cameFromLogin(p) {
+    window.location.href = `${p}.html?login=login`;
+}
