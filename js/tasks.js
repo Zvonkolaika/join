@@ -4,6 +4,10 @@ const PRIO_LOW = 3;
 const SUBTASK_ID = 0;
 const SUBTASK_TEXT = 1;
 const SUBTASK_DONE = 2;
+const TASK_STATUS_TODO = 0;
+const TASK_STATUS_INPROGRESS = 1;
+const TASK_STATUS_AWAITFEEDBACK = 2;
+const TASK_STATUS_DONE = 3;
 
 let taskPrio = PRIO_MDM;
 let tasks = [];
@@ -12,6 +16,8 @@ let storedTasks = [];
 let usersList = [];
 let subtasks = [];
 let category = [];
+
+const taskStatusCategories = ["To do", "In progress", "Await feedback", "Done"];
 
 const categories = [
     {
@@ -43,7 +49,7 @@ function addTask(title = 'title is empty',
                     prio = PRIO_MDM,
                     assignedUsers = assignUserList,
                     categorySubmit = category,
-                    taskStatus = 0,
+                    taskStatus = TASK_STATUS_TODO,
                     taskID = new Date().getTime(),
                     subtasksSubmit = subtasks)
 {
@@ -492,6 +498,10 @@ function generateUniqueID() {
 function resetSubtaskInput(subtaskInput) {
     // Clear the input value
     subtaskInput.value = '';
+}
+
+function getTaskStatusByIndex(idx){
+    return taskStatusCategories[idx];
 }
 
 
