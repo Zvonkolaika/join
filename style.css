@@ -27,7 +27,7 @@ body {
 }
 
 .d-flex {
-  display: flex;
+  display: flex !important;
 }
 
 .flex-column {
@@ -42,10 +42,12 @@ body {
 
 .container {
   width: 100vw;
+  height: 100vh;
   max-width: 1440px;
   max-height: 1024px;
   background: #f6f7f8;
   position: relative;
+  overflow: hidden;
 }
 
 header {
@@ -59,13 +61,13 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px 20px 348px;
+  padding: 20px 40px;
 }
 
 nav {
   display: flex;
   width: 232px;
-  height: 1024px;
+  height: 100%;
   padding: 64px 0px;
   flex-direction: column;
   justify-content: space-between;
@@ -82,6 +84,7 @@ main {
   left: 232px;
   width: calc(100% - 232px);
   height: calc(100% - 96px);
+  overflow-y: auto;
 }
 
 h1 {
@@ -216,6 +219,11 @@ small {
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
 }
 
+.button-secondary-w-icon:hover img {
+  filter: brightness(0) saturate(100%) invert(64%) sepia(34%) saturate(6235%)
+    hue-rotate(169deg) brightness(105%) contrast(77%);
+}
+
 /* --- Header design --- */
 
 #header_mobile_logo_container {
@@ -267,9 +275,11 @@ small {
 
 .header_user_initials_box:hover {
   cursor: pointer;
-  background: linear-gradient(0deg,
+  background: linear-gradient(
+      0deg,
       rgba(12, 46, 98, 0.12) 0%,
-      rgba(12, 46, 98, 0.12) 100%),
+      rgba(12, 46, 98, 0.12) 100%
+    ),
     #fff;
 }
 
@@ -288,8 +298,8 @@ small {
   flex-direction: column;
   align-items: flex-start;
   border-radius: 20px 0px 20px 20px;
-  background: var(--version-2-main-color, #2A3647);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+  background: var(--version-2-main-color, #2a3647);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
   z-index: 10;
   transition: all 100ms ease-out;
 }
@@ -315,10 +325,11 @@ small {
 
 /*--- Header Responsive --- */
 
-@media screen and (max-width: 428px) {
+@media screen and (max-width: 1024px) {
   header {
     position: fixed;
     width: 100%;
+    height: 80px;
     padding: 20px 16px;
     z-index: 20;
   }
@@ -333,7 +344,6 @@ small {
   #header_mobile_logo {
     width: 32px;
     height: 39.016px;
-
   }
 
   #header_headline {
@@ -371,6 +381,7 @@ small {
   justify-content: center;
   align-items: flex-start;
   gap: 15px;
+  width: 100%;
 }
 
 .sidebar_link {
@@ -450,7 +461,7 @@ small {
 }
 
 /*--- Sidebar Responsive --- */
-@media screen and (max-width: 428px) {
+@media screen and (max-width: 1024px) {
   nav {
     position: fixed;
     bottom: 0;
@@ -518,18 +529,17 @@ small {
     display: none;
   }
 
-  /* --- Sidebar design end --- */
+  /* --- Sidebar responsive end --- */
 
   /* --- Main responsive --- */
-  /* main {
+  main {
     z-index: 0;
-    position: inherit;
-    /* only to overwrite position: absolute
-    top: 0;
+    position: absolute;
+    top: 80px;
     left: 0;
+    height: calc(100% - 80px - 80px);
     width: 100%;
-    height: auto;
-  } */
+  }
 }
 
 /* --- Main responsive end --- */

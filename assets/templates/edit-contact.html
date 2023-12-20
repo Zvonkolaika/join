@@ -1,4 +1,7 @@
-<div class="contact-form-container">
+<div id="edit-contact-form-container" class="contact-form-container">
+  <div class="close-btn-container" onclick="closeEditContactForm()">
+    <img src="./assets/img/icons/cancel.svg" />
+  </div>
   <div class="contact-form-left">
     <div>
       <img src="./assets/img/logo_white.svg" alt="Join Logo" />
@@ -8,18 +11,19 @@
   </div>
 
   <div class="contact-form-right">
-    <div class="close-btn-container" onclick="closeEditContactForm()">
-      <img src="./assets/img/icons/cancel.svg" />
-    </div>
     <div class="contact-form-img-container">
       <img src="./assets/img/icons/person.svg" alt="contact picture" />
     </div>
 
-    <form id="edit-contact-form" class="contact-form-inputs">
+    <form autocomplete="off" id="edit-contact-form" class="contact-form-inputs">
       <div class="input-container">
         <input
           class="input-field"
           type="text"
+          pattern="[a-z A-Z]+"
+          title="max 30 letters - no numbers or special characters"
+          minlength="3"
+          maxlength="30"
           id="edit-contact-name"
           placeholder="Name"
           required
@@ -41,7 +45,9 @@
       <div class="input-container">
         <input
           class="input-field"
-          type="text"
+          type="tel"
+          pattern="[0-9]{3,15}"
+          title="3-15 digits - no special characters"
           id="edit-contact-phone"
           placeholder="Phone"
           required
@@ -51,8 +57,8 @@
 
       <div class="contact-form-button-container">
         <button
-          class="button-secondary-w-icon"
-          onclick="closeEditContactForm()"
+          class="button-secondary-w-icon cancel-btn"
+          onclick="closeEditContactForm(); return false;"
           formnovalidate
         >
           Cancel <img src="./assets/img/icons/cancel.svg" />

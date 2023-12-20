@@ -77,3 +77,8 @@ function changeMenuLinkImage() {
   const image = document.getElementById(`menu_icon_${currentPageName}`);
   image.src = `assets/img/icons/${currentPageName}_icon_white.svg`;
 }
+
+/* essential for sidebar pls not delete */
+function open(p) {
+  window.location.href = `${p}.html`;
+}
