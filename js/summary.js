@@ -15,19 +15,17 @@ async function loadTasks() {
   }
 }
 
-function returnTotalTasks() {
-  return tasks.length;
-}
-
-function returnTasksInProgress() {}
-
-function returnPriorityTasks() {
-  let value = 0;
+function returnNumberofTasks(key, value) {
+  let x = 0;
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
-    if (task["prio"] == 1) value++;
+    if (task[key] == value) x++;
   }
-  return value;
+  return x;
+}
+
+function returnTotalTasks() {
+  return tasks.length;
 }
 
 function returnNextDueDate() {
@@ -42,11 +40,24 @@ function returnNextDueDate() {
 }
 
 function renderMetricValues() {
-  /*   document.getElementById("todo").innerHTML =
-  document.getElementById("done").innerHTML = */
-  document.getElementById("priority").innerHTML = returnPriorityTasks();
+  document.getElementById("todo").innerHTML = returnNumberofTasks(
+    "taskStatus",
+    0
+  );
+  document.getElementById("done").innerHTML = returnNumberofTasks(
+    "taskStatus",
+    3
+  );
+  document.getElementById("priority").innerHTML = returnNumberofTasks(
+    "prio",
+    1
+  );
   document.getElementById("deadline").innerHTML = returnNextDueDate();
   document.getElementById("total-tasks").innerHTML = returnTotalTasks();
-  /*   document.getElementById("in-progress-tasks").innerHTML =
-  document.getElementById("awaiting-feedback-tasks").innerHTML = */
+  document.getElementById("in-progress-tasks").innerHTML = returnNumberofTasks(
+    "taskStatus",
+    1
+  );
+  document.getElementById("awaiting-feedback-tasks").innerHTML =
+    returnNumberofTasks("taskStatus", 2);
 }
