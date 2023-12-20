@@ -79,6 +79,20 @@ function renderPriority(prio, renderName){
 }
 
 
+// return date in format dd/mm/yyyy
+function normalDate(date) {
+    let d = new Date(date);
+    let day = d.getDate();
+    let month = d.getMonth() + 1; // Month is zero-based, so we add 1
+    let year = d.getFullYear() % 100; // Get last two digits of the year
+
+    day = day < 10 ? '0' + day : day;
+    month = month < 10 ? '0' + month : month;
+
+    return `${day}/${month}/${year}`;
+}
+
+
 function renderTaskCard(task){
     let taskCard = document.getElementById("task-card");
     taskCard.innerHTML += /*html*/`
@@ -96,7 +110,7 @@ function renderTaskCard(task){
     </div>
 
     <div class="task-categories">
-        <span>Due date: ${task['date']}</span>
+        <span>Due date: ${normalDate(task['date'])}</span>
     </div>
     <div class="task-categories">
         <span>Priority: ${renderPriority(task['prio'], true)}</span>
