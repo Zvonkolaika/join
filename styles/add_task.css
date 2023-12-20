@@ -20,6 +20,19 @@
     align-items: center;
 }
 
+.task-added {
+    border-radius: 20px;
+    background-color: #2a3647;
+    color: #fff;
+    padding: 24px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .title-description-div {
     flex-direction: column;
     display: flex;
@@ -29,6 +42,10 @@
 
 .date-prio-container {
     width: 100%;
+}
+
+.icon{
+    padding-left: 10px;
 }
 
 .borderline {

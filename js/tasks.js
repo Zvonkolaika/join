@@ -81,11 +81,20 @@ async function createNewTask() {
     tasks.push(task);
   
     await setItem('tasks', tasks);
+    showAddedTaskMsg();
     //redirect to task card
+    setTimeout(() => {
     window.location.href = `./task_card.html`;
+    }, 1800);
 }
 
-// TODO: support real contacts list
+function showAddedTaskMsg() {
+    document.getElementById("task-added").classList.remove("d-none");
+    setTimeout(() => {
+      document.getElementById("task-added").classList.add("d-none");
+    }, 900);
+  }
+
 function getSelectedUser(){
     let user = document.getElementById('user-select').value;
     //console.log('Selected user is ' + user);
