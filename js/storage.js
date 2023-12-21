@@ -4,8 +4,8 @@ const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 async function setItem(key, value) {
     const payload = { key, value, token: STORAGE_TOKEN };
-    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload)})
-    .then(res => res.json());
+    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
+        .then(res => res.json());
 }
 
 async function getItem(key) {
@@ -25,8 +25,8 @@ async function getRemote(key) {
     // console.log('storedPromise ' + storedPromise);
     storedValue = JSON.parse(storedPromise);
     // console.log('storedValue ' + storedValue);
-    
-    if(!isJSON(storedValue)){
+
+    if (!isJSON(storedValue)) {
         console.log('#### storedValue is not JSON');
         console.log('All stored tasks are gone.');
         resetTasks(key)
@@ -34,17 +34,17 @@ async function getRemote(key) {
         values = storedValue;
     }
     // console.log('getRemoteTasks() ' + tasks);
-    
+
     return values;
 }
 
-function printAllTasks(tasks){
+function printAllTasks(tasks) {
     tasks.forEach(task => {
         printTask(task);
     });
 }
 
-function printTask(task){
+function printTask(task) {
     Object.keys(task).forEach(function (key) {
         console.log(key + ": " + task[key]);
     });
