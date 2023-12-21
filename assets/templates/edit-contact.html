@@ -18,6 +18,7 @@
     <form autocomplete="off" id="edit-contact-form" class="contact-form-inputs">
       <div class="input-container">
         <input
+          onfocusout="highlightInvalid(this)"
           class="input-field"
           type="text"
           pattern="[a-z A-Z]+"
@@ -33,6 +34,7 @@
 
       <div class="input-container">
         <input
+          onfocusout="highlightInvalid(this)"
           class="input-field"
           type="email"
           id="edit-contact-email"
@@ -44,6 +46,7 @@
 
       <div class="input-container">
         <input
+          onfocusout="highlightInvalid(this)"
           class="input-field"
           type="tel"
           pattern="[0-9]{3,15}"
