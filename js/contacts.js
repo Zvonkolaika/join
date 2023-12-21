@@ -54,7 +54,7 @@ const backgroundColors = [
 ];
 
 async function init() {
-  await includeHTML();
+  await loadTemplates();
   await loadContacts();
   renderContactList();
   setCurrentPageLinkActive("contacts");
@@ -386,17 +386,6 @@ function hideMore() {
   setTimeout(() => {
     document.getElementById("content-container-more").classList.add("d-none");
   }, 950);
-}
-
-function returnInitials(string) {
-  let words = string.split(" ");
-  let innitials = "";
-
-  for (let i = 0; i < words.length; i++) {
-    innitials += words[i].charAt(0).toUpperCase();
-  }
-
-  return innitials;
 }
 
 function highlightInvalid(element) {

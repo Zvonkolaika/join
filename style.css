@@ -74,7 +74,6 @@ nav {
   align-items: center;
   flex-shrink: 0;
   background-color: #2a3647;
-
 }
 
 main {
@@ -270,7 +269,9 @@ small {
   gap: 10px;
   flex-shrink: 0;
   border-radius: 559px;
-  background: var(--white, #fff);
+  background: #fff;
+  color: #29abe2;
+  font-weight: 600;
 }
 
 .header_user_initials_box:hover {
@@ -281,12 +282,6 @@ small {
       rgba(12, 46, 98, 0.12) 100%
     ),
     #fff;
-}
-
-.header_user_initials {
-  width: 27.944px;
-  height: 14.238px;
-  flex-shrink: 0;
 }
 
 #submenu_container {

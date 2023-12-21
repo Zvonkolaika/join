@@ -1,13 +1,13 @@
-
 let currentUrl;
 let currentPageName;
 let pageToDeactivate;
-
+let currentUser =
+  "Florian Hoffmann"; /* placeholder until logged in user is handed over from login */
 
 async function loadTemplates() {
   await includeHTML();
+  renderUserIcon();
 }
-
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll("[w3-include-html]");
@@ -23,23 +23,19 @@ async function includeHTML() {
   }
 }
 
-
 function showSubmenu() {
-  document.getElementById('submenu_container').classList.toggle('show_submenu');
+  document.getElementById("submenu_container").classList.toggle("show_submenu");
 }
-
 
 // -- Links --
 function goToPage(clickedLink) {
-  window.open(`./${clickedLink}.html`, '_self');
+  window.open(`./${clickedLink}.html`, "_self");
 }
-
 
 function getCurrentPageName(pageName) {
   currentPageName = pageName;
   return currentPageName;
 }
-
 
 function setCurrentPageLinkActive(pageName) {
   getCurrentPageName(pageName);
@@ -48,30 +44,25 @@ function setCurrentPageLinkActive(pageName) {
   changeMenuLinkImage();
 }
 
-
 function checkIfLinkIsActive() {
   if (!pageToDeactivate) {
     setMenuLinkActive();
-  }
-  else {
+  } else {
     removeMenuLinkActive();
     setMenuLinkActive();
   }
 }
 
-
 function setMenuLinkActive() {
   const menuLink = document.getElementById(`sidebar_link_${currentPageName}`);
-  menuLink.classList.add('sidebar_link_active', 'sidebar_link_active:hover');
+  menuLink.classList.add("sidebar_link_active", "sidebar_link_active:hover");
   pageToDeactivate = currentPageName;
 }
 
-
 function removeMenuLinkActive() {
   const menuLink = document.getElementById(`sidebar_link_${pageToDeactivate}`);
-  menuLink.classList.remove('sidebar_link_active', 'sidebar_link_active:hover');
+  menuLink.classList.remove("sidebar_link_active", "sidebar_link_active:hover");
 }
-
 
 function changeMenuLinkImage() {
   const image = document.getElementById(`menu_icon_${currentPageName}`);
@@ -81,4 +72,24 @@ function changeMenuLinkImage() {
 /* essential for sidebar pls not delete */
 function openNewSite(p) {
   window.location.href = `${p}.html`;
+}
+
+function renderUserIcon() {
+  let element = document.getElementById("header_user_initials_container");
+  element.innerHTML = `
+      <div class="header_user_initials_box">
+        ${returnInitials(currentUser)}
+      </div>
+`;
+}
+
+function returnInitials(string) {
+  let words = string.split(" ");
+  let innitials = "";
+
+  for (let i = 0; i < words.length; i++) {
+    innitials += words[i].charAt(0).toUpperCase();
+  }
+
+  return innitials;
 }
