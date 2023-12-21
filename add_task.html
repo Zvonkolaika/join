@@ -15,15 +15,15 @@
     <script src="/js/storage.js"></script>
     <script src="script.js"></script>
 </head>
-<body onload="init(); renderAddTaskForm('add-task-placeholder'); disablePrioBtns();">
+<body onload="init(); renderAddTaskForm('add-task-placeholder')">
     <div class="container">
         <header w3-include-html="./assets/templates/header.html"></header>
         <nav w3-include-html="./assets/templates/sidebar.html"></nav>
         <main>
-            <div id="task-added" class="task-added d-none">
+            <!-- <div id="task-added" class="task-added d-none">
                 <span>Task added to board</span>
                 <img src="/assets/img/icons/Vector_task_added.svg" alt="task added icon" class="icon">
-            </div>
+            </div> -->
             <div id="add-task-placeholder"> </div>
             <!-- <form class="add-task-form" id="add-task-form-container" action="task_card.html" method="get"
                 onsubmit="event.preventDefault(); createNewTask(TASK_STATUS_TODO);">

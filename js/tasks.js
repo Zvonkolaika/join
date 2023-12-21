@@ -67,34 +67,33 @@ const categories = [
     return task;
 }  */
 
-async function createNewTask(taskStatus) {
+// async function createNewTask(taskStatus) {
+async function submitTask(taskStatus, submitTaskID = 0) {
 
     let title = document.getElementById('task-title').value;
     let description = document.getElementById('task-description').value;
-    let date = document.getElementById('task-date').value;
+    let date = new Date(document.getElementById('task-date').value);
     let task = {
         'title': title,
         'description': description,
-        'date': new Date().getTime(date),
-        'prio': PRIO_MDM,
+        'date': date,
+        'prio': taskPrio,
         'assignedUsers': assignUserList,
         'category': category,
         'taskStatus': taskStatus,
         'taskID': new Date().getTime(),
         'subtasks': subtasks,
     };
-    // console.log('task created: ' + 
-    //             '\ntitle ' + task['title'] +
-    //             '\ndescription ' + task['description'] +
-    //             '\ndate ' + task['date'] +
-    //             '\nprio ' + task['prio'] +
-    //             '\nassignedUsers ' + task['assignedUsers'] +
-    //             '\ncategory ' + task['category'] +
-    //             '\ntaskStatus ' + task['taskStatus'] +
-    //             '\ntaskID ' + task['taskID'] +
-    //             '\nsubtasks ' + task['subtasks']);
+
     tasks = await getRemote('tasks');
-    tasks.push(task);
+
+    if(submitTaskID){
+        const index = tasks.findIndex((task) => task.taskID === submitTaskID);
+        task.taskID = submitTaskID;
+        tasks[index] = task;
+    } else {
+        tasks.push(task);
+    }
   
     await setItem('tasks', tasks);
     showAddedTaskMsg();
@@ -106,7 +105,6 @@ async function createNewTask(taskStatus) {
 
 function editTask(task) {
     window.location.href = `./add_task.html`;
-    debugger;
     document.getElementById('task-title').value = task;
     // ['title'];
     document.getElementById('task-description').value = task['description'];
@@ -288,7 +286,8 @@ function removeAssignedUser(id) {
 }
 
 function renderUserIcon(userID, userColour, userName) {
-    return /*html*/`
+    const selectedUsersContainer = document.getElementById('selected-users-container');
+    selectedUsersContainer.innerHTML +=  /*html*/`
             <div class="selected-icon" id="selected-icon-user-assigned-${userID.toString()}" ondblclick="removeAssignedUser(${userID})">
             <div class="acc-initials" style="background-color:${userColour}">
                     <p>${returnInitials(userName)}</p>
@@ -298,7 +297,6 @@ function renderUserIcon(userID, userColour, userName) {
 }
 
 function selectOption(checkbox, id) {
-    const selectedUsersContainer = document.getElementById('selected-users-container');
     if (checkbox.checked) {
         let selectedName = checkbox.getAttribute('data-name');
         
@@ -309,7 +307,7 @@ function selectOption(checkbox, id) {
             console.log('id ' + id);
             assignUserList.push(usersList[index]);
         }
-        selectedUsersContainer.innerHTML += renderUserIcon(id, usersList[index].bgColor, usersList[index].name);
+        renderUserIcon(id, usersList[index].bgColor, usersList[index].name);
     } else {
         // If checkbox is unchecked, remove the corresponding icon div
         const selectedIcon = document.getElementById('selected-icon-user-assigned-' + id.toString());
