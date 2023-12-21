@@ -290,7 +290,7 @@ main {
   gap: 32px;
 }
 
-.input-container:has(input:invalid) {
+.input-invalid {
   border: 1px solid red;
 }
 
