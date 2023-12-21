@@ -4,6 +4,7 @@ async function init() {
   await includeHTML();
   await loadTasks();
   renderMetricValues();
+  setCurrentPageLinkActive('summary');
 }
 
 async function loadTasks() {
