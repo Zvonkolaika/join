@@ -1,7 +1,7 @@
 async function drawCards(){
     let tasks = await getRemote('tasks');
     tasks.forEach(task => {
-       renderTaskCard(task);
+        renderTaskCard("task-card", task);
     });
 }
 
@@ -10,12 +10,11 @@ async function selectSubtaskStatus(checkbox, taskID, subtaskID){
     let tasks = await getRemote('tasks');
     const taskIdx = tasks.findIndex((task) => task.taskID === taskID);
     const subtaskIdx = tasks[taskIdx].subtasks.findIndex((subtask) => subtask[SUBTASK_ID] === subtaskID);
-
     if (subtaskIdx !== -1) {
         if (checkbox.checked) {
             tasks[taskIdx].subtasks[subtaskIdx][SUBTASK_DONE] = true;
         } else {
-            tasks[taskIdx].subtasks[subtaskIdx][SUBTASK_DONE][SUBTASK_DONE] = false;
+            tasks[taskIdx].subtasks[subtaskIdx][SUBTASK_DONE] = false;
         }
         await setItem('tasks', tasks);
     } else {
@@ -315,8 +314,8 @@ function renderTaskForm(
     `;
 }
 
-function renderTaskCard(task){
-    let taskCard = document.getElementById("task-card");
+function renderTaskCard(elementId, task){
+    let taskCard = document.getElementById(elementId);
     taskCard.innerHTML += /*html*/`
         
     <div class="container dp-flex flex-column" id="task-card-id-${task['taskID']}" style="align-items: flex-start; margin: 40px; padding: 40px;">

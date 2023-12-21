@@ -103,50 +103,6 @@ async function submitTask(taskStatus, submitTaskID = 0) {
     }, 1800);
 }
 
-function editTask(task) {
-    window.location.href = `./add_task.html`;
-    document.getElementById('task-title').value = task;
-    // ['title'];
-    document.getElementById('task-description').value = task['description'];
-    document.getElementById('task-date').value = task['date'];
-
-    // task['title'] = title;
-    // task['description'] = description;
-    //task['date'] = date;
-    taskPrio = task['prio'];
-    switch(taskPrio){
-        case PRIO_URG: {
-            prioButtonUrgent();
-            break;
-        } 
-        case PRIO_MDM: {
-            prioButtonMedium();
-            break;
-        }
-        case PRIO_LOW: {
-            prioButtonLow();
-            break;
-        }
-    }   
-    assignUserList = task['assignedUsers'];
-    renderHTMLUsersList(usersList);
-    category = task['category'];
-    document.getElementById('selected-category').value = category['name'];
-    // category-${name}
-    subtasks = task['subtasks'];
-    // console.log('task edited: ' + 
-    //             '\ntitle ' + task['title'] +
-    //             '\ndescription ' + task['description'] +
-    //             '\ndate ' + task['date'] +
-    //             '\nprio ' + task['prio'] +
-    //             '\nassignedUsers ' + task['assignedUsers'] +
-    //             '\ncategory ' + task['category'] +
-    //             '\ntaskStatus ' + task['taskStatus'] +
-    //             '\ntaskID ' + task['taskID'] +
-    //             '\nsubtasks ' + task['subtasks']);
-}
-
-
 function showAddedTaskMsg() {
     document.getElementById("task-added").classList.remove("d-none");
     setTimeout(() => {
@@ -536,7 +492,7 @@ function renderSubtaskListItem(subtaskText, subtaskId) {
                     <img class="add-subtaskicons icon vector" src="/assets/img/icons/Vector 19.svg" alt="">
                 </div>
                 <div class="delete_icon_div">
-                    <img class="add-subtaskicons icon delete" src="/assets/img/icons/Property 1=delete.svg" alt="" onclick="deleteSubtask(event, '${subtaskId}')">
+                    <img class="add-subtaskicons icon delete" src="/assets/img/icons/Property 1=delete.svg" alt="" onclick="deleteSubtask(event, ${subtaskId})">
                 </div>
             </div>
         </div>
