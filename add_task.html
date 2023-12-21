@@ -11,25 +11,34 @@
     <link rel="stylesheet" href="/assets/fonts/inter.css">
     <script src="/js/contacts.js"></script>
     <script src="/js/tasks.js"></script>
+    <script src="/js/task_render.js"></script>
     <script src="/js/storage.js"></script>
     <script src="script.js"></script>
 </head>
-<body onload="init(); disablePrioBtns();">
+<body onload="init(); renderAddTaskForm('add-task-placeholder'); disablePrioBtns();">
     <div class="container">
         <header w3-include-html="./assets/templates/header.html"></header>
         <nav w3-include-html="./assets/templates/sidebar.html"></nav>
         <main>
-            <form class="add-task-form" id="add-task-form-container" action="task_card.html" method="get"
-                onsubmit="event.preventDefault(); createNewTask();">
+            <div id="task-added" class="task-added d-none">
+                <span>Task added to board</span>
+                <img src="/assets/img/icons/Vector_task_added.svg" alt="task added icon" class="icon">
+            </div>
+            <div id="add-task-placeholder"> </div>
+            <!-- <form class="add-task-form" id="add-task-form-container" action="task_card.html" method="get"
+                onsubmit="event.preventDefault(); createNewTask(TASK_STATUS_TODO);">
+                <div class="task-form-full"> -->
                 <!-- Header Section -->
-                <div class="header-div">
+                <!-- <div class="header-div">
                     <h1>Add Task</h1>
                 </div>
                 <div class="content-add-task">
-                    <div class="title-description-div">
+                    <div class="title-description-div"> -->
                         <!-- Task Title -->
-                        <div class="task-categories title">
-                            <span>Title*</span>
+                        <!-- <div class="task-categories title">
+                            <div class="required">
+                                <span>Title</span><span class="red-asterisk">*</span>
+                            </div>
                             <div class="input-container">
                                 <input type="text" id="task-title" required class="input-field" placeholder="Enter a title">
                             </div>
@@ -64,7 +73,9 @@
                     <div class="borderline"></div>
                     <div class="date-prio-container">
                             <div class="task-categories date">
-                                <span>Due date</span>
+                                <div class="required">
+                                    <span>Due date</span><span class="red-asterisk">*</span>
+                                </div>
                                 <input type="date" id="task-date" class="input-field date-task-inputfield" placeholder="dd/mm/yy">
                             </div>
                             <div class="task-categories prio-categories">
@@ -100,7 +111,9 @@
                                 </div>
                             </div>
                             <div class="task-categories categories">
-                                <span>Categories</span>
+                                <div class="required">
+                                    <span>Categories</span><span class="red-asterisk">*</span>
+                                </div>
                                 <div class="custom-select">
                                     <button class="dropdown select-button" role="combobox" id="categories-select-button"  onclick="toggleCategoriesSelect();">
                                         <input placeholder="Select task category" type="text" autocomplete="off" class="selected-value" id="selected-category" readonly>
@@ -125,6 +138,9 @@
                     </div>
                 </div>
                 <div class="create-delete-task-container">
+                    <div>
+                        <span class="required-field"><span class="red-asterisk">*</span>This field is required</span>
+                    </div>
                         <div class="create-delete-task-btn" id="create-delete-task-btns-container">
                             <button id="reset" type="reset" class="button-secondary-w-icon add-task-btn">
                                 Clear
@@ -138,7 +154,8 @@
                             </button>
                         </div>
                 </div>
-            </form>
+                </div>
+            </form> -->
         </main>
     </div>
 </body>

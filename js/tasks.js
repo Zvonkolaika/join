@@ -43,7 +43,7 @@ const categories = [
 ];
 
 // use default parameters to set JSON values 
-function addTask(title = 'title is empty',
+/* function addTask(title = 'title is empty',
                     description = 'description is empty',
                     date = new Date().getTime(),
                     prio = PRIO_MDM,
@@ -65,18 +65,34 @@ function addTask(title = 'title is empty',
         'subtasks': subtasksSubmit,
     };
     return task;
-} 
+}  */
 
-async function createNewTask() {
+async function createNewTask(taskStatus) {
 
     let title = document.getElementById('task-title').value;
     let description = document.getElementById('task-description').value;
     let date = document.getElementById('task-date').value;
-    let task = addTask(title = title, 
-                        description = description, 
-                        date = new Date().getTime(date), 
-                        prio = taskPrio, 
-                        assignedUsers = assignUserList); 
+    let task = {
+        'title': title,
+        'description': description,
+        'date': new Date().getTime(date),
+        'prio': PRIO_MDM,
+        'assignedUsers': assignUserList,
+        'category': category,
+        'taskStatus': taskStatus,
+        'taskID': new Date().getTime(),
+        'subtasks': subtasks,
+    };
+    // console.log('task created: ' + 
+    //             '\ntitle ' + task['title'] +
+    //             '\ndescription ' + task['description'] +
+    //             '\ndate ' + task['date'] +
+    //             '\nprio ' + task['prio'] +
+    //             '\nassignedUsers ' + task['assignedUsers'] +
+    //             '\ncategory ' + task['category'] +
+    //             '\ntaskStatus ' + task['taskStatus'] +
+    //             '\ntaskID ' + task['taskID'] +
+    //             '\nsubtasks ' + task['subtasks']);
     tasks = await getRemote('tasks');
     tasks.push(task);
   
@@ -87,6 +103,51 @@ async function createNewTask() {
     window.location.href = `./task_card.html`;
     }, 1800);
 }
+
+function editTask(task) {
+    window.location.href = `./add_task.html`;
+    debugger;
+    document.getElementById('task-title').value = task;
+    // ['title'];
+    document.getElementById('task-description').value = task['description'];
+    document.getElementById('task-date').value = task['date'];
+
+    // task['title'] = title;
+    // task['description'] = description;
+    //task['date'] = date;
+    taskPrio = task['prio'];
+    switch(taskPrio){
+        case PRIO_URG: {
+            prioButtonUrgent();
+            break;
+        } 
+        case PRIO_MDM: {
+            prioButtonMedium();
+            break;
+        }
+        case PRIO_LOW: {
+            prioButtonLow();
+            break;
+        }
+    }   
+    assignUserList = task['assignedUsers'];
+    renderHTMLUsersList(usersList);
+    category = task['category'];
+    document.getElementById('selected-category').value = category['name'];
+    // category-${name}
+    subtasks = task['subtasks'];
+    // console.log('task edited: ' + 
+    //             '\ntitle ' + task['title'] +
+    //             '\ndescription ' + task['description'] +
+    //             '\ndate ' + task['date'] +
+    //             '\nprio ' + task['prio'] +
+    //             '\nassignedUsers ' + task['assignedUsers'] +
+    //             '\ncategory ' + task['category'] +
+    //             '\ntaskStatus ' + task['taskStatus'] +
+    //             '\ntaskID ' + task['taskID'] +
+    //             '\nsubtasks ' + task['subtasks']);
+}
+
 
 function showAddedTaskMsg() {
     document.getElementById("task-added").classList.remove("d-none");
@@ -298,7 +359,7 @@ document.addEventListener('click', function (event) {
 
 function renderCategoriesList(name, colour, index) {
     return /*html*/`
-            <div class="dropdown-position" onclick="selectOptionCat(this, ${index})">
+            <div class="dropdown-position" onclick="selectOptionCat(this, ${index})" id="category-${name}">
                 <div class="initials-name" value="${index}" name="${name}">
                 ${name}
                 </div>
@@ -511,6 +572,13 @@ function resetSubtaskInput(subtaskInput) {
 
 function getTaskStatusByIndex(idx){
     return taskStatusCategories[idx];
+}
+
+async function getTaskById(id){
+    tasks = await getRemote('tasks');
+    const index = tasks.findIndex((task) => task.taskID === id);
+    return tasks[index];
+   
 }
 
 
