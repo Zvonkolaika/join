@@ -521,10 +521,6 @@ small {
     flex-shrink: 0;
   }
 
-  .sidebar_button_typography {
-    font-size: 14px;
-  }
-
   .sidebar_footer_container {
     display: none;
   }
