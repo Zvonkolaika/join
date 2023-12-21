@@ -167,9 +167,11 @@ function renderTaskForm(
         assignedUsers = [],
         categorySubmit = [],
         taskStatus = TASK_STATUS_TODO,
-        taskID = new Date().getTime(),
-        subtasksSubmit = []) {        
+        taskID = 0,
+        subtasksSubmit = []) {
 
+    let sumitBtnName = !taskID ? 'Create Task' : 'Submit Changes';
+    let popUpMsg = !taskID ? 'Task created ' : 'Task updated ';
     let taskTitle = title.length ? `value="${title}"` : '';
     let taskDescription = description.length ? `${description}` : '';
     let taskDate = date !== 0 ? `value="${normalDateEditTask(date)}"` : '';
@@ -301,14 +303,14 @@ function renderTaskForm(
                             class="clearIconBlue d-none-ni">
                     </button>
                     <button class="button-w-icon" type="submit" value="Submit">
-                        Create Task
+                        ${sumitBtnName}
                         <img src="./assets/img/icons/check.svg">
                     </button>
                 </div>
         </div>
     </form>
     <div id="task-added" class="task-added d-none">
-                <span>Task added to board</span>
+                <span>${popUpMsg}</span>
                 <img src="/assets/img/icons/Vector_task_added.svg" alt="task added icon" class="icon">
     </div>
     `;
