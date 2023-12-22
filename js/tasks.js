@@ -532,7 +532,15 @@ async function getTaskById(id){
     tasks = await getRemote('tasks');
     const index = tasks.findIndex((task) => task.taskID === id);
     return tasks[index];
-   
+}
+
+async function deleteTask(id) {
+    tasks = await getRemote('tasks');
+    const index = tasks.findIndex((task) => task.taskID === id);
+    if (index !== -1) {
+        tasks.splice(index, 1);
+    }
+    await setItem('tasks', tasks);
 }
 
 

@@ -362,7 +362,7 @@ function renderTaskCard(elementId, task){
     </div>       
     <div class="create-delete-task-container">
         <div class="create-delete-task-btn" id="create-delete-task-btns-container">
-                <button id="reset" type="reset" class="button-secondary-w-icon add-task-btn">
+                <button id="reset" type="reset" class="button-secondary-w-icon add-task-btn" onclick="deleteTask(${task['taskID']})">
                     Delete   
                     <img src="/assets/img/icons/cancel.svg" id="clearIconHover" class="clearIconDefault">
                     <img src="/assets/img/icons/iconoir_cancel.svg" id="clearIconDefault" class="clearIconBlue d-none">
