@@ -160,7 +160,7 @@ async function renderEditTaskForm(elementId, taskId) {
             break;
         }
     }
-    subtasks = subtasksSubmit;
+    subtasks = task['subtasks'];
     subtasks.forEach(subtask => {
         const selectSubtaskList = document.getElementById('select-subtask');
         selectSubtaskList.innerHTML += renderSubtaskListItem(subtask[SUBTASK_TEXT] , subtask[SUBTASK_ID]);
