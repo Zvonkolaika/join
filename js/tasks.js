@@ -99,7 +99,7 @@ async function submitTask(taskStatus, submitTaskID = 0) {
     showAddedTaskMsg();
     //redirect to task card
     setTimeout(() => {
-    window.location.href = `./task_card.html`;
+        window.location.href = `./board.html`;
     }, 1800);
 }
 
@@ -541,6 +541,7 @@ async function deleteTask(id) {
         tasks.splice(index, 1);
     }
     await setItem('tasks', tasks);
+    window.location.href = `./board.html`;
 }
 
 
