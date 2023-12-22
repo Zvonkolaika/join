@@ -54,9 +54,10 @@ const backgroundColors = [
 ];
 
 async function init() {
-  await includeHTML();
+  await loadTemplates();
   await loadContacts();
   renderContactList();
+  setCurrentPageLinkActive("contacts");
 }
 
 async function loadContacts() {
@@ -387,13 +388,8 @@ function hideMore() {
   }, 950);
 }
 
-function returnInitials(string) {
-  let words = string.split(" ");
-  let innitials = "";
-
-  for (let i = 0; i < words.length; i++) {
-    innitials += words[i].charAt(0).toUpperCase();
-  }
-
-  return innitials;
+function highlightInvalid(element) {
+  if (!element.checkValidity())
+    element.parentNode.classList.add("input-invalid");
+  else element.parentNode.classList.remove("input-invalid");
 }

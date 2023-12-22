@@ -290,7 +290,7 @@ main {
   gap: 32px;
 }
 
-.input-container:has(input:invalid) {
+.input-invalid {
   border: 1px solid red;
 }
 
@@ -366,7 +366,7 @@ main {
 
 /* --- contact form animation end ---  */
 
-.contact-created {
+.task-added-animation {
   display: inline;
   border-radius: 20px;
   background-color: #2a3647;

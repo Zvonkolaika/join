@@ -164,9 +164,9 @@ function handleSignUpButton() {
 function lookIfWindowIs670px() {
     if (window.innerWidth <= 670) {
         document.querySelector('.switch-to-sign-up_frame').classList.add('d-none');
-      } else {
+    } else {
         document.querySelector('.switch-to-sign-up_frame').classList.remove('d-none');
-      }
+    }
 }
 
 /* eventlistener for animation */
@@ -244,7 +244,7 @@ function togglePasswordVisibility() {
 window.addEventListener('resize', insertMobileLogo);
 
 function insertMobileLogo() {
-    if(window.innerWidth <= 670) {
+    if (window.innerWidth <= 670) {
         document.querySelector('.content').innerHTML += generateMobileLogo();
     }
 }
@@ -283,4 +283,11 @@ function generateMobileLogo() {
 
 function cameFromLogin(p) {
     window.location.href = `${p}.html?login=login`;
+}
+
+/* experementing */
+async function testingstuff(p) {
+    let testArrayAsText = await getItem(`${p}`);
+    let testArrayAsJSON = JSON.parse(testArrayAsText);
+    console.log(testArrayAsJSON);
 }

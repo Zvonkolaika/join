@@ -43,7 +43,7 @@ const categories = [
 ];
 
 // use default parameters to set JSON values 
-function addTask(title = 'title is empty',
+/* function addTask(title = 'title is empty',
                     description = 'description is empty',
                     date = new Date().getTime(),
                     prio = PRIO_MDM,
@@ -65,27 +65,51 @@ function addTask(title = 'title is empty',
         'subtasks': subtasksSubmit,
     };
     return task;
-} 
+}  */
 
-async function createNewTask() {
+// async function createNewTask(taskStatus) {
+async function submitTask(taskStatus, submitTaskID = 0) {
 
     let title = document.getElementById('task-title').value;
     let description = document.getElementById('task-description').value;
-    let date = document.getElementById('task-date').value;
-    let task = addTask(title = title, 
-                        description = description, 
-                        date = new Date().getTime(date), 
-                        prio = taskPrio, 
-                        assignedUsers = assignUserList); 
+    let date = new Date(document.getElementById('task-date').value);
+    let task = {
+        'title': title,
+        'description': description,
+        'date': date,
+        'prio': taskPrio,
+        'assignedUsers': assignUserList,
+        'category': category,
+        'taskStatus': taskStatus,
+        'taskID': new Date().getTime(),
+        'subtasks': subtasks,
+    };
+
     tasks = await getRemote('tasks');
-    tasks.push(task);
+
+    if(submitTaskID){
+        const index = tasks.findIndex((task) => task.taskID === submitTaskID);
+        task.taskID = submitTaskID;
+        tasks[index] = task;
+    } else {
+        tasks.push(task);
+    }
   
     await setItem('tasks', tasks);
+    showAddedTaskMsg();
     //redirect to task card
-    window.location.href = `./task_card.html`;
+    setTimeout(() => {
+        window.location.href = `./board.html`;
+    }, 1800);
 }
 
-// TODO: support real contacts list
+function showAddedTaskMsg() {
+    document.getElementById("task-added").classList.remove("d-none");
+    setTimeout(() => {
+      document.getElementById("task-added").classList.add("d-none");
+    }, 900);
+  }
+
 function getSelectedUser(){
     let user = document.getElementById('user-select').value;
     //console.log('Selected user is ' + user);
@@ -218,7 +242,8 @@ function removeAssignedUser(id) {
 }
 
 function renderUserIcon(userID, userColour, userName) {
-    return /*html*/`
+    const selectedUsersContainer = document.getElementById('selected-users-container');
+    selectedUsersContainer.innerHTML +=  /*html*/`
             <div class="selected-icon" id="selected-icon-user-assigned-${userID.toString()}" ondblclick="removeAssignedUser(${userID})">
             <div class="acc-initials" style="background-color:${userColour}">
                     <p>${returnInitials(userName)}</p>
@@ -228,7 +253,6 @@ function renderUserIcon(userID, userColour, userName) {
 }
 
 function selectOption(checkbox, id) {
-    const selectedUsersContainer = document.getElementById('selected-users-container');
     if (checkbox.checked) {
         let selectedName = checkbox.getAttribute('data-name');
         
@@ -239,7 +263,7 @@ function selectOption(checkbox, id) {
             console.log('id ' + id);
             assignUserList.push(usersList[index]);
         }
-        selectedUsersContainer.innerHTML += renderUserIcon(id, usersList[index].bgColor, usersList[index].name);
+        renderUserIcon(id, usersList[index].bgColor, usersList[index].name);
     } else {
         // If checkbox is unchecked, remove the corresponding icon div
         const selectedIcon = document.getElementById('selected-icon-user-assigned-' + id.toString());
@@ -289,7 +313,7 @@ document.addEventListener('click', function (event) {
 
 function renderCategoriesList(name, colour, index) {
     return /*html*/`
-            <div class="dropdown-position" onclick="selectOptionCat(this, ${index})">
+            <div class="dropdown-position" onclick="selectOptionCat(this, ${index})" id="category-${name}">
                 <div class="initials-name" value="${index}" name="${name}">
                 ${name}
                 </div>
@@ -468,7 +492,7 @@ function renderSubtaskListItem(subtaskText, subtaskId) {
                     <img class="add-subtaskicons icon vector" src="/assets/img/icons/Vector 19.svg" alt="">
                 </div>
                 <div class="delete_icon_div">
-                    <img class="add-subtaskicons icon delete" src="/assets/img/icons/Property 1=delete.svg" alt="" onclick="deleteSubtask(event, '${subtaskId}')">
+                    <img class="add-subtaskicons icon delete" src="/assets/img/icons/Property 1=delete.svg" alt="" onclick="deleteSubtask(event, ${subtaskId})">
                 </div>
             </div>
         </div>
@@ -502,6 +526,22 @@ function resetSubtaskInput(subtaskInput) {
 
 function getTaskStatusByIndex(idx){
     return taskStatusCategories[idx];
+}
+
+async function getTaskById(id){
+    tasks = await getRemote('tasks');
+    const index = tasks.findIndex((task) => task.taskID === id);
+    return tasks[index];
+}
+
+async function deleteTask(id) {
+    tasks = await getRemote('tasks');
+    const index = tasks.findIndex((task) => task.taskID === id);
+    if (index !== -1) {
+        tasks.splice(index, 1);
+    }
+    await setItem('tasks', tasks);
+    window.location.href = `./board.html`;
 }
 
 
