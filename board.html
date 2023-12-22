@@ -8,9 +8,13 @@
     <link rel="icon" href="assets/img/logo_white.svg" sizes="any" type="image/svg+xml">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="styles/board.css" />
+    <link rel="stylesheet" href="styles/add_task.css" />
+    <!-- <link rel="stylesheet" href="styles/contacts.css" /> -->
     <link rel="stylesheet" href="./assets/fonts/inter.css" />
     <script src="script.js"></script>
     <script src="./js/storage.js"></script>
+    <script src="./js/tasks.js"></script>
+    <script src="./js/contacts.js"></script>
     <script src="./js/task_render.js"></script>
     <script src="./js/board.js"></script>
 </head>
@@ -20,6 +24,8 @@
         <header w3-include-html="./assets/templates/header.html"></header>
         <nav w3-include-html="./assets/templates/sidebar.html"></nav>
         <main>
+            <div id="board_popup_placeholder" class="d-none">
+            </div>
             <div class="board_header_container">
                 <div class="board_header">
                     <div class="board_headline_container">
@@ -41,19 +47,19 @@
             <div class="categories_container">
                 <div class="categories">
                     <p>To do</p>
-                    <div class="plus_icon_frame">
+                    <div class="plus_icon_frame" onclick="renderAddTaskForm('board_popup_placeholder'); showAddTaskForm('board_popup_placeholder', true)">
                         <img src="assets/img/icons/plus.svg">
                     </div>
                 </div>
                 <div class="categories">
                     <p>In progress</p>
-                    <div class="plus_icon_frame">
+                    <div class="plus_icon_frame" onclick="renderAddTaskForm('board_popup_placeholder', TASK_STATUS_INPROGRESS); showAddTaskForm('board_popup_placeholder', true)">
                         <img src="assets/img/icons/plus.svg">
                     </div>
                 </div>
                 <div class="categories">
                     <p>Await feedback</p>
-                    <div class="plus_icon_frame">
+                    <div class="plus_icon_frame" onclick="renderAddTaskForm('board_popup_placeholder', TASK_STATUS_AWAITFEEDBACK); showAddTaskForm('board_popup_placeholder', true)">
                         <img src="assets/img/icons/plus.svg">
                     </div>
                 </div>
@@ -64,29 +70,29 @@
             <div class="board_distribution">
                 <div class="column" id="column_todo">
                     <div id="task-card" class="task-card"></div>
-                    <div class="no_task">
+                    <!-- <div class="no_task">
                         <p>No task To Do</p>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="column" id="column_in_progress">
-                    <div class="no_task">
+                    <!-- <div class="no_task">
                         <p>No task To Do</p>
-                    </div>
+                    </div> -->
                 </div>
 
 
                 <div class="column" id="column_await_feedback">
-                    <div class="no_task">
+                    <!-- <div class="no_task">
                         <p>No task To Do</p>
-                    </div>
+                    </div> -->
                 </div>
 
 
                 <div class="column" id="column_done">
-                    <div class="no_task">
+                    <!-- <div class="no_task">
                         <p>No task To Do</p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </main>
