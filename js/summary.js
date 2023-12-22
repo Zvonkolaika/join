@@ -10,9 +10,17 @@ async function init() {
 async function loadTasks() {
   try {
     tasks = JSON.parse(await getItem("tasks"));
+    convertDueDates();
     console.log(`${tasks.length} tasks successfully loaded`, tasks);
   } catch (e) {
     console.warn("no tasks found on server");
+  }
+}
+
+function convertDueDates() {
+  for (let i = 0; i < tasks.length; i++) {
+    let taskDueDate = new Date(tasks[i]["date"]);
+    tasks[i]["date"] = taskDueDate;
   }
 }
 
