@@ -9,10 +9,7 @@ let users = [
 
 /* load user data */
 document.addEventListener('DOMContentLoaded', async function () {
-    await insertMobileLogo();
-    document.querySelector('.login-logo').classList.add('animate-logo');
-    document.querySelector('#animations-helper').classList.add('animate-helper');
-    ifMobileLogo();
+    await mobileAnimationsPreparing();
     await convertData();
     if (lookIfMSGParameterIsInLink() === true) {
         displayRegisterSuccessMSG();
@@ -173,13 +170,6 @@ function lookIfWindowIs670px() {
     }
 }
 
-/* eventlistener for animation */
-let animationsHelper = document.getElementById('animations-helper');
-
-animationsHelper.addEventListener('animationend', () => {
-    animationsHelper.classList.add('d-none');
-});
-
 /* password login visibility */
 let pwImgs = document.querySelectorAll('.pw-img');
 let visibleImgs = document.querySelectorAll('.visible-img');
@@ -244,7 +234,6 @@ function togglePasswordVisibility() {
 }
 
 /* insert mobile logo */
-
 async function insertMobileLogo() {
     if (window.innerWidth <= 670) {
         document.querySelector('.content').innerHTML += generateMobileLogo();
@@ -255,6 +244,14 @@ function ifMobileLogo() {
     if(document.getElementById('mobile-login-logo')) {
         document.getElementById('mobile-login-logo').classList.add('animate-logo')
     }
+}
+
+/* prepare mobile logo */
+async function mobileAnimationsPreparing() {
+    await insertMobileLogo();
+    document.querySelector('.login-logo').classList.add('animate-logo');
+    document.querySelector('#animations-helper').classList.add('animate-helper');
+    ifMobileLogo();
 }
 
 /* generate mobile logo */
