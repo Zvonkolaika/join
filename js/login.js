@@ -50,8 +50,8 @@ function logIn() {
 
     if (foundUser) {
         rememberMe();
-        // code zum weiterleiten in die app
         sessionStorage.setItem('user', foundUser.name);
+        // code zum weiterleiten in die app
     } else {
         logInWarning();
     }
