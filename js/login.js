@@ -7,7 +7,7 @@ let users = [
     },
 ];
 
-/* load user data */
+/* load user data & mobile logo animation */
 document.addEventListener('DOMContentLoaded', async function () {
     await mobileAnimationsPreparing();
     await convertData();
