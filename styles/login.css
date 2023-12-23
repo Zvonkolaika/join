@@ -77,12 +77,14 @@ body {
     padding: 48px 115px;
     background-color: white;
     border-radius: 30px;
+    box-shadow: 3px 4px 6px rgba(0,0,0,0.03);
 }
 
 .signUp-card-frame {
     padding: 48px 88px;
     background-color: white;
     border-radius: 30px;
+    box-shadow: 3px 4px 6px rgba(0,0,0,0.03);
 }
 
 .login-card {

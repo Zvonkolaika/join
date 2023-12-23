@@ -51,7 +51,7 @@ function logIn() {
     if (foundUser) {
         rememberMe();
         // code zum weiterleiten in die app
-        console.log('Successfully logged in')
+        sessionStorage.setItem('user', foundUser.name);
     } else {
         logInWarning();
     }
@@ -106,7 +106,7 @@ async function registerNewUser() {
             let newUser = generateNewUserArray(name.value, email.value, password.value);
             users.push(newUser);
             await setItem('users', users);
-            window.location.href = 'login.html?msg=You have registered successfully';
+            window.location.href = 'index.html?msg=You have registered successfully';
         } else {
             document.querySelector('#register_warning').innerHTML = `Ups! Your password don't match, try again`;
         }
@@ -141,7 +141,7 @@ function handleSignInSignUp() {
     if (!signInDisplay.classList.contains('d-none')) {
         switchToSignUp();
     } else {
-        window.location.href = 'login.html'
+        window.location.href = 'index.html'
     }
 }
 
@@ -287,6 +287,7 @@ function generateMobileLogo() {
     return html;
 }
 
+/* if privacy and legal note is open from login */
 function cameFromLogin(p) {
     window.location.href = `${p}.html?login=login`;
 }
