@@ -9,6 +9,10 @@ let users = [
 
 /* load user data */
 document.addEventListener('DOMContentLoaded', async function () {
+    await insertMobileLogo();
+    document.querySelector('.login-logo').classList.add('animate-logo');
+    document.querySelector('#animations-helper').classList.add('animate-helper');
+    ifMobileLogo();
     await convertData();
     if (lookIfMSGParameterIsInLink() === true) {
         displayRegisterSuccessMSG();
@@ -241,17 +245,21 @@ function togglePasswordVisibility() {
 
 /* insert mobile logo */
 
-window.addEventListener('resize', insertMobileLogo);
-
-function insertMobileLogo() {
+async function insertMobileLogo() {
     if (window.innerWidth <= 670) {
         document.querySelector('.content').innerHTML += generateMobileLogo();
     }
 }
 
+function ifMobileLogo() {
+    if(document.getElementById('mobile-login-logo')) {
+        document.getElementById('mobile-login-logo').classList.add('animate-logo')
+    }
+}
+
 /* generate mobile logo */
 function generateMobileLogo() {
-    return `
+    let html = `
     <svg id="mobile-login-logo" class="login-logo" width="101" height="122" viewBox="0 0 101 122" fill="none" xmlns="http://www.w3.org/2000/svg">
     <style>
     #Vector, #Vector_2, #Vector_4, #Vector_5, #Vector_6 {
@@ -279,6 +287,7 @@ function generateMobileLogo() {
     </g>
     </svg>
     `;
+    return html;
 }
 
 function cameFromLogin(p) {
