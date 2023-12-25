@@ -236,6 +236,11 @@ label {
     font-size: 16px;
 }
 
+/* invalid border */
+.border-red {
+    border-color: red!important;
+  }
+
 @keyframes registerWasASuccess {
     0% {
         opacity: 100%;
