@@ -283,9 +283,8 @@ function displayRegisterSuccessMSG() {
 }
 
 /*-- handle signIn signUp display --*/
-let signInDisplay = document.getElementById('login-card_frame');
-
 function handleSignInSignUp() {
+    let signInDisplay = document.getElementById('login-card_frame');
     if (!signInDisplay.classList.contains('d-none')) {
         switchToSignUp();
     } else {
@@ -294,6 +293,7 @@ function handleSignInSignUp() {
 }
 
 function switchToSignUp() {
+    let signInDisplay = document.getElementById('login-card_frame');
     let paragraph = document.getElementById('switch-signIn-signUp_paragraph');
     let button = document.getElementById('handle-signIn-signUp_button');
     let signUpDisplay = document.getElementById('sign-up-card_frame');
@@ -309,6 +309,7 @@ function handleSignUpButton() {
     let button = document.getElementById('signUp-button');
     if (button.classList.contains('d-none')) {
         button.classList.remove('d-none');
+        assignButtonsFormValidationFunction();
     } else {
         button.classList.add('d-none');
     }
