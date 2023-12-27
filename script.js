@@ -2,7 +2,7 @@ let currentUrl;
 let currentPageName;
 let pageToDeactivate;
 let currentUser =
-  "Florian Hoffmann"; /* placeholder until logged in user is handed over from login */
+  "Guest"; /* placeholder until logged in user is handed over from login */
 
 async function loadTemplates() {
   await includeHTML();
@@ -76,6 +76,9 @@ function openNewSite(p) {
 
 function renderUserIcon() {
   let element = document.getElementById("header_user_initials_container");
+  if (sessionStorage.getItem("user"))
+    currentUser = sessionStorage.getItem("user");
+
   element.innerHTML = `
       <div class="header_user_initials_box">
         ${returnInitials(currentUser)}

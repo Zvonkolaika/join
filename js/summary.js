@@ -3,6 +3,7 @@ let tasks = [];
 async function init() {
   await loadTemplates();
   await loadTasks();
+  greetUser();
   renderMetricValues();
   setCurrentPageLinkActive("summary");
 }
@@ -73,4 +74,18 @@ function renderMetricValues() {
   );
   document.getElementById("awaiting-feedback-tasks").innerHTML =
     returnNumberofTasks("taskStatus", 2);
+}
+
+function greetUser() {
+  let now = new Date();
+  let time = now.getHours();
+
+  if (time <= 12)
+    document.getElementById("greeting-message").innerHTML = "Good Morning,";
+  if (time >= 12)
+    document.getElementById("greeting-message").innerHTML = "Good Afternoon,";
+  if (time >= 16)
+    document.getElementById("greeting-message").innerHTML = "Good Evening,";
+
+  document.getElementById("user-name").innerHTML = currentUser;
 }
