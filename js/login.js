@@ -30,8 +30,9 @@ let users = [
 
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-/*-- load user data & mobile logo animation --*/
+/*-- init --*/
 document.addEventListener('DOMContentLoaded', async function () {
+    lookIfWindowIs670pxToOptimizeMobileVersion();
     await mobileAnimationsPreparing();
     await convertData();
     if (lookIfMSGParameterIsInLink() === true) {
@@ -41,6 +42,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 });
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*-- load user data --*/
 async function convertData() {
     users = await getItem('users');
     parsedData = JSON.parse(users);
@@ -181,6 +185,7 @@ function logIn() {
     if (foundUser) {
         rememberMe();
         sessionStorage.setItem('user', foundUser.name);
+        sessionStorage.setItem('user-mail', foundUser.email)
         console.log('login succesfull');
         window.location.href = 'summary.html';
     } else {
@@ -216,7 +221,7 @@ function rememberMe() {
 }
 
 function loadRememberedLoginData() {
-    if (localStorage.getItem('rememberMe')) {
+    if (window.location.href.includes('index.html') && localStorage.getItem('rememberMe')) {
         document.getElementById('remember').checked = true;
         let emailInput = document.getElementById('login-email');
         let passwordInput = document.getElementById('login-password');
@@ -314,8 +319,8 @@ function handleSignUpButton() {
     }
 }
 
-function lookIfWindowIs670px() {
-    if (window.innerWidth <= 670) {
+function lookIfWindowIs670pxToOptimizeMobileVersion() {
+    if (window.innerWidth <= 670 && document.querySelector('.switch-to-sign-up_frame').hasAttribute("signupframe")) {
         document.querySelector('.switch-to-sign-up_frame').classList.add('d-none');
     } else {
         document.querySelector('.switch-to-sign-up_frame').classList.remove('d-none');
