@@ -241,14 +241,6 @@ function loadRememberedLoginData() {
 // let name = document.getElementById('register_name-input'); // these are global variables from the top there are used in this section of code
 // let email = document.getElementById('register_email-input'); // these are global variables from the top there are used in this section of code
 
-function checkIfFormIsValid() {
-    if (!name.validity.valid || !email.validity.valid || !password.validity.valid || !confirm.validity.valid) {
-        Array.from(querySelectorAll('.input-container')).forEach(function (input) {
-            input.classList.add('invalid-border');
-        });
-    }
-}
-
 async function registerNewUser() {
     if (await lookIfUsersAllreadyExists(email.value) === true) {
         document.querySelector('#register_warning').innerHTML = `A user with this email allready exists`;
@@ -332,13 +324,4 @@ function lookIfWindowIs670pxToOptimizeMobileVersion() {
 /*-- if privacy and legal note is open from login --*/
 function cameFromLogin(p) {
     window.location.href = `${p}.html?login=login`;
-}
-
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-/* experementing */
-async function testingstuff(p) {
-    let testArrayAsText = await getItem(`${p}`);
-    let testArrayAsJSON = JSON.parse(testArrayAsText);
-    console.log(testArrayAsJSON);
 }
