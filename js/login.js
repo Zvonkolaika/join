@@ -1,3 +1,19 @@
+/*-- global variables --*/
+
+//password login visibility
+let pwImgs = document.querySelectorAll('.pw-img');
+let visibleImgs = document.querySelectorAll('.visible-img');
+let pwInputs = document.querySelectorAll('.password-input');
+
+// remember me 
+let rememberedUser = [];
+
+// register new user 
+let password = document.getElementById('register_password-input');
+let confirm = document.getElementById('register_confirm-input');
+let name = document.getElementById('register_name-input');
+let email = document.getElementById('register_email-input');
+
 /*-- user array --*/
 let users = [
     {
@@ -6,6 +22,10 @@ let users = [
         password: 'test123'
     },
 ];
+
+// After new user is registrated
+const urlParams = new URLSearchParams(window.location.search);
+const message = urlParams.get('msg');
 
 /*-- load user data & mobile logo animation --*/
 document.addEventListener('DOMContentLoaded', async function () {
@@ -81,9 +101,9 @@ function generateMobileLogo() {
 }
 
 /*-- password login visibility --*/
-let pwImgs = document.querySelectorAll('.pw-img');
-let visibleImgs = document.querySelectorAll('.visible-img');
-let pwInputs = document.querySelectorAll('.password-input');
+// let pwImgs = document.querySelectorAll('.pw-img'); //
+// let visibleImgs = document.querySelectorAll('.visible-img'); //
+// let pwInputs = document.querySelectorAll('.password-input'); //
 
 // while focus
 pwInputs.forEach(input => {
@@ -140,33 +160,6 @@ function togglePasswordVisibility() {
     });
 }
 
-/*-- validation form-control --*/
-let inputDivs = document.querySelectorAll('div[formValidation]');
-let inputDivsArray = Array.from(inputDivs);
-let formInputs = document.querySelectorAll('input');
-let formInputsArray = Array.from(formInputs);
-let submitButtons = document.querySelectorAll('button[submitbutton]');
-
-function assignButtonsFormValidationFunction() {
-    Array.from(submitButtons).forEach(form_button => {
-        form_button.addEventListener('click', () => {
-            formInputsColouringIfNotValid();
-        });
-    });
-}
-
-function formInputsColouringIfNotValid() {
-    formInputsArray.forEach(form_input => {
-        inputDivsArray.forEach(div => {
-            if (!form_input.validity.valid) {
-                div.classList.add('border-red');
-            } else {
-                div.classList.remove('border-red');
-            }
-        });
-    });
-}
-
 /*-- login as existing user --*/
 function logIn() {
     let email = document.getElementById('login-email').value;
@@ -191,8 +184,8 @@ function logInWarning() {
     document.querySelector('#warning').innerHTML = `Incorrect email address or incorrect password`;
 }
 
-// remember me 
-let rememberedUser = [];
+// remember me
+// let rememberedUser = []; //
 
 function rememberMe() {
     let checkbox = document.getElementById('remember');
@@ -221,10 +214,10 @@ function loadRememberedLoginData() {
 }
 
 /*-- register new user --*/
-let password = document.getElementById('register_password-input');
-let confirm = document.getElementById('register_confirm-input');
-let name = document.getElementById('register_name-input');
-let email = document.getElementById('register_email-input');
+// let password = document.getElementById('register_password-input'); //
+// let confirm = document.getElementById('register_confirm-input'); //
+// let name = document.getElementById('register_name-input'); //
+// let email = document.getElementById('register_email-input'); //
 
 function checkIfFormIsValid() {
     if (!name.validity.valid || !email.validity.valid || !password.validity.valid || !confirm.validity.valid) {
@@ -268,8 +261,8 @@ async function lookIfUsersAllreadyExists(email) {
 }
 
 // After new user is registrated
-const urlParams = new URLSearchParams(window.location.search);
-const message = urlParams.get('msg');
+// const urlParams = new URLSearchParams(window.location.search); //
+// const message = urlParams.get('msg'); //
 
 function lookIfMSGParameterIsInLink() {
     if (message === 'You have registered successfully') {
