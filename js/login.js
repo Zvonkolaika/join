@@ -288,12 +288,13 @@ function displayRegisterSuccessMSG() {
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*-- handle signIn signUp display --*/
-function handleSignInSignUp() {
-    let signInDisplay = document.getElementById('login-card_frame');
-    if (!signInDisplay.classList.contains('d-none')) {
-        switchToSignUp();
+function goToSite(p) {
+    if(p == 1) {
+        window.location.href = 'index.html';
     } else {
-        window.location.href = 'index.html'
+        if(p == 2) {
+            window.location.href = 'register.html';
+        }
     }
 }
 
