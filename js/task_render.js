@@ -116,7 +116,8 @@ function renderAddTaskForm(elementId, setTaskStatus = TASK_STATUS_TODO) {
                                 undefined,                      //  categorySubmit
                                 taskStatus = setTaskStatus,     //  taskStatus
                                 undefined,                      //  taskID
-                                undefined                       //  subtasksSubmit
+                                undefined,                      //  subtasksSubmit
+                                undefined,                      //  elementId
                                 );
     disablePrioBtns();
 }
@@ -138,7 +139,8 @@ async function renderEditTaskForm(elementId, taskId) {
                                 task['category'],                   //  categorySubmit
                                 taskStatus = task['taskStatus'],    //  taskStatus
                                 task['taskID'],                     //  taskID
-                                task['subtasks']                    //  subtasksSubmit
+                                task['subtasks'],                   //  subtasksSubmit
+                                elementId                           //  elementId   
                                 );
     
     
@@ -178,7 +180,9 @@ function renderTaskForm(
                 categorySubmit = [],
                 taskStatus = TASK_STATUS_TODO,
                 taskID = 0,
-                subtasksSubmit = []) {
+                subtasksSubmit = [],
+                elementId = 'board_popup_placeholder',
+                ) {
 
     let submitBtnName = !taskID ? 'Create Task' : 'Submit Changes';
     let popUpMsg = !taskID ? 'Task created ' : 'Task updated ';
@@ -187,7 +191,7 @@ function renderTaskForm(
     let taskDate = date !== 0 ? `value="${normalDateEditTask(date)}"` : '';
     category = categorySubmit;
     return /*html*/ `
-    <form class="add-task-form" id="add-task-form-container" action="task_card.html" method="get"
+    <form class="add-task-form" id="add-task-form-container" action="board.html" method="get"
         onsubmit="event.preventDefault(); submitTask(${taskStatus}, submitTaskID = ${taskID});">
         <div class="task-form-full">
         <!-- Header Section -->
@@ -362,12 +366,12 @@ function renderTaskCard(elementId, task){
     </div>       
     <div class="create-delete-task-container">
         <div class="create-delete-task-btn" id="create-delete-task-btns-container">
-                <button id="reset" type="reset" class="button-secondary-w-icon add-task-btn">
+                <button id="reset" type="reset" class="button-secondary-w-icon add-task-btn" onclick="deleteTask(${task['taskID']}); showPopUp('${elementId}', false)">
                     Delete   
                     <img src="/assets/img/icons/cancel.svg" id="clearIconHover" class="clearIconDefault">
                     <img src="/assets/img/icons/iconoir_cancel.svg" id="clearIconDefault" class="clearIconBlue d-none">
                 </button>
-                <button class="button-w-icon" type="submit" onclick="renderEditTaskForm('task-card-id-${task['taskID']}', ${task['taskID']})">
+                <button class="button-w-icon" type="submit" onclick="renderEditTaskForm('${elementId}', ${task['taskID']})">
                     Edit<img src="./assets/img/icons/check.svg" />
                 </button>
         </div>
@@ -375,4 +379,12 @@ function renderTaskCard(elementId, task){
     </div>
 </div>
 `;
+}
+
+function showPopUp(elementId, show) {
+    if (show) {
+      document.getElementById(elementId).classList.remove("d-none");
+    } else {
+      document.getElementById(elementId).classList.add("d-none");
+    }
 }

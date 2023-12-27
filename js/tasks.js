@@ -99,7 +99,7 @@ async function submitTask(taskStatus, submitTaskID = 0) {
     showAddedTaskMsg();
     //redirect to task card
     setTimeout(() => {
-    window.location.href = `./task_card.html`;
+        window.location.href = `./board.html`;
     }, 1800);
 }
 
@@ -532,7 +532,16 @@ async function getTaskById(id){
     tasks = await getRemote('tasks');
     const index = tasks.findIndex((task) => task.taskID === id);
     return tasks[index];
-   
+}
+
+async function deleteTask(id) {
+    tasks = await getRemote('tasks');
+    const index = tasks.findIndex((task) => task.taskID === id);
+    if (index !== -1) {
+        tasks.splice(index, 1);
+    }
+    await setItem('tasks', tasks);
+    window.location.href = `./board.html`;
 }
 
 
