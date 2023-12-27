@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join</title>
     <link rel="icon" href="assets/img/logo_white.svg" sizes="any" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="styles/board.css" />
-    <link rel="stylesheet" href="styles/add_task.css" />
-    <link rel="stylesheet" href="./assets/fonts/inter.css" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/styles/contacts.css">\
+    <link rel="stylesheet" href="styles/add_task.css">
+    <link rel="stylesheet" href="styles/board.css">
+    <link rel="stylesheet" href="./assets/fonts/inter.css">
     <script src="script.js"></script>
     <script src="./js/tasks.js"></script>
     <script src="./js/storage.js"></script>
@@ -73,13 +74,15 @@
                 </div>
                 <div class="column" id="column_await_feedback" ondrop="moveTo(2)" ondragover="allowDrop(event); highlight('column_await_feedback')" ondragleave="removeHighlight('column_await_feedback')">
                 </div>
-                <div class="column" id="column_done" ondrop="moveTo(3)" ondragover="allowDrop(event); highlight('column_done')" ondragleave="removeHighlight('opcolumn_doneen')">
+                <div class="column" id="column_done" ondrop="moveTo(3)" ondragover="allowDrop(event); highlight('column_done')" ondragleave="removeHighlight('column_done')">
                 </div>
             </div>
         </main>
     </div>
     <div id="add_task_popup_container" onclick="closeAddTaskPopup()">
-        <div w3-include-html="./assets/templates/add-task-popup.html" class="add_task_popup_content" onclick="event.stopPropagation()"></div>
+        <div class="add_task_popup_content" onclick="event.stopPropagation()">
+            <div id="add-task-placeholder"></div>
+        </div>
     </div>
 </body>
 
