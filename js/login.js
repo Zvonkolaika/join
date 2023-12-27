@@ -34,7 +34,6 @@ let users = [
 document.addEventListener('DOMContentLoaded', async function () {
     await mobileAnimationsPreparing();
     await convertData();
-    assignButtonsFormValidationFunction();
     if (lookIfMSGParameterIsInLink() === true) {
         displayRegisterSuccessMSG();
     } else {
@@ -296,19 +295,6 @@ function goToSite(p) {
             window.location.href = 'register.html';
         }
     }
-}
-
-function switchToSignUp() {
-    let signInDisplay = document.getElementById('login-card_frame');
-    let paragraph = document.getElementById('switch-signIn-signUp_paragraph');
-    let button = document.getElementById('handle-signIn-signUp_button');
-    let signUpDisplay = document.getElementById('sign-up-card_frame');
-
-    lookIfWindowIs670px();
-    signInDisplay.classList.add('d-none');
-    signUpDisplay.classList.remove('d-none');
-    paragraph.innerHTML = `Allready have an Account?`;
-    button.innerHTML = `Log in`;
 }
 
 function handleSignUpButton() {
