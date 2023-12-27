@@ -181,7 +181,7 @@ function logIn() {
     if (foundUser) {
         rememberMe();
         sessionStorage.setItem('user', foundUser.name);
-        // code zum weiterleiten in die app
+        // window.location.href = 'summary.html';
     } else {
         logInWarning();
     }

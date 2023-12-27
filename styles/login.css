@@ -27,6 +27,7 @@ body {
     top: 80px;
     left: 77px;
     z-index: 999;
+    animation: logo_animation 0.75s ease-in-out 0.25s forwards;
 }
 
 .login-logo-register {
@@ -64,6 +65,7 @@ body {
     width: 100%;
     background-color: white;
     z-index: 998;
+    animation: start-animations-helper_animation 0.75s ease-in-out 0.23s forwards;
 }
 
 @keyframes start-animations-helper_animation {
