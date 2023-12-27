@@ -181,10 +181,16 @@ function logIn() {
     if (foundUser) {
         rememberMe();
         sessionStorage.setItem('user', foundUser.name);
-        // window.location.href = 'summary.html';
+        console.log('login succesfull');
+        window.location.href = 'summary.html';
     } else {
         logInWarning();
     }
+}
+
+function logInAsGuest() {
+    sessionStorage.setItem('user', 'guest');
+    window.location.href = 'summary.html';
 }
 
 function logInWarning() {
