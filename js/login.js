@@ -52,7 +52,7 @@ async function convertData() {
 /*-- mobile logo --*/
 // prepare mobile logo
 async function mobileAnimationsPreparing() {
-    if(window.location.href === 'index.html') {
+    if(window.location.href.includes('index.html')) {
         await insertMobileLogo();
         document.querySelector('.login-logo').classList.add('animate-logo');
         document.querySelector('#animations-helper').classList.add('animate-helper');
