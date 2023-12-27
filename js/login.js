@@ -1,18 +1,23 @@
 /*-- global variables --*/
-
-//password login visibility
+// global variables for "password login visibility"
 let pwImgs = document.querySelectorAll('.pw-img');
 let visibleImgs = document.querySelectorAll('.visible-img');
 let pwInputs = document.querySelectorAll('.password-input');
 
-// remember me 
+// global variables for "remember me "
 let rememberedUser = [];
 
-// register new user 
+// global variables for "register new user" 
 let password = document.getElementById('register_password-input');
 let confirm = document.getElementById('register_confirm-input');
 let name = document.getElementById('register_name-input');
 let email = document.getElementById('register_email-input');
+
+// global variables for "After new user is registrated"
+const urlParams = new URLSearchParams(window.location.search);
+const message = urlParams.get('msg');
+
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*-- user array --*/
 let users = [
@@ -23,9 +28,7 @@ let users = [
     },
 ];
 
-// After new user is registrated
-const urlParams = new URLSearchParams(window.location.search);
-const message = urlParams.get('msg');
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*-- load user data & mobile logo animation --*/
 document.addEventListener('DOMContentLoaded', async function () {
@@ -45,13 +48,15 @@ async function convertData() {
     users = parsedData;
 }
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 /*-- mobile logo --*/
 // prepare mobile logo
 async function mobileAnimationsPreparing() {
     await insertMobileLogo();
     document.querySelector('.login-logo').classList.add('animate-logo');
     document.querySelector('#animations-helper').classList.add('animate-helper');
-    ifMobileLogo();
+    ifMobileLogoExistsAddAnimation();
 }
 
 // insert mobile logo
@@ -61,7 +66,7 @@ async function insertMobileLogo() {
     }
 }
 
-function ifMobileLogo() {
+function ifMobileLogoExistsAddAnimation() {
     if (document.getElementById('mobile-login-logo')) {
         document.getElementById('mobile-login-logo').classList.add('animate-logo')
     }
@@ -69,7 +74,7 @@ function ifMobileLogo() {
 
 //generate mobile logo
 function generateMobileLogo() {
-    let html = `
+    return `
     <svg id="mobile-login-logo" class="login-logo" width="101" height="122" viewBox="0 0 101 122" fill="none" xmlns="http://www.w3.org/2000/svg">
     <style>
     #Vector, #Vector_2, #Vector_4, #Vector_5, #Vector_6 {
@@ -97,13 +102,14 @@ function generateMobileLogo() {
     </g>
     </svg>
     `;
-    return html;
 }
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 /*-- password login visibility --*/
-// let pwImgs = document.querySelectorAll('.pw-img'); //
-// let visibleImgs = document.querySelectorAll('.visible-img'); //
-// let pwInputs = document.querySelectorAll('.password-input'); //
+// let pwImgs = document.querySelectorAll('.pw-img'); // these are global variables from the top there are used in this section of code
+// let visibleImgs = document.querySelectorAll('.visible-img'); // these are global variables from the top there are used in this section of code
+// let pwInputs = document.querySelectorAll('.password-input'); // these are global variables from the top there are used in this section of code
 
 // while focus
 pwInputs.forEach(input => {
@@ -160,6 +166,8 @@ function togglePasswordVisibility() {
     });
 }
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 /*-- login as existing user --*/
 function logIn() {
     let email = document.getElementById('login-email').value;
@@ -185,7 +193,7 @@ function logInWarning() {
 }
 
 // remember me
-// let rememberedUser = []; //
+// let rememberedUser = []; // these are global variables from the top there are used in this section of code
 
 function rememberMe() {
     let checkbox = document.getElementById('remember');
@@ -213,11 +221,13 @@ function loadRememberedLoginData() {
     }
 }
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 /*-- register new user --*/
-// let password = document.getElementById('register_password-input'); //
-// let confirm = document.getElementById('register_confirm-input'); //
-// let name = document.getElementById('register_name-input'); //
-// let email = document.getElementById('register_email-input'); //
+// let password = document.getElementById('register_password-input'); // these are global variables from the top there are used in this section of code
+// let confirm = document.getElementById('register_confirm-input'); // these are global variables from the top there are used in this section of code
+// let name = document.getElementById('register_name-input'); // these are global variables from the top there are used in this section of code
+// let email = document.getElementById('register_email-input'); // these are global variables from the top there are used in this section of code
 
 function checkIfFormIsValid() {
     if (!name.validity.valid || !email.validity.valid || !password.validity.valid || !confirm.validity.valid) {
@@ -261,8 +271,8 @@ async function lookIfUsersAllreadyExists(email) {
 }
 
 // After new user is registrated
-// const urlParams = new URLSearchParams(window.location.search); //
-// const message = urlParams.get('msg'); //
+// const urlParams = new URLSearchParams(window.location.search); // these are global variables from the top there are used in this section of code
+// const message = urlParams.get('msg'); // these are global variables from the top there are used in this section of code
 
 function lookIfMSGParameterIsInLink() {
     if (message === 'You have registered successfully') {
@@ -274,6 +284,8 @@ function displayRegisterSuccessMSG() {
     document.querySelector('.registerWasASuccess').classList.remove('d-none')
     document.querySelector('.registerWasASuccess').innerHTML += `${message}`;
 }
+
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*-- handle signIn signUp display --*/
 function handleSignInSignUp() {
@@ -316,10 +328,14 @@ function lookIfWindowIs670px() {
     }
 }
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 /*-- if privacy and legal note is open from login --*/
 function cameFromLogin(p) {
     window.location.href = `${p}.html?login=login`;
 }
+
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /* experementing */
 async function testingstuff(p) {
