@@ -52,10 +52,12 @@ async function convertData() {
 /*-- mobile logo --*/
 // prepare mobile logo
 async function mobileAnimationsPreparing() {
-    await insertMobileLogo();
-    document.querySelector('.login-logo').classList.add('animate-logo');
-    document.querySelector('#animations-helper').classList.add('animate-helper');
-    ifMobileLogoExistsAddAnimation();
+    if(window.location.href === 'index.html') {
+        await insertMobileLogo();
+        document.querySelector('.login-logo').classList.add('animate-logo');
+        document.querySelector('#animations-helper').classList.add('animate-helper');
+        ifMobileLogoExistsAddAnimation();
+    }
 }
 
 // insert mobile logo
@@ -301,7 +303,6 @@ function handleSignUpButton() {
     let button = document.getElementById('signUp-button');
     if (button.classList.contains('d-none')) {
         button.classList.remove('d-none');
-        assignButtonsFormValidationFunction();
     } else {
         button.classList.add('d-none');
     }

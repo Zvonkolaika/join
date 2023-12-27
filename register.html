@@ -14,8 +14,8 @@
 <body>
     <div class="content dp-flex flex-column">
         <!-- login logo -->
-        <div id="animations-helper" class="start-animations-helper"></div>
-        <img id="join-logo" class="login-logo" src="./assets/img/logo_dark.svg" alt="">
+        
+        <img class="login-logo-register" src="./assets/img/logo_dark.svg" alt="">
 
         <!-- switch to sign up -->
         <div class="switch-to-sign-up_frame dp-flex">
@@ -77,7 +77,7 @@
                             <div id="privacy_frame" class="dp-flex">
                                 <input required class="checkbox" style="margin-right: 6px;" type="checkbox"
                                     id="accaptPolicy" onclick="handleSignUpButton()">
-                                <p>I accept the <a class="link" href="#">Privacy policy</a></p>
+                                <p>I accept the <a onclick="cameFromLogin('privacy')" class="link" href="#">Privacy policy</a></p>
                             </div>
 
                             <button submitButton style="margin-top: 12px;" id="signUp-button" class="button d-none"

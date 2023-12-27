@@ -29,6 +29,15 @@ body {
     z-index: 999;
 }
 
+.login-logo-register {
+    width: 101px;
+    height: 122px;
+    position: fixed;
+    top: 80px;
+    left: 77px;
+    z-index: 999;
+}
+
 .animate-logo {
     animation: logo_animation 0.75s ease-in-out 0.25s forwards;
 }
@@ -257,6 +266,10 @@ label {
         top: 32px;
     }
 
+    .login-logo-register {
+        top: 32px;
+    }
+
     .switch-to-sign-up_frame {
         bottom: 90px;
         width: 100%;
@@ -274,6 +287,10 @@ label {
     }
 
     .login-logo {
+        left: 24px;
+    }
+
+    .login-logo-register {
         left: 24px;
     }
 
