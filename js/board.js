@@ -103,11 +103,15 @@ function renderAssignedUsers(index) {
 }
 
 
-// function findIndexOfTaskById(arrayToSearch, Id) {
-//     let index = arrayToSearch.findIndex(item => item.taskID === Id);
-//     return index;
-// }
-
+function searchTask() {
+    inputSearchfield = document.getElementById('inputfield_find_task').value.toLowerCase();
+    
+    let filteredTasks = allTasksFromStorage.filter(task => task['title'].toLowerCase().includes(inputSearchfield));
+    inputSearchfield = "";
+    allTasksFromStorage = filteredTasks;
+    console.log(filteredTasks);
+    loadBoard();
+}
 
 
 //   Drag and Drop
@@ -192,9 +196,10 @@ function thumbnailCardHTML(index, element) {
 
 
 function renderAssignedUsers(element) {
+
     for (let i = 0; i < element.assignedUsers.length; i++) {
         document.getElementById(`task_card_thumbnail_assigned_users_container_${element.taskID}`).innerHTML += `
-            ${element.assignedUsers[i].name} / 
+        <div class="acc-initials task_card_thumbnail_profile_badge_frame" style="background: ${element.assignedUsers[i].bgColor};">${returnInitials(element.assignedUsers[i].name)}</div>
         `;
     }
 }

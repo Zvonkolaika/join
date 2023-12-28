@@ -81,6 +81,11 @@ main {
     justify-content: flex-end;
     align-items: center;
     gap: 16px;
+    cursor: pointer;
+}
+
+.search_icon_container:hover {
+    transform: scale(1.08);
 }
 
 #divider {
@@ -298,6 +303,7 @@ main {
 
 .task-card-thumbnail-container:hover {
     cursor: pointer;
+    transform: scale(1.05);
 }
 
 .task_card_thumbnail_content {
@@ -407,16 +413,8 @@ main {
 }
 
 .task_card_thumbnail_profile_badge_frame {
-    display: flex;
-    width: 32px;
-    height: 32px;
-    justify-content: center;
-    align-items: center;
     gap: 10px;
-    border-radius: 45px;
-    background: #FFF;
     margin-right: -8px;
-    border-radius: 50px;
 }
 
 .task_card_thumbnail_profile_badge {
