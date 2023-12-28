@@ -1,10 +1,13 @@
+/* init */
 document.addEventListener('DOMContentLoaded', async () => {
     await loadTemplates();
     lookIfLoginParameterIsInLink();
+    renderUsersMailAddressIntoLegalNotice()
 });
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-
+/* functions to display visibility from privacy & legal note links, in the sidebar, depending from wich site you came */
 function lookIfLoginParameterIsInLink() {
     const urlParams = new URLSearchParams(window.location.search);
     const login = urlParams.get('login');
@@ -30,4 +33,11 @@ function cameFromLogin(p) {
 function removeHrefFromLinks() {
     document.getElementById('privacy-link').setAttribute('href', '#');
     document.getElementById('legality-link').setAttribute('href', '#');
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/* Render the mail address from exploring user into legal notice */
+function renderUsersMailAddressIntoLegalNotice() {
+    document.getElementById('users-email').innerHTML = `email: ${sessionStorage.getItem('user-mail')}`;
 }

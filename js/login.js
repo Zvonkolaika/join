@@ -30,8 +30,9 @@ let users = [
 
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-/*-- load user data & mobile logo animation --*/
+/*-- init --*/
 document.addEventListener('DOMContentLoaded', async function () {
+    lookIfWindowIs670pxToOptimizeMobileVersion();
     await mobileAnimationsPreparing();
     await convertData();
     if (lookIfMSGParameterIsInLink() === true) {
@@ -41,6 +42,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 });
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*-- load user data --*/
 async function convertData() {
     users = await getItem('users');
     parsedData = JSON.parse(users);
@@ -181,6 +185,7 @@ function logIn() {
     if (foundUser) {
         rememberMe();
         sessionStorage.setItem('user', foundUser.name);
+        sessionStorage.setItem('user-mail', foundUser.email)
         console.log('login succesfull');
         window.location.href = 'summary.html';
     } else {
@@ -216,7 +221,7 @@ function rememberMe() {
 }
 
 function loadRememberedLoginData() {
-    if (localStorage.getItem('rememberMe')) {
+    if (window.location.href.includes('index.html') && localStorage.getItem('rememberMe')) {
         document.getElementById('remember').checked = true;
         let emailInput = document.getElementById('login-email');
         let passwordInput = document.getElementById('login-password');
@@ -235,14 +240,6 @@ function loadRememberedLoginData() {
 // let confirm = document.getElementById('register_confirm-input'); // these are global variables from the top there are used in this section of code
 // let name = document.getElementById('register_name-input'); // these are global variables from the top there are used in this section of code
 // let email = document.getElementById('register_email-input'); // these are global variables from the top there are used in this section of code
-
-function checkIfFormIsValid() {
-    if (!name.validity.valid || !email.validity.valid || !password.validity.valid || !confirm.validity.valid) {
-        Array.from(querySelectorAll('.input-container')).forEach(function (input) {
-            input.classList.add('invalid-border');
-        });
-    }
-}
 
 async function registerNewUser() {
     if (await lookIfUsersAllreadyExists(email.value) === true) {
@@ -314,8 +311,8 @@ function handleSignUpButton() {
     }
 }
 
-function lookIfWindowIs670px() {
-    if (window.innerWidth <= 670) {
+function lookIfWindowIs670pxToOptimizeMobileVersion() {
+    if (window.innerWidth <= 670 && document.querySelector('.switch-to-sign-up_frame').hasAttribute("signupframe")) {
         document.querySelector('.switch-to-sign-up_frame').classList.add('d-none');
     } else {
         document.querySelector('.switch-to-sign-up_frame').classList.remove('d-none');
@@ -327,13 +324,4 @@ function lookIfWindowIs670px() {
 /*-- if privacy and legal note is open from login --*/
 function cameFromLogin(p) {
     window.location.href = `${p}.html?login=login`;
-}
-
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-/* experementing */
-async function testingstuff(p) {
-    let testArrayAsText = await getItem(`${p}`);
-    let testArrayAsJSON = JSON.parse(testArrayAsText);
-    console.log(testArrayAsJSON);
 }

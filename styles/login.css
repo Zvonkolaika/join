@@ -398,6 +398,11 @@ label {
     #join-logo {
         opacity: 0;
     }
+
+    .login-logo-register {
+        width: 80px;
+        height: 80px;
+    }
 }
 
 @media (min-width: 670px) {
