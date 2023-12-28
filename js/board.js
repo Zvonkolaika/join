@@ -8,7 +8,7 @@ let awaitFeedback;
 let done;
 
 async function init() {
-    await includeHTML();
+    await loadTemplates();
     setCurrentPageLinkActive('board');
     await getTasks();
     loadBoard();
