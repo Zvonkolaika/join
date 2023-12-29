@@ -205,6 +205,13 @@ main {
 
 /* Add Task PopUp */
 
+.add-task-form {
+    padding-left: 32px;
+    padding-right: 32px;
+    background-color: white;
+}
+
+
 #add_task_popup_container {
     position: absolute;
     top: 0;

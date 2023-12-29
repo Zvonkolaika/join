@@ -330,20 +330,17 @@ function renderTaskForm(
     `;
 }
 
-function renderTaskCard(elementId, cardID){
-    filteredElement = allTasksFromStorage.filter(t => t['taskID'] == cardID);
-    task = filteredElement[0];
-    console.log(task);
+function renderTaskCard(elementId, task){
     let taskCard = document.getElementById(elementId);
-    taskCard.innerHTML = /*html*/`
+    taskCard.innerHTML += /*html*/`
         
-    <divid="task-card-id-${task['taskID']}">
-    <div class="task-categories task_card_thumbnail_label"  style="background: ${task['category']['colour']};">
+    <div class="container dp-flex flex-column" id="task-card-id-${task['taskID']}" style="align-items: flex-start; margin: 40px; padding: 40px;">
+    <div class="task-categories">
         <span>${task['category']['name']}</span> 
     </div>
 
-    <div class="task-categories task_card_thumbnail_title">
-        <h1>${task['title']}</h1>
+    <div class="task-categories">
+        <span>${task['title']}</span>
     </div>
     <div class="task-categories description">
         <span>${task['description']}</span>
