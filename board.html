@@ -34,10 +34,13 @@
                     </div>
                     <div class="board_search_task_container">
                         <div class="input_container">
-                            <input class="inputfield" id="inputfield_find_task" type="text" placeholder="Find Task" required>
+                            <input onkeydown="searchTask()" class="inputfield" id="inputfield_find_task" type="text"
+                                placeholder="Find Task" required>
                             <div class="search_icon_container" onclick="searchTask()">
                                 <img id="divider" src="assets/img/icons/Vector 3.svg">
-                                <img id="search_icon" src="assets/img/icons/search.svg">
+                                <div class="search_icon_frame">
+                                    <img id="search_icon" src="assets/img/icons/search.svg">
+                                </div>
                             </div>
                         </div>
                         <button id="button_add_task_desktop" onclick="openAddTaskPopup()"><span>Add task</span><img
@@ -48,19 +51,19 @@
             <div class="categories_container">
                 <div class="categories">
                     <p>To do</p>
-                    <div class="plus_icon_frame">
+                    <div class="plus_icon_frame" onclick="openAddTaskPopup()">
                         <img src="assets/img/icons/plus.svg">
                     </div>
                 </div>
                 <div class="categories">
                     <p>In progress</p>
-                    <div class="plus_icon_frame">
+                    <div class="plus_icon_frame" onclick="openAddTaskPopup()">
                         <img src="assets/img/icons/plus.svg">
                     </div>
                 </div>
                 <div class="categories">
                     <p>Await feedback</p>
-                    <div class="plus_icon_frame">
+                    <div class="plus_icon_frame" onclick="openAddTaskPopup()">
                         <img src="assets/img/icons/plus.svg">
                     </div>
                 </div>
@@ -69,20 +72,34 @@
                 </div>
             </div>
             <div class="board_distribution" id="board_distribution">
-                <div class="column" id="column_todo" ondrop="moveTo(0)" ondragover="allowDrop(event); highlight('column_todo')" ondragleave="removeHighlight('column_todo')">
+                <div class="column" id="column_todo" ondrop="moveTo(0)"
+                    ondragover="allowDrop(event); highlight('column_todo')"
+                    ondragleave="removeHighlight('column_todo')">
                 </div>
-                <div class="column" id="column_in_progress" ondrop="moveTo(1)" ondragover="allowDrop(event); highlight('column_in_progress')" ondragleave="removeHighlight('column_in_progress')">
+                <div class="column" id="column_in_progress" ondrop="moveTo(1)"
+                    ondragover="allowDrop(event); highlight('column_in_progress')"
+                    ondragleave="removeHighlight('column_in_progress')">
                 </div>
-                <div class="column" id="column_await_feedback" ondrop="moveTo(2)" ondragover="allowDrop(event); highlight('column_await_feedback')" ondragleave="removeHighlight('column_await_feedback')">
+                <div class="column" id="column_await_feedback" ondrop="moveTo(2)"
+                    ondragover="allowDrop(event); highlight('column_await_feedback')"
+                    ondragleave="removeHighlight('column_await_feedback')">
                 </div>
-                <div class="column" id="column_done" ondrop="moveTo(3)" ondragover="allowDrop(event); highlight('column_done')" ondragleave="removeHighlight('column_done')">
+                <div class="column" id="column_done" ondrop="moveTo(3)"
+                    ondragover="allowDrop(event); highlight('column_done')"
+                    ondragleave="removeHighlight('column_done')">
                 </div>
             </div>
         </main>
     </div>
     <div id="add_task_popup_container" onclick="closeAddTaskPopup()">
-        <div class="add_task_popup_content" onclick="event.stopPropagation()">
-            <div id="add-task-placeholder"></div>
+        <div class="add_task_popup_close_button" onclick="closeAddTaskPopup">
+            <img src="assets/img/icons/cancel.svg">
+        </div>
+        <div id="add-task-placeholder" onclick="event.stopPropagation()"></div>
+    </div>
+    <div id="task-card-bgr-container" onclick="closeTaskCard()">
+        <div id="task-card-container" onclick="event.stopPropagation()">
+            <div class="task-card-content" id="task-card"></div>
         </div>
     </div>
 </body>

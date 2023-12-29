@@ -28,12 +28,32 @@ function closeAddTaskPopup() {
 }
 
 
+function openTaskCard(elementByID, cardID) {
+    renderTaskCard(elementByID, cardID);
+    document.getElementById('task-card-bgr-container').classList.add('show-task-card');
+}
+
+
+function closeTaskCard() {
+    document.getElementById('task-card-bgr-container').classList.remove('show-task-card');
+}
+
+
 async function getTasks() {
     allTasksFromStorage = JSON.parse(await getItem("tasks"));
 }
 
 
 function loadBoard() {
+    renderToDo();
+    renderInProgress();
+    renderAwaitFeedback();
+    renderDone();
+    console.log(allTasksFromStorage);
+}
+
+
+function loadSearchResult() {
     renderToDo();
     renderInProgress();
     renderAwaitFeedback();
@@ -103,14 +123,13 @@ function renderAssignedUsers(index) {
 }
 
 
-function searchTask() {
-    inputSearchfield = document.getElementById('inputfield_find_task').value.toLowerCase();
-    
-    let filteredTasks = allTasksFromStorage.filter(task => task['title'].toLowerCase().includes(inputSearchfield));
-    inputSearchfield = "";
-    allTasksFromStorage = filteredTasks;
-    console.log(filteredTasks);
-    loadBoard();
+async function searchTask() {
+    await getTasks();
+        inputSearchfield = document.getElementById('inputfield_find_task').value.toLowerCase();
+        let filteredTasks = allTasksFromStorage.filter(task => task['title'].toLowerCase().includes(inputSearchfield));
+        allTasksFromStorage = filteredTasks;
+        console.log(filteredTasks);
+        loadBoard();
 }
 
 
@@ -121,6 +140,7 @@ function allowDrop(ev) {
 
 
 function startDragging(index, element_taskID) {
+    document.getElementById(element_taskID).classList.add('rotare_thumpnail');
     currentDraggedElementID = element_taskID;
     currentDraggedElementINDEX = index;
     console.log(element_taskID);
@@ -168,7 +188,7 @@ function renderThumbnailCard(category, index, element) {
 
 
 function thumbnailCardHTML(index, element) {
-    return ` <div id="${element.taskID}" class="task-card-thumbnail-container" draggable="true" ondragstart="startDragging(${index}, ${element.taskID})">
+    return ` <div id="${element.taskID}" class="task-card-thumbnail-container" draggable="true" ondragstart="startDragging(${index}, ${element.taskID})"  onclick="openTaskCard('task-card', ${element.taskID})">
     <div class="task_card_thumbnail_content">
         <div class="task_card_thumbnail_label" style="background: ${element.category.colour};">
             ${element.category.name}

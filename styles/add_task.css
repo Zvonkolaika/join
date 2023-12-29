@@ -7,6 +7,7 @@ span {
 .add-task-form {
     padding-left: 32px;
     padding-right: 32px;
+    background-color: white;
 }
 
 .header-div h1 {
@@ -30,6 +31,7 @@ span {
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     height: 100%;
     width: 100%;
 }
