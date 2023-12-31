@@ -49,47 +49,56 @@
                 </div>
             </div>
             <div class="categories_container">
-                <div class="categories">
-                    <p>To do</p>
-                    <div class="plus_icon_frame" onclick="openAddTaskPopup()">
-                        <img src="assets/img/icons/plus.svg">
+                <div class="column">
+                    <div class="categories">
+                        <p>To do</p>
+                        <div class="plus_icon_frame" onclick="openAddTaskPopup()">
+                            <img src="assets/img/icons/plus.svg">
+                        </div>
+                    </div>
+                    <div class="column_content" id="column_todo" ondrop="moveTo(0)"
+                        ondragover="allowDrop(event); highlight('column_todo')"
+                        ondragleave="removeHighlight('column_todo')">
                     </div>
                 </div>
-                <div class="categories">
-                    <p>In progress</p>
-                    <div class="plus_icon_frame" onclick="openAddTaskPopup()">
-                        <img src="assets/img/icons/plus.svg">
+                <div class="column">
+                    <div class="categories">
+                        <p>In progress</p>
+                        <div class="plus_icon_frame" onclick="openAddTaskPopup()">
+                            <img src="assets/img/icons/plus.svg">
+                        </div>
+                    </div>
+                    <div class="column_content" id="column_in_progress" ondrop="moveTo(1)"
+                        ondragover="allowDrop(event); highlight('column_in_progress')"
+                        ondragleave="removeHighlight('column_in_progress')">
                     </div>
                 </div>
-                <div class="categories">
-                    <p>Await feedback</p>
-                    <div class="plus_icon_frame" onclick="openAddTaskPopup()">
-                        <img src="assets/img/icons/plus.svg">
+                <div class="column">
+                    <div class="categories">
+                        <p>Await feedback</p>
+                        <div class="plus_icon_frame" onclick="openAddTaskPopup()">
+                            <img src="assets/img/icons/plus.svg">
+                        </div>
+                    </div>
+                    <div class="column_content" id="column_await_feedback" ondrop="moveTo(2)"
+                        ondragover="allowDrop(event); highlight('column_await_feedback')"
+                        ondragleave="removeHighlight('column_await_feedback')">
                     </div>
                 </div>
-                <div class="categories">
-                    <p>Done</p>
+                <div class="column">
+                    <div class="categories">
+                        <p>Done</p>
+                    </div>
+                    <div class="column_content" id="column_done" ondrop="moveTo(3)"
+                        ondragover="allowDrop(event); highlight('column_done')"
+                        ondragleave="removeHighlight('column_done')">
+                    </div>
                 </div>
+
             </div>
-            <div class="board_distribution" id="board_distribution">
-                <div class="column" id="column_todo" ondrop="moveTo(0)"
-                    ondragover="allowDrop(event); highlight('column_todo')"
-                    ondragleave="removeHighlight('column_todo')">
-                </div>
-                <div class="column" id="column_in_progress" ondrop="moveTo(1)"
-                    ondragover="allowDrop(event); highlight('column_in_progress')"
-                    ondragleave="removeHighlight('column_in_progress')">
-                </div>
-                <div class="column" id="column_await_feedback" ondrop="moveTo(2)"
-                    ondragover="allowDrop(event); highlight('column_await_feedback')"
-                    ondragleave="removeHighlight('column_await_feedback')">
-                </div>
-                <div class="column" id="column_done" ondrop="moveTo(3)"
-                    ondragover="allowDrop(event); highlight('column_done')"
-                    ondragleave="removeHighlight('column_done')">
-                </div>
-            </div>
-        </main>
+    </div>
+    </div>
+    </main>
     </div>
     <div id="add_task_popup_container" onclick="closeAddTaskPopup()">
         <div class="add_task_popup_close_button" onclick="closeAddTaskPopup">

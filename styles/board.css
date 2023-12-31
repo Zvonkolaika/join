@@ -518,14 +518,14 @@ main {
 
 /*--- Board Responsive --- */
 
-@media screen and (max-width: 428px) {
+@media screen and (max-width: 1024px) {
     main {
-        width: 100%;
-        height: 1000px;
-        padding: 0 16px;
-        position: inherit;
+        z-index: 0;
+        position: absolute;
+        top: 80px;
         left: 0;
-        top: 120px;
+        height: calc(100% - 80px - 80px);
+        width: 100%;
     }
 
     .board_header_container {
@@ -573,5 +573,44 @@ main {
 
     .input-container {
         width: 396px;
+    }
+
+    #add_task_popup_container {
+        display: none !important;
+    }
+
+    .container {
+        position: absolute;
+    }
+
+    .board_header {
+        padding: 0;
+    }
+
+    .board_distribution {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .categories_container {
+        position: relative;
+        flex-direction: column;
+    }
+    
+    .column {
+        align-self: center;
+    }
+
+    .column_content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .board_header_container {
+        padding: 0 24px;
     }
 }

@@ -127,6 +127,7 @@ async function searchTask() {
     await getTasks();
         inputSearchfield = document.getElementById('inputfield_find_task').value.toLowerCase();
         let filteredTasks = allTasksFromStorage.filter(task => task['title'].toLowerCase().includes(inputSearchfield));
+        filteredTasks = allTasksFromStorage.filter(task => task['description'].toLowerCase().includes(inputSearchfield));
         allTasksFromStorage = filteredTasks;
         console.log(filteredTasks);
         loadBoard();
