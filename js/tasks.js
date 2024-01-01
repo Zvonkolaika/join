@@ -42,32 +42,12 @@ const categories = [
     },
 ];
 
-// use default parameters to set JSON values 
-/* function addTask(title = 'title is empty',
-                    description = 'description is empty',
-                    date = new Date().getTime(),
-                    prio = PRIO_MDM,
-                    assignedUsers = assignUserList,
-                    categorySubmit = category,
-                    taskStatus = TASK_STATUS_TODO,
-                    taskID = new Date().getTime(),
-                    subtasksSubmit = subtasks)
-{
-    let task = {
-        'title': title,
-        'description': description,
-        'date': date,
-        'prio': prio,
-        'assignedUsers': assignedUsers,
-        'category': categorySubmit,
-        'taskStatus': taskStatus,
-        'taskID': taskID,
-        'subtasks': subtasksSubmit,
-    };
-    return task;
-}  */
-
-// async function createNewTask(taskStatus) {
+/**
+ * Submits a task with the given task status and optional task ID.
+ * @param {string} taskStatus - The status of the task.
+ * @param {number} [submitTaskID=0] - The ID of the task to be submitted (optional).
+ * @returns {Promise<void>} - A promise that resolves when the task is submitted.
+ */
 async function submitTask(taskStatus, submitTaskID = 0) {
 
     let title = document.getElementById('task-title').value;
@@ -103,6 +83,9 @@ async function submitTask(taskStatus, submitTaskID = 0) {
     }, 1800);
 }
 
+/**
+ * Shows a message indicating that a task has been added.
+ */
 function showAddedTaskMsg() {
     document.getElementById("task-added").classList.remove("d-none");
     setTimeout(() => {
@@ -110,14 +93,20 @@ function showAddedTaskMsg() {
     }, 900);
   }
 
+/**
+ * Retrieves the selected user from the user-select element and adds their ID to the assignUserList array.
+ */
 function getSelectedUser(){
     let user = document.getElementById('user-select').value;
-    //console.log('Selected user is ' + user);
     let userID = parseInt(user.replace('User', ''));
     assignUserList.push(userID);
 }
 
-//function to render assigned users
+/**
+ * Updates the priority button based on the pressed state.
+ * @param {boolean} pressed - The state of the button (true if pressed, false otherwise).
+ * @param {string} btn - The ID of the button element.
+ */
 function prioButtonUpdate(pressed, btn) {
         if(pressed){
             document.getElementById(btn).classList.add('d-none');
@@ -128,37 +117,49 @@ function prioButtonUpdate(pressed, btn) {
         }
 }
 
+/**
+ * Sets the task priority to urgent and updates the priority buttons accordingly.
+ */
 function prioButtonUrgent(){
     taskPrio = PRIO_URG;
-    console.log('Task prio ' + taskPrio);
     prioButtonUpdate(true, 'urgent-btn');
     prioButtonUpdate(false, 'medium-btn');
     prioButtonUpdate(false, 'low-btn');
 }
 
+/**
+ * Sets the task priority to medium and updates the priority buttons accordingly.
+ */
 function prioButtonMedium(){
     taskPrio = PRIO_MDM;
-    //console.log('Task prio ' + taskPrio);
     prioButtonUpdate(false, 'urgent-btn');
     prioButtonUpdate(true, 'medium-btn');
     prioButtonUpdate(false, 'low-btn');
 }
 
+/**
+ * Sets the task priority to low and updates the priority buttons accordingly.
+ */
 function prioButtonLow(){
     taskPrio = PRIO_LOW;
-    // console.log('Task prio ' + taskPrio);
     prioButtonUpdate(false, 'urgent-btn');
     prioButtonUpdate(false, 'medium-btn');
     prioButtonUpdate(true, 'low-btn');
 }
 
+/**
+ * Disables the default behavior of a button.
+ * @param {string} button - The ID of the button to disable.
+ */
 function disableBtnsDefault(button){
     document.getElementById(button).addEventListener('click', function(event) {
-        // Prevent the form from being submitted
         event.preventDefault();
     });
 }
 
+/**
+ * Disables the default behavior of buttons.
+ */
 function disablePrioBtns(){
     disableBtnsDefault('urgent-btn');
     disableBtnsDefault('medium-btn');
@@ -170,11 +171,21 @@ function disablePrioBtns(){
     disableBtnsDefault('categories-select-button');
 }
 
+/**
+ * Renders the full list of users by fetching data from the remote server and rendering it on the HTML page.
+ * @returns {Promise<void>} A promise that resolves when the rendering is complete.
+ */
 async function renderFullUsersList() {
     usersList = await getRemote('contacts');
     renderHTMLUsersList(usersList);
 }
 
+/**
+ * Renders the user icon dropdown.
+ * 
+ * @param {object} user - The user object.
+ * @returns {string} The HTML string representing the user icon dropdown.
+ */
 function renderUserIconDropdown(user){
     return /*html*/`
         <div class="initials-name">
@@ -187,6 +198,11 @@ function renderUserIconDropdown(user){
     `;
 }
 
+/**
+ * Renders the HTML for the users list dropdown.
+ * 
+ * @param {Array} usersList - The list of users.
+ */
 function renderHTMLUsersList(usersList){
     let dropdown = document.getElementById('select-dropdown-users');
     dropdown.innerHTML = '';
@@ -221,6 +237,9 @@ function renderHTMLUsersList(usersList){
     }
 } 
 
+/**
+ * Toggles the visibility of a custom select dropdown.
+ */
 function toggleCustomSelect() {
     let dropdown = document.getElementById('select-dropdown-users');
     let dropdownIcon = document.getElementById('dropdown-icon-users');
@@ -228,11 +247,18 @@ function toggleCustomSelect() {
     dropdown.classList.toggle("d-none-ni");
 }
 
+/**
+ * Removes the visibility of the input users dropdown.
+ */
 function toggleInputUsers() {
     let dropdown = document.getElementById('select-dropdown-users');
     dropdown.classList.remove("d-none-ni");
 }
 
+/**
+ * Removes the assigned user with the specified ID from the list.
+ * @param {number} id - The ID of the user to be removed.
+ */
 function removeAssignedUser(id) {
     document.getElementById('selected-icon-user-assigned-' + id.toString()).remove();
     const index = assignUserList.findIndex((user) => user.id === id);
@@ -241,6 +267,12 @@ function removeAssignedUser(id) {
     }
 }
 
+/**
+ * Renders a user icon with the specified user ID, user colour, and user name.
+ * @param {number} userID - The ID of the user.
+ * @param {string} userColour - The colour of the user icon.
+ * @param {string} userName - The name of the user.
+ */
 function renderUserIcon(userID, userColour, userName) {
     const selectedUsersContainer = document.getElementById('selected-users-container');
     selectedUsersContainer.innerHTML +=  /*html*/`
@@ -252,15 +284,20 @@ function renderUserIcon(userID, userColour, userName) {
         `;
 }
 
+/**
+ * Handles user selection in the dropdown menu.
+ * If the checkbox is checked, the corresponding user icon is added to the list and 
+ * removed from the dropdown.
+ * 
+ * @param {HTMLInputElement} checkbox - The checkbox element.
+ * @param {number} id - The ID of the selected option.
+ */
 function selectOption(checkbox, id) {
     if (checkbox.checked) {
-        let selectedName = checkbox.getAttribute('data-name');
-        
+        let selectedName = checkbox.getAttribute('data-name');   
         // Create a div element for the icon with initials using innerHTML
         const index = usersList.findIndex((user) => user.id === id);
-        console.log('usersList ' + usersList.length + ' index ' + index +  ' id ' + id );
         if (index != -1) {
-            console.log('id ' + id);
             assignUserList.push(usersList[index]);
         }
         renderUserIcon(id, usersList[index].bgColor, usersList[index].name);
@@ -271,10 +308,12 @@ function selectOption(checkbox, id) {
             selectedIcon.remove();
         }
     }
-
-    // toggleCustomSelect(); // Close the dropdown after selection if needed
 }
 
+/**
+ * Filters the users based on the search input and renders the filtered list.
+ * If the users list is empty, it fetches the contacts remotely.
+ */
 async function filterUsers() {
     let search = document.getElementById('search').value;
     search = search.toLowerCase();
@@ -296,6 +335,9 @@ async function filterUsers() {
     renderHTMLUsersList(filteredList);
 }
 
+/**
+ * Callback for closing dropdown on click outside
+*/
 document.addEventListener('click', function (event) {
     const dropdown = document.getElementById('select-dropdown-users');
     const dropdownContainer = document.getElementById('select-users');
@@ -311,6 +353,14 @@ document.addEventListener('click', function (event) {
     }
 });
 
+/**
+ * Renders a category list item with the given name, colour, and index.
+ * 
+ * @param {string} name - The name of the category.
+ * @param {string} colour - The colour of the category.
+ * @param {number} index - The index of the category.
+ * @returns {string} The HTML representation of the category list item.
+ */
 function renderCategoriesList(name, colour, index) {
     return /*html*/`
             <div class="dropdown-position" onclick="selectOptionCat(this, ${index})" id="category-${name}">
@@ -323,11 +373,12 @@ function renderCategoriesList(name, colour, index) {
         `;
     }
 
+/**
+ * Toggles the visibility of the categories select dropdown and renders the categories list.
+ */
 function toggleCategoriesSelect() {
     let categoriesList = document.getElementById('categories-list');
     categoriesList.innerHTML = '';
-    
-    
     for (let index = 0; index < categories.length; index++) {
         let name = categories[index]['name'];
         let colour = categories[index]['colour'];
@@ -339,10 +390,20 @@ function toggleCategoriesSelect() {
     dropdown.classList.toggle("d-none-ni");
 }
 
+/**
+ * Retrieves the task category list.
+ * @returns {Promise<Array>} The task category list.
+ */
  async function getTaskCategorieList() {
     return categories;
  }
 
+/**
+ * Handles category selection in the categories dropdown and updates the category value.
+ * @param {HTMLElement} element - The element representing the selected option.
+ * @param {number} index - The index of the selected option in the dropdown.
+ * @returns {Promise<void>} - A promise that resolves when the selected category is retrieved.
+ */
 async function selectOptionCat(element, index) {
     const selectedCategoryInput = document.getElementById('selected-category');
     const selectedEntry = element.querySelector('.initials-name').getAttribute('name');
@@ -355,6 +416,9 @@ async function selectOptionCat(element, index) {
     category = selectedCategory[index];
 }
 
+/**
+ * Callback for closing dropdown on click outside
+*/
 document.addEventListener('click', function (event) {
     const dropdown = document.getElementById('categories-list');
     const dropdownContainer = document.getElementById('categories-select-button');
@@ -385,12 +449,14 @@ function editModeSubtask(){
     subTaskVectorIcon.classList.remove('d-none-ni');
 }
 
+/**
+ * Inserts a subtask into the task list.
+ */
 function incertSubtask() {
     const subtaskInput = document.getElementById('subtask-input');
     const subtaskText = subtaskInput.value.trim();
     
     if (subtaskText !== '') {
-        //const subtaskId = generateUniqueID();
         createSubtaskListItem(subtaskText);
         resetSubtaskInput(subtaskInput);
         closeEditSubtask();
@@ -400,6 +466,9 @@ function incertSubtask() {
     }
 }
 
+/**
+ * Closes the edit subtask section and resets the subtask input.
+ */
 function closeEditSubtask(){
     const subtaskInput = document.getElementById('subtask-input');
     const subTaskPlusIcon = document.getElementById('subtask-plus-icon');
@@ -413,6 +482,13 @@ function closeEditSubtask(){
     resetSubtaskInput(subtaskInput);
 }
 
+/**
+ * Renders the HTML for the subtask edit mode.
+ * 
+ * @param {string} subtaskText - The text of the subtask.
+ * @param {string} subtaskId - The ID of the subtask.
+ * @returns {string} The HTML markup for the subtask edit mode.
+ */
 function renderEditModeSavedSubtask(subtaskText, subtaskId) {
     return /*html*/`
     <div class="subtask-item input-container width-small" id="${subtaskId}-input"> 
@@ -432,6 +508,12 @@ function renderEditModeSavedSubtask(subtaskText, subtaskId) {
 `;
 }
 
+/**
+ * Entering edit sutask mode.
+ * 
+ * @param {string} subtaskText - The text of the subtask.
+ * @param {string} subtaskId - The ID of the subtask.
+ */
 function editModeSavedSubtask(subtaskText, subtaskId) {
     const selectSubtaskEdit = document.getElementById(`${subtaskId}`);
     selectSubtaskEdit.classList.add('display-block');
@@ -441,14 +523,23 @@ function editModeSavedSubtask(subtaskText, subtaskId) {
     focusEditSavedSubtask(`${subtaskId}-edit-subtask-input`);
 }
 
+/**
+ * Closes the edit mode for a subtask.
+ * 
+ * @param {string} subtaskText - The updated text of the subtask.
+ * @param {string} subtaskId - The ID of the subtask.
+ */
 function closeEditSavedSubtask(subtaskText, subtaskId) {
     let selectSubtaskEditItem = document.getElementById(`${subtaskId}`);
     if (selectSubtaskEditItem) {
         selectSubtaskEditItem.innerHTML = "";
         selectSubtaskEditItem.innerHTML = renderSubtaskListItem(subtaskText, subtaskId);    }
 }
- // Set focus to the edit mode input
 
+/**
+ * Sets focus on the input element with the specified ID.
+ * @param {string} elementId - The ID of the input element.
+ */
 function focusEditSavedSubtask(elementId){
     const editSubtaskInput = document.getElementById(elementId);
     if (editSubtaskInput) {
@@ -456,12 +547,16 @@ function focusEditSavedSubtask(elementId){
     }
 }
 
+/**
+ * Updates the saved subtask with the provided text.
+ * @param {string} subtaskText - The updated text for the subtask.
+ * @param {string} subtaskId - The ID of the subtask.
+ */
 function updateSavedSubtask(subtaskText, subtaskId) {
     const editSubtaskInput = document.getElementById(`${subtaskId}-edit-subtask-input`);
     const updatedText = editSubtaskInput.value.trim();
 
     if (updatedText !== '') {
-
         editSubtaskInput.value = updatedText;
         subtaskText = updatedText;
         const index = subtasks.findIndex((task) => task[SUBTASK_ID] === subtaskId);
@@ -472,6 +567,12 @@ function updateSavedSubtask(subtaskText, subtaskId) {
     closeEditSavedSubtask(subtaskText, subtaskId);
 }
 
+/**
+ * Creates a subtask list item and adds it to the select-subtask list.
+ * 
+ * @param {string} subtaskText - The text of the subtask.
+ * @returns {void}
+ */
 function createSubtaskListItem(subtaskText) {
     const selectSubtaskList = document.getElementById('select-subtask');
     const subtaskId = generateUniqueID();
@@ -479,6 +580,12 @@ function createSubtaskListItem(subtaskText) {
     subtasks.push([subtaskId, subtaskText, false]);
 }
 
+/**
+ * Renders a subtask list item with the given subtask text and ID.
+ * @param {string} subtaskText - The text of the subtask.
+ * @param {string} subtaskId - The ID of the subtask.
+ * @returns {string} The HTML representation of the subtask list item.
+ */
 function renderSubtaskListItem(subtaskText, subtaskId) {
     return /*html*/`
     <li id="${subtaskId}" class="subtask-li" ondblclick="editModeSavedSubtask('${subtaskText}', '${subtaskId}')">
@@ -500,6 +607,11 @@ function renderSubtaskListItem(subtaskText, subtaskId) {
 `;
 }
 
+/**
+ * Deletes a subtask from the subtasks array and removes it from the DOM.
+ * @param {Event} event - The event object triggered by the user action.
+ * @param {string} subtaskId - The ID of the subtask to be deleted.
+ */
 function deleteSubtask(event, subtaskId) {
     const subtaskItem = event.target.closest('li');
     if (subtaskItem) {
@@ -514,26 +626,49 @@ function deleteSubtask(event, subtaskId) {
     }
 }
 
+/**
+ * Generates a unique ID based on the current timestamp.
+ * @returns {number} The generated unique ID.
+ */
 function generateUniqueID() {
     const timestamp = new Date().getTime();
     return timestamp;
 }
 
+/**
+ * Resets the value of a subtask input field.
+ * @param {HTMLInputElement} subtaskInput - The input field to be reset.
+ */
 function resetSubtaskInput(subtaskInput) {
     // Clear the input value
     subtaskInput.value = '';
 }
 
+/**
+ * Retrieves the task status by index.
+ * @param {number} idx - The index of the task status.
+ * @returns {string} The task status.
+ */
 function getTaskStatusByIndex(idx){
     return taskStatusCategories[idx];
 }
 
+/**
+ * Retrieves a task by its ID.
+ * @param {string} id - The ID of the task.
+ * @returns {Object} - The task object matching the provided ID.
+ */
 async function getTaskById(id){
     tasks = await getRemote('tasks');
     const index = tasks.findIndex((task) => task.taskID === id);
     return tasks[index];
 }
 
+/**
+ * Deletes a task with the specified ID.
+ * @param {string} id - The ID of the task to be deleted.
+ * @returns {Promise<void>} - A promise that resolves when the task is deleted.
+ */
 async function deleteTask(id) {
     tasks = await getRemote('tasks');
     const index = tasks.findIndex((task) => task.taskID === id);
