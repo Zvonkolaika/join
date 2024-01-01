@@ -109,7 +109,7 @@ function removeAssignedUser(id) {
  * @param {string} userColour - The colour of the user icon.
  * @param {string} userName - The name of the user.
  */
-function renderUserIcon(userID, userColour, userName) {
+function renderTaskUserIcon(userID, userColour, userName) {
     const selectedUsersContainer = document.getElementById('selected-users-container');
     selectedUsersContainer.innerHTML +=  /*html*/`
             <div class="selected-icon" id="selected-icon-user-assigned-${userID.toString()}" ondblclick="removeAssignedUser(${userID})">
@@ -136,7 +136,7 @@ function selectOption(checkbox, id) {
         if (index != -1) {
             assignUserList.push(usersList[index]);
         }
-        renderUserIcon(id, usersList[index].bgColor, usersList[index].name);
+        renderTaskUserIcon(id, usersList[index].bgColor, usersList[index].name);
     } else {
         // If checkbox is unchecked, remove the corresponding icon div
         const selectedIcon = document.getElementById('selected-icon-user-assigned-' + id.toString());
