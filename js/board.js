@@ -8,7 +8,7 @@ let awaitFeedback;
 let done;
 
 async function init() {
-    await includeHTML();
+    await loadTemplates();
     setCurrentPageLinkActive('board');
     await getTasks();
     loadBoard();
@@ -28,12 +28,32 @@ function closeAddTaskPopup() {
 }
 
 
+function openTaskCard(elementByID, cardID) {
+    renderTaskCardBoard(elementByID, cardID);
+    document.getElementById('task-card-bgr-container').classList.add('show-task-card');
+}
+
+
+function closeTaskCard() {
+    document.getElementById('task-card-bgr-container').classList.remove('show-task-card');
+}
+
+
 async function getTasks() {
     allTasksFromStorage = JSON.parse(await getItem("tasks"));
 }
 
 
 function loadBoard() {
+    renderToDo();
+    renderInProgress();
+    renderAwaitFeedback();
+    renderDone();
+    console.log(allTasksFromStorage);
+}
+
+
+function loadSearchResult() {
     renderToDo();
     renderInProgress();
     renderAwaitFeedback();
@@ -103,14 +123,14 @@ function renderAssignedUsers(index) {
 }
 
 
-function searchTask() {
-    inputSearchfield = document.getElementById('inputfield_find_task').value.toLowerCase();
-    
-    let filteredTasks = allTasksFromStorage.filter(task => task['title'].toLowerCase().includes(inputSearchfield));
-    inputSearchfield = "";
-    allTasksFromStorage = filteredTasks;
-    console.log(filteredTasks);
-    loadBoard();
+async function searchTask() {
+    await getTasks();
+        inputSearchfield = document.getElementById('inputfield_find_task').value.toLowerCase();
+        let filteredTasks = allTasksFromStorage.filter(task => task['title'].toLowerCase().includes(inputSearchfield));
+        filteredTasks = allTasksFromStorage.filter(task => task['description'].toLowerCase().includes(inputSearchfield));
+        allTasksFromStorage = filteredTasks;
+        console.log(filteredTasks);
+        loadBoard();
 }
 
 
@@ -121,6 +141,7 @@ function allowDrop(ev) {
 
 
 function startDragging(index, element_taskID) {
+    document.getElementById(element_taskID).classList.add('rotare_thumpnail');
     currentDraggedElementID = element_taskID;
     currentDraggedElementINDEX = index;
     console.log(element_taskID);
@@ -168,7 +189,7 @@ function renderThumbnailCard(category, index, element) {
 
 
 function thumbnailCardHTML(index, element) {
-    return ` <div id="${element.taskID}" class="task-card-thumbnail-container" draggable="true" ondragstart="startDragging(${index}, ${element.taskID})">
+    return ` <div id="${element.taskID}" class="task-card-thumbnail-container" draggable="true" ondragstart="startDragging(${index}, ${element.taskID})"  onclick="openTaskCard('task-card', ${element.taskID})">
     <div class="task_card_thumbnail_content">
         <div class="task_card_thumbnail_label" style="background: ${element.category.colour};">
             ${element.category.name}
@@ -202,4 +223,59 @@ function renderAssignedUsers(element) {
         <div class="acc-initials task_card_thumbnail_profile_badge_frame" style="background: ${element.assignedUsers[i].bgColor};">${returnInitials(element.assignedUsers[i].name)}</div>
         `;
     }
+}
+
+
+function renderTaskCardBoard(elementId, cardID){
+    filteredElement = allTasksFromStorage.filter(t => t['taskID'] == cardID);
+    task = filteredElement[0];
+    console.log(task);
+    let taskCard = document.getElementById(elementId);
+    taskCard.innerHTML = /*html*/`
+        
+    <divid="task-card-id-${task['taskID']}">
+    <div class="task-categories task_card_thumbnail_label"  style="background: ${task['category']['colour']};">
+        <span>${task['category']['name']}</span> 
+    </div>
+
+    <div class="task-categories task_card_thumbnail_title">
+        <h1>${task['title']}</h1>
+    </div>
+    <div class="task-categories description">
+        <span>${task['description']}</span>
+    </div>
+
+    <div class="task-categories">
+        <span>Due date: ${normalDate(task['date'])}</span>
+    </div>
+    <div class="task-categories">
+        <span>Priority: ${renderPriority(task['prio'], true)}</span>
+    </div>
+    <div class="task-categories">
+        <span>Assigned to:</span>
+        <div id="assigned-user-icons-container">
+            ${renderAssignedUserIcons(task['assignedUsers'])}
+        </div>       
+    </div>
+    <div class="task-categories">
+        <span>Subtasks</span>
+        <div class="subtask-container-list" id="subtask-container-list-${task['taskID']}">
+        ${renderSubtasks(task.taskID, task.subtasks)}
+        </div>
+    </div>       
+    <div class="create-delete-task-container">
+        <div class="create-delete-task-btn" id="create-delete-task-btns-container">
+                <button id="reset" type="reset" class="button-secondary-w-icon add-task-btn" onclick="deleteTask(${task['taskID']}); showPopUp('${elementId}', false)">
+                    Delete   
+                    <img src="/assets/img/icons/cancel.svg" id="clearIconHover" class="clearIconDefault">
+                    <img src="/assets/img/icons/iconoir_cancel.svg" id="clearIconDefault" class="clearIconBlue d-none">
+                </button>
+                <button class="button-w-icon" type="submit" onclick="renderEditTaskForm('${elementId}', ${task['taskID']})">
+                    Edit<img src="./assets/img/icons/check.svg" />
+                </button>
+        </div>
+        <div id="edit-mode-task"></div>
+    </div>
+</div>
+`;
 }

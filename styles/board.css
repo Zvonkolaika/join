@@ -1,6 +1,5 @@
-
 main {
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -11,7 +10,7 @@ main {
     width: calc(100% - 232px);
     height: calc(100% - 96px);
     overflow-y: auto;
-  }
+}
 
 .board_header_container {
     width: 100%;
@@ -25,6 +24,7 @@ main {
     justify-content: space-between;
     align-items: center;
     padding: 79.5px 88px 79.5px 64px;
+    gap: 32px;
 }
 
 .board_headline_container {
@@ -84,12 +84,19 @@ main {
     cursor: pointer;
 }
 
-.search_icon_container:hover {
-    transform: scale(1.08);
+.search_icon_frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
+
+.search_icon_frame:hover {
+    background-color: #eeeeee;
 }
 
 #divider {
-    width: 0px;
+    width: 3px;
     height: 31px;
     stroke-width: 1px;
     stroke: var(--Style, #D1D1D1);
@@ -101,7 +108,7 @@ main {
 }
 
 #button_add_task_desktop {
-    display: inline-flex;
+    display: flex;
     padding: 8px 16px;
     justify-content: center;
     align-items: center;
@@ -143,17 +150,20 @@ main {
     display: none;
 }
 
+.plus_icon_mobile_link {
+    display: none;
+}
+
 /* --- board categories --- */
 
 .categories_container {
-    position: sticky;
-    top: 0;
     display: flex;
-    width: 1208px;
+    width: 100%;
     padding: 0px 64px;
     justify-content: space-between;
     align-items: flex-start;
     background: #f6f7f8;
+    gap: 16px;
 }
 
 .categories {
@@ -174,6 +184,14 @@ main {
     line-height: 120%;
 }
 
+.column_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
 .plus_icon_frame {
     display: flex;
     width: 24px;
@@ -187,13 +205,49 @@ main {
     border: 2px solid var(--Version-2-main-color, #2A3647);
 }
 
+.plus_icon_frame:hover {
+    cursor: pointer;
+}
+
 .plus_icon_frame img {
     width: 21px;
     height: 21px;
     flex-shrink: 0;
 }
 
+.plus_icon_frame_mobile {
+    display: flex;
+    width: 24px;
+    height: 24px;
+    padding: 3px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 2px solid var(--Version-2-main-color, #2A3647);
+}
+
 /* Add Task PopUp */
+
+#add-task-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+
+}
+
+.add-task-form {
+    padding: 64px 74px 64px 74px;
+    background-color: white;
+    border-radius: 30px;
+    height: 95%;
+}
+
+.content-add-task {
+    padding-bottom: 24px;
+}
 
 #add_task_popup_container {
     position: absolute;
@@ -208,37 +262,49 @@ main {
     height: 100%;
     transform: translateX(100vw);
     transition: all 100ms ease-out;
-  }
-  
-  .show_add_task_popup {
+    flex-direction: column;
+    /* !!! Muss wieder weg !!! */
+}
+
+.show_add_task_popup {
     display: flex !important;
     transform: translateX(0px) !important;
-  }
-  
-  .add_task_popup_content {
+}
+
+.add_task_popup_close_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 16px; /* muss wieder weg */
+}
+
+.add_task_popup_close_button:hover {
+    cursor: pointer;
+}
+
+.add_task_popup_close_button img {
+    width: 30px;
+}
+
+/* .add_task_popup_content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: white;
     border-radius: 24px;
-  }
-  
-  .add_task_popup_content img:hover {
+  } */
+
+.add_task_popup_content img:hover {
     cursor: pointer;
-  }
+}
 
-  .content-add-task {
-    background-color: white !important;
-    padding-bottom: 0px  !important;
-  }
-
-  .header-div h1 {
+.header-div h1 {
     margin-top: 0;
     margin-bottom: 0;
-  }
-  
-  /* Add Task PopUp END */
+}
+
+/* Add Task PopUp END */
 
 /* --- board categories END --- */
 
@@ -246,7 +312,7 @@ main {
     display: flex;
     width: 1208px;
     height: 688px;
-    padding: 0px 64px;
+    padding: 8px 64px 0px 64px;
     align-items: flex-start;
     gap: 26px;
     flex-shrink: 0;
@@ -285,14 +351,14 @@ main {
 }
 
 
-/* Task - CArd test Style */
+/* Task Thumbnail */
 
 .task-card-thumbnail-container {
     display: flex;
     width: 252px;
     padding: 16px;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 10px;
     border-radius: 24px;
@@ -303,7 +369,12 @@ main {
 
 .task-card-thumbnail-container:hover {
     cursor: pointer;
-    transform: scale(1.05);
+    transform: scale(1.01);
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.2);
+}
+
+.rotare_thumpnail {
+    transform: rotate(5deg) !important;
 }
 
 .task_card_thumbnail_content {
@@ -438,7 +509,49 @@ main {
     flex-shrink: 0;
 }
 
-/* Task - CArd test Style END */
+/* Task - CArd test StyleThumbnail */
+
+/* -- Task Card -- */
+
+#task-card-bgr-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: #0000001c;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    transform: translateX(100vw);
+    transition: all 100ms ease-out;
+    flex-direction: column;
+    /* !!! Muss wieder weg !!! */
+}
+
+.show-task-card {
+    display: flex !important;
+    transform: translateX(0px) !important;
+}
+
+
+#task-card-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 525px;
+    height: 832px;
+    padding: 48px 40px;
+    border-radius: 30px;
+    background: #FFF;
+}
+
+.task-categories {
+    justify-content: center;
+    padding-top: 0;
+    padding: 4px 0px;
+    width: fit-content;
+}
 
 /* Drag and Drop */
 
@@ -450,18 +563,19 @@ main {
 
 /*--- Board Responsive --- */
 
-@media screen and (max-width: 428px) {
+@media screen and (max-width: 1024px) {
     main {
-        width: 100%;
-        height: 1000px;
-        padding: 0 16px;
-        position: inherit;
+        z-index: 0;
+        position: absolute;
+        top: 80px;
         left: 0;
-        top: 120px;
+        height: calc(100% - 80px - 80px);
+        width: 100%;
+        overflow-x: hidden;
     }
 
     .board_header_container {
-        width: 100%;
+        height: auto;
     }
 
     .board_header {
@@ -497,13 +611,170 @@ main {
         align-items: center;
         gap: 10px;
         flex-shrink: 0;
+        background-color: #2A3647;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .plus_icon_mobile {
+        display: flex;
+    }
+
+    .plus_icon_frame {
+        display: none;
+    }
+
+    .plus_icon_mobile_link {
+        display: flex;
     }
 
     .board_search_task_container {
         width: 100%;
+        justify-content: flex-start;
     }
 
     .input-container {
         width: 396px;
+    }
+
+    #task-card-container {
+        width: 90%;
+        height: 90%;
+    }
+
+    #add_task_popup_container {
+        display: none !important;
+    }
+
+    .container {
+        position: absolute;
+    }
+
+    .task-card-thumbnail-container {
+        height: 100%;
+        margin: 0 4px;
+    }
+
+    .board_header {
+        padding: 0;
+        gap: 0;
+    }
+
+    .categories p {
+        margin: 0;
+    }
+
+    .board_distribution {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .categories_container {
+        position: relative;
+        flex-direction: column;
+        width: 100%;
+        padding: 0 24px;
+    }
+
+    .categories {
+        width: 88%;
+        margin-top: 24px;
+        padding: 0;
+    }
+
+    .column {
+        align-self: flex-start;
+        gap: 0;
+    }
+
+    .column_content {
+        flex-direction: row;
+        width: 100vw;
+        height: 320px;
+        justify-content: flex-start;
+        overflow: auto;
+        padding: 8px 56px 8px 0;
+    }
+
+    .column_content::-webkit-scrollbar {
+        /* visibility: hidden; */
+        visibility: visible;
+        height: 12px;
+    }
+
+    /* Track */
+    .column_content::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px rgb(226, 226, 226);
+        border-radius: 8px;
+    }
+
+    /* Handle */
+    .column_content::-webkit-scrollbar-thumb {
+        background: rgb(224, 224, 224);
+        border-radius: 8px;
+    }
+
+    .column_content::-webkit-scrollbar-thumb:hover {
+        background: rgb(175, 175, 175);
+    }
+
+    .task-card-thumbnail-container:hover {
+        transform: scale(none);
+    }
+
+    .board_header_container {
+        padding: 0 24px;
+    }
+
+    .create-delete-task-container {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        background-color: white;
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+    #task-card-bgr-container {
+        justify-content: center;
+    }
+
+    #task-card-container {
+        width: 90%;
+        height: 75%;
+        overflow-y: auto;
+        padding: 24px;
+    }
+
+    .task_card_thumbnail_title h1 {
+        font-size: 36px;
+        margin: 0;
+    }
+
+    .description {
+        margin-bottom: 0;
+    }
+
+    .task_card_thumbnail_label {}
+
+    .task-categories {
+        justify-content: center;
+        padding-top: 0;
+        padding: 4px 0px;
+        width: fit-content;
+    }
+
+
+    .task_card_thumbnail_label span {
+        justify-content: center;
+        padding-top: 0;
+        padding: 4px 8px;
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
     }
 }
