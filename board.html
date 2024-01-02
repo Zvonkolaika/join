@@ -29,8 +29,8 @@
                 <div class="board_header">
                     <div class="board_headline_container">
                         <h1>Board</h1>
-                        <button class="button_add_task" id="button_add_task_mobile"><img
-                                src="assets/img/icons/add.svg"></button>
+                        <a href="add_task.html"><button class="button_add_task" id="button_add_task_mobile"><img
+                                    src="assets/img/icons/add.svg"></button></a>
                     </div>
                     <div class="board_search_task_container">
                         <div class="input_container">
@@ -55,6 +55,11 @@
                         <div class="plus_icon_frame" onclick="openAddTaskPopup()">
                             <img src="assets/img/icons/plus.svg">
                         </div>
+                        <a href="add_task.html" class="plus_icon_mobile_link">
+                            <div class="plus_icon_frame_mobile">
+                                <img src="assets/img/icons/plus.svg">
+                            </div>
+                        </a>
                     </div>
                     <div class="column_content" id="column_todo" ondrop="moveTo(0)"
                         ondragover="allowDrop(event); highlight('column_todo')"
@@ -67,6 +72,11 @@
                         <div class="plus_icon_frame" onclick="openAddTaskPopup()">
                             <img src="assets/img/icons/plus.svg">
                         </div>
+                        <a href="add_task.html" class="plus_icon_mobile_link">
+                            <div class="plus_icon_frame_mobile">
+                                <img src="assets/img/icons/plus.svg">
+                            </div>
+                        </a>
                     </div>
                     <div class="column_content" id="column_in_progress" ondrop="moveTo(1)"
                         ondragover="allowDrop(event); highlight('column_in_progress')"
@@ -79,6 +89,11 @@
                         <div class="plus_icon_frame" onclick="openAddTaskPopup()">
                             <img src="assets/img/icons/plus.svg">
                         </div>
+                        <a href="add_task.html" class="plus_icon_mobile_link">
+                            <div class="plus_icon_frame_mobile">
+                                <img src="assets/img/icons/plus.svg">
+                            </div>
+                        </a>
                     </div>
                     <div class="column_content" id="column_await_feedback" ondrop="moveTo(2)"
                         ondragover="allowDrop(event); highlight('column_await_feedback')"

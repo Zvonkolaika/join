@@ -24,6 +24,7 @@ main {
     justify-content: space-between;
     align-items: center;
     padding: 79.5px 88px 79.5px 64px;
+    gap: 32px;
 }
 
 .board_headline_container {
@@ -107,7 +108,7 @@ main {
 }
 
 #button_add_task_desktop {
-    display: inline-flex;
+    display: flex;
     padding: 8px 16px;
     justify-content: center;
     align-items: center;
@@ -146,6 +147,10 @@ main {
 }
 
 #button_add_task_mobile {
+    display: none;
+}
+
+.plus_icon_mobile_link {
     display: none;
 }
 
@@ -201,6 +206,19 @@ main {
     width: 21px;
     height: 21px;
     flex-shrink: 0;
+}
+
+.plus_icon_frame_mobile {
+    display: flex;
+    width: 24px;
+    height: 24px;
+    padding: 3px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 2px solid var(--Version-2-main-color, #2A3647);
 }
 
 /* Add Task PopUp */
@@ -526,10 +544,11 @@ main {
         left: 0;
         height: calc(100% - 80px - 80px);
         width: 100%;
+        overflow-x: hidden;
     }
 
     .board_header_container {
-        width: 100%;
+        height: auto;
     }
 
     .board_header {
@@ -565,14 +584,35 @@ main {
         align-items: center;
         gap: 10px;
         flex-shrink: 0;
+        background-color: #2A3647;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .plus_icon_mobile {
+        display: flex;
+    }
+
+    .plus_icon_frame {
+        display: none;
+    }
+
+    .plus_icon_mobile_link {
+        display: flex;
     }
 
     .board_search_task_container {
         width: 100%;
+        justify-content: flex-start;
     }
 
     .input-container {
         width: 396px;
+    }
+
+    #task-card-container {
+        width: 90%;
+        height: 90%;
     }
 
     #add_task_popup_container {
@@ -583,8 +623,18 @@ main {
         position: absolute;
     }
 
+    .task-card-thumbnail-container {
+        height: 100%;
+        margin: 0 4px;
+    }
+
     .board_header {
         padding: 0;
+        gap: 0;
+    }
+
+    .categories p {
+        margin: 0;
     }
 
     .board_distribution {
@@ -596,21 +646,48 @@ main {
     .categories_container {
         position: relative;
         flex-direction: column;
+        width: 100%;
+        padding: 0 24px;
+    }
+
+    .categories {
+        width: 88%;
+        margin-top: 24px;
+        padding: 0;
     }
     
     .column {
-        align-self: center;
+        align-self: flex-start;
+        gap: 0;
     }
 
     .column_content {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        width: 100vw;
+        height: 320px;
+        justify-content: flex-start;
         align-items: center;
         gap: 16px;
+        overflow: auto;
+        padding: 8px 0;
+    }
+
+    .column_content::-webkit-scrollbar {
+        visibility: hidden;
+    }
+
+    .task-card-thumbnail-container:hover {
+        transform: scale(none);
     }
 
     .board_header_container {
         padding: 0 24px;
+    }
+
+    .create-delete-task-container {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        background-color: white;
     }
 }
