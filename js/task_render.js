@@ -1,9 +1,4 @@
-async function drawCards(){
-    let tasks = await getRemote('tasks');
-    tasks.forEach(task => {
-        renderTaskCard("task-card", task);
-    });
-}
+
 
 async function selectSubtaskStatus(checkbox, taskID, subtaskID){
     const selectedSubtaskContainer = document.getElementById(`selected-subtask-${subtaskID}`);
