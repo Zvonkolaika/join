@@ -290,3 +290,18 @@ async function deleteTask(id) {
     await setItem('tasks', tasks);
     window.location.href = `./board.html`;
 }
+
+/**
+ * Clears the task form by removing assigned users and subtasks.
+ */
+function taskFormClear(){
+    assignUserList.forEach(user => {
+        const selectedIcon = document.getElementById('selected-icon-user-assigned-' + user.id.toString());
+        if (selectedIcon) {
+            selectedIcon.remove();
+        }
+    });
+    assignUserList = [];
+    subtasks = [];
+    document.getElementById('select-subtask').innerHTML = '';
+}
