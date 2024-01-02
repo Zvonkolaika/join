@@ -1,9 +1,4 @@
-async function drawCards(){
-    let tasks = await getRemote('tasks');
-    tasks.forEach(task => {
-        renderTaskCard("task-card", task);
-    });
-}
+
 
 async function selectSubtaskStatus(checkbox, taskID, subtaskID){
     const selectedSubtaskContainer = document.getElementById(`selected-subtask-${subtaskID}`);
@@ -192,7 +187,7 @@ function renderTaskForm(
     category = categorySubmit;
     return /*html*/ `
     <form class="add-task-form" id="add-task-form-container" action="board.html" method="get"
-        onsubmit="event.preventDefault(); submitTask(${taskStatus}, submitTaskID = ${taskID});">
+        onsubmit="event.preventDefault(); submitTask(${taskStatus}, submitTaskID = ${taskID});" autocomplete="off">
         <div class="task-form-full">
         <!-- Header Section -->
         <div class="header-div">
@@ -310,7 +305,7 @@ function renderTaskForm(
                 <span class="required-field"><span class="red-asterisk">*</span>This field is required</span>
             </div>
                 <div class="create-delete-task-btn" id="create-delete-task-btns-container">
-                    <button id="reset" type="reset" class="button-secondary-w-icon add-task-btn">
+                    <button id="reset" type="reset" class="button-secondary-w-icon add-task-btn" onclick="taskFormClear()">
                         Clear
                         <img src="/assets/img/icons/cancel.svg" id="clearIconHover" class="clearIconDefault">
                         <img src="/assets/img/icons/iconoir_cancel.svg" id="clearIconDefault"
