@@ -489,11 +489,9 @@ input:focus-visible{
     .add-task-form {
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
     padding-top: 0;
-    height: 100%;
     align-items: center;
     padding-left: 0;
     padding-top: 0;
@@ -560,10 +558,6 @@ input:focus-visible{
         width: auto;
     }
 
-    .input-container{
-        width: 296px;
-    }
-
     .date-task-inputfield {
        width: auto;
     }
@@ -581,25 +575,86 @@ input:focus-visible{
         width: auto;
     }
     
-    .content-add-task {
-        width: 70%;
+    .prio{
+        width: 104px;
+        padding: 10px 13px;
+        margin-right: 4px;
+        margin-left: 4px;
     }
 
-    .prio{
-        width: 94px;
-        padding: 10px 13px;
-        margin-right: 11px;
+    .prio-icon {
+        padding-right: 5px;
+    }
+
+    .prio-btn-container {
+        justify-content: space-between;
     }
 
 }
 
+@media screen and (max-width: 500px){
 
+    .input-container {
+        width: auto!important;
+    }
 
+    .add-task-form {
+        height: auto !important;
+    }
 
+    .create-delete-task-container {
+        width: auto;
+        margin-left: 8px;
+    }
 
+    .dropdown {
+        width: 100% !important;
+        font-size: 16px !important;
+    }
 
+    .selected-value {
+        font-size: 16px;
+    }
 
+    .title-description-div {
+        width: 100%;
+    }
 
+    .input-field {
+        font-size: 16px !important;
+    }
 
+    .subtask-item {
+        font-size: 16px !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+    }
 
+    .width-small {
+        gap: 0!important;
+        line-height: 80%;
+    }
+}
 
+@media screen and (max-width: 350px){
+    .prio {
+        width: 72px;
+        padding: 10px 0px;
+        margin-right: 0px; 
+        margin-left: 0px;
+        font-size: 10px !important;
+    }
+
+    .prio-icon{
+        display: none;
+    }
+
+    .categories-colour {
+        display: none !important;
+    }
+
+    .input-container {
+        padding: 12px 0px !important;
+        gap: 0 !important; 
+    }
+}
