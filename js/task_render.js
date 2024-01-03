@@ -1,7 +1,13 @@
 
 
+/**
+ * Selects or deselects a subtask status based on the checkbox state.
+ * @param {HTMLInputElement} checkbox - The checkbox element representing the subtask status.
+ * @param {string} taskID - The ID of the task containing the subtask.
+ * @param {string} subtaskID - The ID of the subtask.
+ * @returns {Promise<void>} - A promise that resolves once the subtask status is updated.
+ */
 async function selectSubtaskStatus(checkbox, taskID, subtaskID){
-    const selectedSubtaskContainer = document.getElementById(`selected-subtask-${subtaskID}`);
     let tasks = await getRemote('tasks');
     const taskIdx = tasks.findIndex((task) => task.taskID === taskID);
     const subtaskIdx = tasks[taskIdx].subtasks.findIndex((subtask) => subtask[SUBTASK_ID] === subtaskID);
@@ -17,6 +23,13 @@ async function selectSubtaskStatus(checkbox, taskID, subtaskID){
     }
 }
 
+/**
+ * Renders a subtask element.
+ * 
+ * @param {number} taskID - The ID of the parent task.
+ * @param {object} subtask - The subtask object.
+ * @returns {string} The HTML representation of the subtask element.
+ */
  function renderSubtask(taskID, subtask){
     const checked = subtask[SUBTASK_DONE] ? "checked" : "";
     return /*html*/`
@@ -27,6 +40,13 @@ async function selectSubtaskStatus(checkbox, taskID, subtaskID){
         `;
 }
 
+/**
+ * Renders the subtasks for a given task.
+ * 
+ * @param {string} taskID - The ID of the task.
+ * @param {Array} subtasks - An array of subtasks.
+ * @returns {string} - The HTML representation of the subtasks.
+ */
 function renderSubtasks(taskID, subtasks){
     let html = "";
     subtasks.forEach(subtask => { 
@@ -35,6 +55,12 @@ function renderSubtasks(taskID, subtasks){
     return html;
 }
 
+/**
+ * Renders the assigned user icons.
+ * 
+ * @param {Array} assignedUserList - The list of assigned users.
+ * @returns {string} The HTML representation of the assigned user icons.
+ */
 function renderAssignedUserIcons(assignedUserList){
     let html = "";
     assignedUserList.forEach(user => {
@@ -43,6 +69,13 @@ function renderAssignedUserIcons(assignedUserList){
     return html;
 }
 
+/**
+ * Renders the priority of a task.
+ * 
+ * @param {string} prio - The priority of the task.
+ * @param {boolean} renderName - Indicates whether to render the priority name.
+ * @returns {string} The HTML representation of the priority.
+ */
 function renderPriority(prio, renderName){
     let html = "";
     switch(prio){
@@ -71,8 +104,13 @@ function renderPriority(prio, renderName){
     return html;
 }
 
-
 // return date in format dd/mm/yyyy
+/**
+ * Converts a given date to a normal date format (dd/mm/yy).
+ *
+ * @param {Date} date - The date to be converted.
+ * @returns {string} The date in the format dd/mm/yy.
+ */
 function normalDate(date) {
     let d = new Date(date);
     let day = d.getDate();
@@ -85,6 +123,11 @@ function normalDate(date) {
     return `${day}/${month}/${year}`;
 }
 
+/**
+ * Converts a date string to a formatted date string in the format "YYYY-MM-DD".
+ * @param {Date} date - The date to be converted.
+ * @returns {string} The formatted date string.
+ */
 function normalDateEditTask(date) {
     let d = new Date(date);
     let day = d.getDate();
@@ -97,6 +140,11 @@ function normalDateEditTask(date) {
     return `${year}-${month}-${day}`;
 }
 
+/**
+ * Renders the add task form in the specified element.
+ * @param {string} elementId - The ID of the element where the form will be rendered.
+ * @param {string} [setTaskStatus=TASK_STATUS_TODO] - The status of the task to be set by default.
+ */
 function renderAddTaskForm(elementId, setTaskStatus = TASK_STATUS_TODO) {
     let addTaskForm = document.getElementById(elementId);
     addTaskForm.innerHTML = '';
@@ -117,6 +165,13 @@ function renderAddTaskForm(elementId, setTaskStatus = TASK_STATUS_TODO) {
     disablePrioBtns();
 }
 
+/**
+ * Renders the edit task form with the provided task details.
+ * 
+ * @param {string} elementId - The ID of the HTML element where the form will be rendered.
+ * @param {string} taskId - The ID of the task to be edited.
+ * @returns {Promise<void>} - A promise that resolves when the form is rendered.
+ */
 async function renderEditTaskForm(elementId, taskId) {
     let task = await getTaskById(taskId);
     let addTaskForm = document.getElementById(elementId);
@@ -165,6 +220,22 @@ async function renderEditTaskForm(elementId, taskId) {
     disablePrioBtns();
 }
 
+/**
+ * Renders a task form with the specified parameters.
+ *
+ * @param {string} formTitle - The title of the form.
+ * @param {string} title - The title of the task.
+ * @param {string} description - The description of the task.
+ * @param {number} date - The due date of the task in milliseconds.
+ * @param {string} prio - The priority of the task.
+ * @param {Array} assignedUsers - The list of users assigned to the task.
+ * @param {Array} categorySubmit - The category for the task.
+ * @param {string} taskStatus - The status of the task.
+ * @param {number} taskID - The ID of the task.
+ * @param {Array} subtasksSubmit - The list of subtasks for the task.
+ * @param {string} elementId - The ID of the HTML element where the form will be rendered.
+ * @returns {string} The HTML code for the task form.
+ */
 function renderTaskForm(
                 formTitle = 'Untitled', 
                 title = '',
@@ -301,7 +372,6 @@ function renderTaskForm(
                     </div>
             </div>
         </div>
-        
         </div>
         <div class="create-delete-task-container">
             <div>
@@ -328,6 +398,12 @@ function renderTaskForm(
     `;
 }
 
+/**
+ * Renders a task card with the given task data and appends it to the element with the specified ID.
+ * 
+ * @param {string} elementId - The ID of the element to which the task card will be appended.
+ * @param {object} task - The task object containing the task data.
+ */
 function renderTaskCard(elementId, task){
     let taskCard = document.getElementById(elementId);
     taskCard.innerHTML += /*html*/`
@@ -379,6 +455,11 @@ function renderTaskCard(elementId, task){
 `;
 }
 
+/**
+ * Toggles the visibility of a popup element.
+ * @param {string} elementId - The ID of the element to show or hide.
+ * @param {boolean} show - Determines whether to show or hide the element.
+ */
 function showPopUp(elementId, show) {
     if (show) {
       document.getElementById(elementId).classList.remove("d-none");
