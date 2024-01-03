@@ -37,6 +37,18 @@ const categories = [
 ];
 
 /**
+ * Initializes the add task functionality.
+ * Loads templates, contacts, sets current page link active, and renders the add task form.
+ * @returns {Promise<void>} A promise that resolves when the initialization is complete.
+ */
+async function addTaskInit() {
+    await loadTemplates();
+    await loadContacts();
+    setCurrentPageLinkActive("add_task");
+    renderAddTaskForm('add-task-placeholder');
+}
+
+/**
  * Submits a task with the given task status and optional task ID.
  * @param {string} taskStatus - The status of the task.
  * @param {number} [submitTaskID=0] - The ID of the task to be submitted (optional).

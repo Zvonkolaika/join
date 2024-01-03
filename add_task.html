@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="/styles/contacts.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="/assets/fonts/inter.css">
+    <script src="script.js"></script>
     <script src="/js/contacts.js"></script>
     <script src="/js/task_subtasks.js"></script>
     <script src="/js/task_users.js"></script>
     <script src="/js/task_add.js"></script>
     <script src="/js/task_render.js"></script>
     <script src="/js/storage.js"></script>
-    <script src="script.js"></script>
 </head>
-<body onload="init(); renderAddTaskForm('add-task-placeholder')">
+<body onload="addTaskInit()">
     <div class="container">
         <header w3-include-html="./assets/templates/header.html"></header>
         <nav w3-include-html="./assets/templates/sidebar.html"></nav>
