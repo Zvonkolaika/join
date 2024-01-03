@@ -66,7 +66,7 @@ function renderEditModeSavedSubtask(subtaskText, subtaskId) {
         <input class="input-field" type="text" value="${subtaskText}" id="${subtaskId}-edit-subtask-input">
         <div class="subtask-icons visible" id="subtask-icons-saved-edit-${subtaskId}">
             <div class="check_icon_div">
-                <img class="subtask-img icon" id="subtask-check-icon" src="/assets/img/icons/Property 1=check.svg" alt="" onclick="updateSavedSubtask('${subtaskText}', '${subtaskId}')">
+                <img class="subtask-img icon" id="subtask-check-icon" src="/assets/img/icons/Property 1=check.svg" alt="" onclick="updateSavedSubtask('${subtaskText}', ${subtaskId})">
             </div>
             <div class="vector_icon_div">
                     <img class="add-subtaskicons icon vector" src="/assets/img/icons/Vector 19.svg" alt="">
@@ -130,7 +130,7 @@ function updateSavedSubtask(subtaskText, subtaskId) {
     if (updatedText !== '') {
         editSubtaskInput.value = updatedText;
         subtaskText = updatedText;
-        const index = subtasks.findIndex((task) => task[SUBTASK_ID] === subtaskId);
+        const index = subtasks.findIndex((subtask) => subtask[SUBTASK_ID] === subtaskId);
         if (index !== -1) {
             subtasks[index][SUBTASK_TEXT] = subtaskText;
         }
