@@ -46,6 +46,7 @@ main {
 .contact-entry-active {
   background-color: #2a3647;
   color: #fff;
+  cursor: pointer;
 }
 
 .contact-entry email {
