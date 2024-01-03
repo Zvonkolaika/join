@@ -81,10 +81,15 @@ function renderInProgress() {
     document.getElementById('column_in_progress').innerHTML = '';
     inProgress = allTasksFromStorage.filter(t => t['taskStatus'] == 1);
 
+    if (inProgress.length == 0) {
+        renderNoTaskToDo('column_in_progress');
+    }
+    else {
     for (let index = 0; index < inProgress.length; index++) {
         const element = inProgress[index];
         renderThumbnailCard('column_in_progress', index, element)
     }
+}
 }
 
 
@@ -92,10 +97,15 @@ function renderAwaitFeedback() {
     document.getElementById('column_await_feedback').innerHTML = '';
     awaitFeedback = allTasksFromStorage.filter(t => t['taskStatus'] == 2);
 
+    if (awaitFeedback.length == 0) {
+        renderNoTaskToDo('column_await_feedback');
+    }
+    else {
     for (let index = 0; index < awaitFeedback.length; index++) {
         const element = awaitFeedback[index];
         renderThumbnailCard('column_await_feedback', index, element)
     }
+}
 }
 
 
@@ -103,10 +113,15 @@ function renderDone() {
     document.getElementById('column_done').innerHTML = '';
     done = allTasksFromStorage.filter(t => t['taskStatus'] == 3);
 
+    if (done.length == 0) {
+        renderNoTaskDone('column_done');
+    }
+    else {
     for (let index = 0; index < done.length; index++) {
         const element = done[index];
         renderThumbnailCard('column_done', index, element)
     }
+}
 }
 
 
@@ -180,6 +195,18 @@ function noTaskToDoHTML() {
 }
 
 
+function renderNoTaskDone(category) {
+    document.getElementById(category).innerHTML += noTaskDoneHTML();
+}
+
+
+function noTaskDoneHTML() {
+    return `<div class="no_task">
+                <p>No task Done</p>
+            </div>`
+}
+
+
 function renderThumbnailCard(category, index, element) {
     document.getElementById(category).innerHTML += thumbnailCardHTML(index, element);
     renderAssignedUsers(element);
@@ -187,8 +214,13 @@ function renderThumbnailCard(category, index, element) {
 
 
 function thumbnailCardHTML(index, element) {
-    return ` <div id="${element.taskID}" class="task-card-thumbnail-container" draggable="true" ondragstart="startDragging(${index}, ${element.taskID})"  onclick="openTaskCard('task-card', ${element.taskID})">
-    <div class="task_card_thumbnail_content">
+    return ` <div id="${element.taskID}" class="task-card-thumbnail-container" draggable="true" ondragstart="startDragging(${index}, ${element.taskID})">
+    <div class="task_card_thumbnail_menu_container" id="task_card_thumbnail_menu_container" onclick="openThumbnailMenu(${element.taskID})">
+        <div class="task_card_thumbnail_menu_icon_frame">
+            <img class="task_card_thumbnail_menu_icon" src="assets/img/icons/ellipsis-solid.svg">
+        </div>
+    </div>
+    <div class="task_card_thumbnail_content"  onclick="openTaskCard('task-card', ${element.taskID})">
         <div class="task_card_thumbnail_label" style="background: ${element.category.colour};">
             ${element.category.name}
         </div>
@@ -221,6 +253,11 @@ function renderAssignedUsers(element) {
         <div class="acc-initials task_card_thumbnail_profile_badge_frame" style="background: ${element.assignedUsers[i].bgColor};">${returnInitials(element.assignedUsers[i].name)}</div>
         `;
     }
+}
+
+
+function openThumbnailMenu(element_taskID) {
+
 }
 
 
