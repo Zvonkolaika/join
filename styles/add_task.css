@@ -17,6 +17,10 @@ span {
     font-weight: bold;
 }
 
+.add_task_popup_close_button {
+    display: none;
+}
+
 .content-add-task {
     overflow-y: auto;
     display: flex;

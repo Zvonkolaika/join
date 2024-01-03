@@ -17,13 +17,11 @@ async function init() {
 
 function openAddTaskPopup() {
     renderAddTaskForm('add-task-placeholder');
-    let popupContainer = document.getElementById('add_task_popup');
     document.getElementById('add_task_popup_container').classList.add('show_add_task_popup');
 }
 
 
 function closeAddTaskPopup() {
-    let popupContainer = document.getElementById('add_task_popup');
     document.getElementById('add_task_popup_container').classList.remove('show_add_task_popup');
 }
 

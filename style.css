@@ -398,6 +398,11 @@ a {
   transition: all 100ms ease-in;
 }
 
+.sidebar_link a {
+  text-decoration: none;
+  color: #cdcdcd;
+}
+
 .sidebar_link:hover {
   cursor: pointer;
   background: #2a3d59;

@@ -192,6 +192,9 @@ function renderTaskForm(
         <!-- Header Section -->
         <div class="header-div">
             <h1>${formTitle}</h1>
+            <div class="add_task_popup_close_button" id="add_task_popup_close_button" onclick="closeAddTaskPopup()">
+                <img src="assets/img/icons/cancel.svg">
+            </div>
         </div>
         <div class="content-add-task">
             <div class="title-description-div">

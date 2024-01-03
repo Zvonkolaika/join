@@ -275,7 +275,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 16px; /* muss wieder weg */
 }
 
 .add_task_popup_close_button:hover {
@@ -302,6 +301,13 @@ main {
 .header-div h1 {
     margin-top: 0;
     margin-bottom: 0;
+}
+
+.header-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 /* Add Task PopUp END */
@@ -392,7 +398,6 @@ main {
     gap: 10px;
     border-radius: 8px;
 
-
     /* typography */
     color: #FFF;
     font-family: Inter;
@@ -400,6 +405,10 @@ main {
     font-style: normal;
     font-weight: 400;
     line-height: 120%;
+}
+
+.task_card_thumbnail_label span {
+    padding: 4px 16px;
 }
 
 .task_card_thumbnail_main {
@@ -756,8 +765,6 @@ main {
     .description {
         margin-bottom: 0;
     }
-
-    .task_card_thumbnail_label {}
 
     .task-categories {
         justify-content: center;
