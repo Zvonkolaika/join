@@ -196,7 +196,7 @@ async function renderEditTaskForm(elementId, taskId) {
     
     document.getElementById('selected-category').value = task['category']['name'];
     assignUserList.forEach(user => {    
-        renderUserIcon(user.id, user.bgColor, user.name);
+        renderTaskUserIcon(user.id, user.bgColor, user.name);
     });
     switch(task['prio']){
         case PRIO_URG: {
