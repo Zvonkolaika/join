@@ -30,8 +30,9 @@ function renderUserIconDropdown(user){
         <div class="initials-name">
             <div class="acc-initials" style="background-color:${user['bgColor']}">
                 <p>${returnInitials(user['name'])}</p>
-                </div>
-                <div>${user['name']}</div>
+            </div>
+            <div>
+                ${user['name']}
             </div>
         </div>
     `;

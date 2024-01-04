@@ -33,9 +33,10 @@ async function selectSubtaskStatus(checkbox, taskID, subtaskID){
  function renderSubtask(taskID, subtask){
     const checked = subtask[SUBTASK_DONE] ? "checked" : "";
     return /*html*/`
-    <div>${subtask[SUBTASK_TEXT]}
+    <div>
         <input type="checkbox" role="option" class="subtask-entry-task" id="selected-subtask-${subtask[SUBTASK_ID]}" ${checked}
         onclick="selectSubtaskStatus(this, ${taskID}, ${subtask[SUBTASK_ID]})"/>
+        ${subtask[SUBTASK_TEXT]}
     </div>  
         `;
 }
