@@ -23,7 +23,7 @@ function openAddTaskPopup() {
 
 
 function closeAddTaskPopup() {
-    // document.getElementById('add-task-placeholder').innerHTML = '';
+    document.getElementById('add-task-placeholder').innerHTML = '';
     document.getElementById('add_task_popup_container').classList.remove('show_add_task_popup');
 }
 
