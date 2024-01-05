@@ -23,6 +23,7 @@ function openAddTaskPopup() {
 
 function closeAddTaskPopup() {
     document.getElementById('add_task_popup_container').classList.remove('show_add_task_popup');
+    removeOverwriteAddTaskFormCSS();
 }
 
 
@@ -246,11 +247,6 @@ function renderAssignedUsers(element) {
 }
 
 
-function openThumbnailMenu(element_taskID) {
-
-}
-
-
 function renderTaskCardBoard(elementId, cardID) {
     filteredElement = allTasksFromStorage.filter(t => t['taskID'] == cardID);
     task = filteredElement[0];
@@ -301,7 +297,7 @@ function renderTaskCardBoard(elementId, cardID) {
             <img src="./assets/img/icons/delete.svg" />
             Delete
             </button>
-        <button id="task-edit" type="submit" onclick="renderEditTaskForm('${elementId}', ${task['taskID']})">
+        <button id="task-edit" type="submit" onclick="loadEditTaskForm('${elementId}', ${task['taskID']})">
         <img src="./assets/img/icons/edit.svg" />
         Edit
         </button>
@@ -337,4 +333,25 @@ function filterCheckedSubtasks(taskID) {
     else {
         let checkedSubtasks = currentTask[0].subtasks.filter(t => t['2'] == true);
     }
+}
+
+async function loadEditTaskForm(elementId, taskID) {
+    await renderEditTaskForm(elementId, taskID);
+    overwriteAddTaskFormCSS();
+}
+
+
+function overwriteAddTaskFormCSS() {
+    document.getElementById('task-card').classList.add('task_card_container_overwrite');
+    document.getElementById('add-task-form-container').classList.add('add_task_form_overwrite', 'task_card_container::-webkit-scrollbar', 'hide_scrollbar');
+    document.getElementById('content-add-task').classList.add('content_add_task_overwrite');
+    document.getElementById('borderline').classList.add('borderline_overwrite');
+}
+
+
+function removeOverwriteAddTaskFormCSS() {
+    document.getElementById('task-card').classList.remove('task_card_container_overwrite');
+    document.getElementById('add-task-form-container').classList.remove('add_task_form_overwrite', 'task_card_container::-webkit-scrollbar', 'hide_scrollbar');
+    document.getElementById('content-add-task').classList.remove('content_add_task_overwrite');
+    document.getElementById('borderline').classList.remove('borderline_overwrite');
 }

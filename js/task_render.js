@@ -267,8 +267,11 @@ function renderTaskForm(
             <div class="add_task_popup_close_button" id="add_task_popup_close_button" onclick="closeAddTaskPopup()">
                 <img src="assets/img/icons/cancel.svg">
             </div>
+            <div class="add_task_popup_close_button" id="add_task_popup_close_button_2" onclick="openTaskCard('task-card', ${taskID})">
+                <img src="assets/img/icons/arrow-left-line.svg">
+            </div>
         </div>
-        <div class="content-add-task">
+        <div class="content-add-task" id="content-add-task">
             <div class="title-description-div">
                 <!-- Task Title -->
                 <div class="task-categories title">
@@ -306,7 +309,7 @@ function renderTaskForm(
                     </div>
                 </div>
             </div>
-            <div class="borderline"></div>
+            <div class="borderline" id="borderline"></div>
             <div class="date-prio-container">
                     <div class="task-categories date">
                         <div class="required">
