@@ -18,13 +18,13 @@ async function init() {
 function openAddTaskPopup() {
     renderAddTaskForm('add-task-placeholder');
     document.getElementById('add_task_popup_container').classList.add('show_add_task_popup');
+    document.getElementById('edit_task_popup_close_button').classList.add('d-none');
 }
 
 
 function closeAddTaskPopup() {
-    document.getElementById('add-task-placeholder').innerHTML = '';
+    // document.getElementById('add-task-placeholder').innerHTML = '';
     document.getElementById('add_task_popup_container').classList.remove('show_add_task_popup');
-    removeOverwriteAddTaskFormCSS();
 }
 
 
@@ -347,12 +347,14 @@ function overwriteAddTaskFormCSS() {
     document.getElementById('add-task-form-container').classList.add('add_task_form_overwrite', 'task_card_container::-webkit-scrollbar', 'hide_scrollbar');
     document.getElementById('content-add-task').classList.add('content_add_task_overwrite');
     document.getElementById('borderline').classList.add('borderline_overwrite');
+    document.getElementById('add_task_popup_close_button').classList.add('d-none');
 }
 
 
-function removeOverwriteAddTaskFormCSS() {
-    document.getElementById('task-card').classList.remove('task_card_container_overwrite');
-    document.getElementById('add-task-form-container').classList.remove('add_task_form_overwrite', 'task_card_container::-webkit-scrollbar', 'hide_scrollbar');
-    document.getElementById('content-add-task').classList.remove('content_add_task_overwrite');
-    document.getElementById('borderline').classList.remove('borderline_overwrite');
-}
+// function removeOverwriteAddTaskFormCSS() {
+//     document.getElementById('task-card').classList.remove('task_card_container_overwrite');
+//     document.getElementById('add-task-form-container').classList.remove('add_task_form_overwrite', 'task_card_container::-webkit-scrollbar', 'hide_scrollbar');
+//     document.getElementById('content-add-task').classList.remove('content_add_task_overwrite');
+//     document.getElementById('borderline').classList.remove('borderline_overwrite');
+//     document.getElementById('add_task_popup_close_button').classList.remove('d-none');
+// }

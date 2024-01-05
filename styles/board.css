@@ -325,7 +325,7 @@ main {
 }
 
 .task_card_container_overwrite {
-	padding: 24px !important;
+	padding: 32px !important;
 }
 
 .content_add_task_overwrite {
@@ -657,6 +657,10 @@ main {
     cursor: pointer;
 }
 
+.task_card_header_close_icon_frame img {
+    width: 30px;
+}
+
 .task_card_title h1 {
     margin: 0;
 }
@@ -908,7 +912,7 @@ main {
     .column_content {
         flex-direction: row;
         width: 100vw;
-        height: 320px;
+        height: auto;
         justify-content: flex-start;
         overflow: auto;
         padding: 8px 56px 8px 0;

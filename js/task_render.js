@@ -267,8 +267,8 @@ function renderTaskForm(
             <div class="add_task_popup_close_button" id="add_task_popup_close_button" onclick="closeAddTaskPopup()">
                 <img src="assets/img/icons/cancel.svg">
             </div>
-            <div class="add_task_popup_close_button" id="add_task_popup_close_button_2" onclick="openTaskCard('task-card', ${taskID})">
-                <img src="assets/img/icons/arrow-left-line.svg">
+            <div class="add_task_popup_close_button" id="edit_task_popup_close_button" onclick="openTaskCard('task-card', ${taskID})">
+                <img src="assets/img/icons/cancel.svg">
             </div>
         </div>
         <div class="content-add-task" id="content-add-task">
