@@ -319,11 +319,9 @@ main {
     flex-direction: column !important;
     overflow-y: auto !important;
     width: 100% !important;
-    padding-top: 0 !important;
     align-items: center !important;
-    padding-left: 0 !important;
-    padding-top: 0 !important;
-    padding-right: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
 }
 
 .task_card_container_overwrite {

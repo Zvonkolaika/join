@@ -151,6 +151,7 @@ input:focus-visible{
 .medium-btn,
 .low-btn {
     background-color: #FFFFFF;
+    cursor: pointer;
 }
 
 .medium-btn-clicked {
