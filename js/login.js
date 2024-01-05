@@ -1,5 +1,7 @@
 /*-- global variables --*/
 // global variables for "password login visibility"
+let imgs = document.querySelectorAll('.password-eye');
+let imgsAsArray = Array.from(imgs);
 let pwImgs = document.querySelectorAll('.pw-img');
 let visibleImgs = document.querySelectorAll('.visible-img');
 let pwInputs = document.querySelectorAll('.password-input');
@@ -56,7 +58,7 @@ async function convertData() {
 /*-- mobile logo --*/
 // prepare mobile logo
 async function mobileAnimationsPreparing() {
-    if(window.location.href.includes('index.html')) {
+    if (window.location.href.includes('index.html')) {
         await insertMobileLogo();
         document.querySelector('.login-logo').classList.add('animate-logo');
         document.querySelector('#animations-helper').classList.add('animate-helper');
@@ -114,7 +116,6 @@ function generateMobileLogo() {
 /*-- password login visibility --*/
 // let pwImgs = document.querySelectorAll('.pw-img'); // these are global variables from the top there are used in this section of code
 // let visibleImgs = document.querySelectorAll('.visible-img'); // these are global variables from the top there are used in this section of code
-// let pwInputs = document.querySelectorAll('.password-input'); // these are global variables from the top there are used in this section of code
 
 // while focus
 pwInputs.forEach(input => {
@@ -142,25 +143,35 @@ pwInputs.forEach(input => {
     });
 });
 
+/* --- Password Visibility & Password eye Visibility --- */
+// let imgs = document.querySelectorAll('.password-eye'); // these are global variables from the top there are used in this section of code
+// let imgsAsArray = Array.from(imgs); // these are global variables from the top there are used in this section of code
 function handleVisibility() {
-    const isVisible = Array.from(visibleImgs).some(img => img.classList.contains('visibility-off'));
-
-    if (isVisible) {
-        visibleImgs.forEach(img => {
-            img.classList.remove('visibility-off');
-            img.src = './assets/img/icons/visibility.svg';
-            togglePasswordVisibility();
-        });
+    if (imgsAsArray.some(img => img.classList.contains('visibility-off'))) {
+        addVisibility();
     } else {
-        visibleImgs.forEach(img => {
-            img.classList.add('visibility-off');
-            img.src = './assets/img/icons/visibility_off.svg';
-            togglePasswordVisibility();
-        });
+        removeVisibility();
     }
 }
 
+function addVisibility() {
+    imgsAsArray.forEach(img => {
+        img.classList.remove('visibility-off');
+        img.src = './assets/img/icons/visibility.svg';
+    })
+    togglePasswordVisibility();
+}
+
+function removeVisibility() {
+    imgsAsArray.forEach(img => {
+        img.classList.add('visibility-off');
+        img.src = './assets/img/icons/visibility_off.svg';
+    })
+    togglePasswordVisibility();
+}
+
 // password visibility
+// let pwInputs = document.querySelectorAll('.password-input'); // these are global variables from the top there are used in this section of code
 function togglePasswordVisibility() {
     pwInputs.forEach(input => {
         if (input.type === 'password') {
@@ -293,10 +304,10 @@ function displayRegisterSuccessMSG() {
 
 /*-- handle signIn signUp display --*/
 function goToSite(p) {
-    if(p == 1) {
+    if (p == 1) {
         window.location.href = 'index.html';
     } else {
-        if(p == 2) {
+        if (p == 2) {
             window.location.href = 'register.html';
         }
     }
