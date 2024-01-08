@@ -207,6 +207,7 @@ function noTaskDoneHTML() {
 function renderThumbnailCard(category, index, element) {
     document.getElementById(category).innerHTML += thumbnailCardHTML(index, element);
     renderAssignedUsers(element);
+    loadSubtaskProgressbar(element);
 }
 
 
@@ -220,9 +221,9 @@ function thumbnailCardHTML(index, element) {
             <div class="task_card_thumbnail_title">${element.title}</div>
             <div class="task_card_thumbnail_description">${element.description}</div>
         </div>
-        <div class="task_card_thumbnail_progress">
+        <div class="task_card_thumbnail_progress" id="task_card_thumbnail_progress_${element.taskID}">
             <div class="task_card_thumbnail_progressbar_container">
-                <div class="task_card_thumbnail_progressbar" id="task_card_thumbnail_progressbar" style="width: 50%;"></div>
+                <div class="task_card_thumbnail_progressbar" id="task_card_thumbnail_progressbar" style="width: ${renderSubtaskProgressBar(element.title, element.subtasks)}%;"></div>
             </div>
             <div>0/${element.subtasks.length} Subtasks</div>
         </div>
@@ -318,8 +319,17 @@ function loadSubtasks(taskID, subtasks) {
 }
 
 
-function loadSubtaskProgressBar(taskID) {
-    filterCheckedSubtasks(taskID);
+function loadSubtaskProgressbar(element) {
+    if (element.subtasks.length == 0) {document.getElementById(`task_card_thumbnail_progress_${element.taskID}`).innerHTML = 'No Subtasks';}
+}
+
+
+function renderSubtaskProgressBar(title, subtasks) {
+    let NumberOfSubtasks = subtasks.length;
+    let SubtasksDone = 0;
+    let subtaskProgressbar = SubtasksDone / NumberOfSubtasks;
+    console.log(title, NumberOfSubtasks, '/', SubtasksDone, '=', subtaskProgressbar);
+    return subtaskProgressbar;
 }
 
 
@@ -349,12 +359,3 @@ function overwriteAddTaskFormCSS() {
     document.getElementById('borderline').classList.add('borderline_overwrite');
     document.getElementById('add_task_popup_close_button').classList.add('d-none');
 }
-
-
-// function removeOverwriteAddTaskFormCSS() {
-//     document.getElementById('task-card').classList.remove('task_card_container_overwrite');
-//     document.getElementById('add-task-form-container').classList.remove('add_task_form_overwrite', 'task_card_container::-webkit-scrollbar', 'hide_scrollbar');
-//     document.getElementById('content-add-task').classList.remove('content_add_task_overwrite');
-//     document.getElementById('borderline').classList.remove('borderline_overwrite');
-//     document.getElementById('add_task_popup_close_button').classList.remove('d-none');
-// }
