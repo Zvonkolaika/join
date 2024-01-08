@@ -344,7 +344,7 @@ async function loadEditTaskForm(elementId, taskID) {
 
 function overwriteAddTaskFormCSS() {
     document.getElementById('task-card').classList.add('task_card_container_overwrite');
-    document.getElementById('add-task-form-container').classList.add('add_task_form_overwrite', 'task_card_container::-webkit-scrollbar', 'hide_scrollbar');
+    document.getElementById('add-task-form-container').classList.add('add_task_form_overwrite', 'task_card_container::-webkit-scrollbar', 'hide_scrollbar', 'add-task-form-overwrite');
     document.getElementById('content-add-task').classList.add('content_add_task_overwrite');
     document.getElementById('borderline').classList.add('borderline_overwrite');
     document.getElementById('add_task_popup_close_button').classList.add('d-none');

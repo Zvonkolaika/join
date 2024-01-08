@@ -347,6 +347,10 @@ main {
     scrollbar-width: none;  /* Firefox */
   }
 
+  .add-task-form-overwrite {
+    border-radius: 0px !important;
+}
+
 /* --- Task Form Overwrite END --- */
 
 .board_distribution {
@@ -635,7 +639,14 @@ main {
     justify-content: flex-start;
     align-items: flex-start;
     gap: 32px;
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+
+.task_card_content::-webkit-scrollbar {
+    display: none;  /* chrome */
+  }
 
 .task_card_content span {
     margin: 0;
