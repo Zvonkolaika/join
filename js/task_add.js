@@ -83,10 +83,12 @@ async function submitTask(taskStatus, submitTaskID = 0) {
   
     await setItem('tasks', tasks);
     showAddedTaskMsg();
-    //redirect to task card
-    setTimeout(() => {
-        window.location.href = `./board.html`;
-    }, 1800);
+    //redirect to task card for a new task
+    if(!submitTaskID){
+        setTimeout(() => {
+            window.location.href = `./board.html`;
+        }, 1800);
+    }
 }
 
 /**
@@ -95,7 +97,10 @@ async function submitTask(taskStatus, submitTaskID = 0) {
 function showAddedTaskMsg() {
     document.getElementById("task-added").classList.remove("d-none");
     setTimeout(() => {
-      document.getElementById("task-added").classList.add("d-none");
+      const taskAdded = document.getElementById("task-added");
+      if (taskAdded) {
+        taskAdded.classList.add("d-none");
+      }
     }, 900);
   }
 

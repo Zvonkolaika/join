@@ -265,7 +265,7 @@ function renderTaskForm(
     category = categorySubmit;
     return /*html*/ `
     <form class="add-task-form" id="add-task-form-container" action="board.html" method="get"
-        onsubmit="event.preventDefault(); submitTask(${taskStatus}, submitTaskID = ${taskID});" autocomplete="off">
+        onsubmit="event.preventDefault(); submitTask(${taskStatus}, submitTaskID = ${taskID}); setTimeout(() => renderTaskCardBoard('${elementId}', ${taskID}), 1000);" autocomplete="off">
         <div class="task-form-full">
         <!-- Header Section -->
         <div class="header-div">

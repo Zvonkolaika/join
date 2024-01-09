@@ -36,6 +36,7 @@ function openTaskCard(elementByID, cardID) {
 
 function closeTaskCard() {
     document.getElementById('task-card-bgr-container').classList.remove('show-task-card');
+    loadBoard();
 }
 
 
@@ -237,7 +238,8 @@ function renderAssignedUsers(element) {
 }
 
 
-function renderTaskCardBoard(elementId, cardID) {
+async function renderTaskCardBoard(elementId, cardID) {
+    await getTasks();
     task = allTasksFromStorage.filter(t => t['taskID'] == cardID)[0];
     let taskCard = document.getElementById(elementId);
     taskCard.innerHTML = /*html*/`
