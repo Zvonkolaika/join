@@ -18,7 +18,6 @@ body {
   align-items: center;
   width: 100%;
   overflow: hidden;
-  /*to hide the add task popup window in board.html */
 }
 
 /* --- globals  --- */
@@ -45,8 +44,8 @@ body {
 .container {
   width: 100vw;
   height: 100vh;
-  max-width: 1440px;
-  max-height: 1024px;
+  max-width: 1920px;
+  max-height: 1080px;
   background: #f6f7f8;
   position: relative;
   overflow: hidden;
@@ -76,7 +75,6 @@ nav {
   align-items: center;
   flex-shrink: 0;
   background-color: #2a3647;
-
 }
 
 main {
@@ -226,7 +224,8 @@ a {
 }
 
 .button-secondary-w-icon:hover img {
-  filter: brightness(0) saturate(100%) invert(64%) sepia(34%) saturate(6235%) hue-rotate(169deg) brightness(105%) contrast(77%);
+  filter: brightness(0) saturate(100%) invert(64%) sepia(34%) saturate(6235%)
+    hue-rotate(169deg) brightness(105%) contrast(77%);
 }
 
 /* --- Header design --- */
@@ -280,9 +279,11 @@ a {
 
 .header_user_initials_box:hover {
   cursor: pointer;
-  background: linear-gradient(0deg,
+  background: linear-gradient(
+      0deg,
       rgba(12, 46, 98, 0.12) 0%,
-      rgba(12, 46, 98, 0.12) 100%),
+      rgba(12, 46, 98, 0.12) 100%
+    ),
     #fff;
 }
 
@@ -467,7 +468,6 @@ a {
   font-weight: 700;
   line-height: 120%;
 }
-
 
 .header_icons_container {
   width: 40px;
