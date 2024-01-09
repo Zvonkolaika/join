@@ -569,7 +569,8 @@ input:focus-visible{
 
     .task-form-full{
         flex-wrap: wrap;
-        align-items: center;
+        align-items: flex-start;
+        width: 100%;
     }
 
     .width-small{

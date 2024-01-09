@@ -49,7 +49,6 @@ function loadBoard() {
     renderInProgress();
     renderAwaitFeedback();
     renderDone();
-    console.log(allTasksFromStorage);
 }
 
 
@@ -125,17 +124,6 @@ function renderDone() {
 }
 
 
-function renderAssignedUsers(index) {
-    for (let i = 0; i < allTasksFromStorage[index].assignedUsers.length; i++) {
-        document.getElementById('task_card_thumbnail_assigned_users_container').innerHTML +=
-            `<div class="task_card_thumbnail_profile_badge_frame" style="background-color: ${allTasksFromStorage[index].assignedUsers[i].bgColor};">
-            <div class="task_card_thumbnail_profile_badge">AB</div>
-            </div>`;
-    }
-
-}
-
-
 async function searchTask() {
     await getTasks();
     inputSearchfield = document.getElementById('inputfield_find_task').value.toLowerCase();
@@ -207,7 +195,7 @@ function noTaskDoneHTML() {
 function renderThumbnailCard(category, index, element) {
     document.getElementById(category).innerHTML += thumbnailCardHTML(index, element);
     renderAssignedUsers(element);
-    loadSubtaskProgressbar(element);
+    loadSubtasksInThumbnail(element);
 }
 
 
@@ -223,9 +211,9 @@ function thumbnailCardHTML(index, element) {
         </div>
         <div class="task_card_thumbnail_progress" id="task_card_thumbnail_progress_${element.taskID}">
             <div class="task_card_thumbnail_progressbar_container">
-                <div class="task_card_thumbnail_progressbar" id="task_card_thumbnail_progressbar" style="width: ${renderSubtaskProgressBar(element.title, element.subtasks)}%;"></div>
+                <div class="task_card_thumbnail_progressbar" id="task_card_thumbnail_progressbar" style="width: ${renderSubtaskProgressBar(element.subtasks)}%;"></div>
             </div>
-            <div>0/${element.subtasks.length} Subtasks</div>
+            <div>${SubtasksDone(element.subtasks)}/${element.subtasks.length} Subtasks</div>
         </div>
         <div class="task_card_thumbnail_prio_and_assignment">
             <div class="task_card_thumbnail_assigned_users_container" id="task_card_thumbnail_assigned_users_container_${element.taskID}">
@@ -250,9 +238,7 @@ function renderAssignedUsers(element) {
 
 
 function renderTaskCardBoard(elementId, cardID) {
-    filteredElement = allTasksFromStorage.filter(t => t['taskID'] == cardID);
-    task = filteredElement[0];
-    filterCheckedSubtasks(task.taskID)
+    task = allTasksFromStorage.filter(t => t['taskID'] == cardID)[0];
     let taskCard = document.getElementById(elementId);
     taskCard.innerHTML = /*html*/`
         
@@ -291,7 +277,7 @@ function renderTaskCardBoard(elementId, cardID) {
     <div class="task_card_subtask_container">
         <span>Subtasks</span>
         <div class="task_card_subtask_list" id="subtask-container-list-${task['taskID']}">
-        ${loadSubtasks(task.taskID, task.subtasks)}
+        ${loadSubtasksInCard(task.taskID, task.subtasks)}
         </div>
     </div>
     <div class="create-delete-task-container-responsive">
@@ -309,7 +295,7 @@ function renderTaskCardBoard(elementId, cardID) {
 }
 
 
-function loadSubtasks(taskID, subtasks) {
+function loadSubtasksInCard(taskID, subtasks) {
     if (subtasks.length == 0) {
         return `No Subtasks`;
     }
@@ -319,32 +305,25 @@ function loadSubtasks(taskID, subtasks) {
 }
 
 
-function loadSubtaskProgressbar(element) {
-    if (element.subtasks.length == 0) {document.getElementById(`task_card_thumbnail_progress_${element.taskID}`).innerHTML = 'No Subtasks';}
+function loadSubtasksInThumbnail(element) {
+    if (element.subtasks.length == 0) {
+        document.getElementById(`task_card_thumbnail_progress_${element.taskID}`).innerHTML = `<div class="no_subtasks">No Subtasks</div>`;
+    }
 }
 
 
-function renderSubtaskProgressBar(title, subtasks) {
+function renderSubtaskProgressBar(subtasks) {
     let NumberOfSubtasks = subtasks.length;
-    let SubtasksDone = 0;
-    let subtaskProgressbar = SubtasksDone / NumberOfSubtasks;
-    console.log(title, NumberOfSubtasks, '/', SubtasksDone, '=', subtaskProgressbar);
-    return subtaskProgressbar;
+    let SubtasksDone = subtasks.filter(t => t['2'] == true);
+    return Math.round((100 /NumberOfSubtasks) * SubtasksDone.length);
 }
 
 
-function filterCheckedSubtasks(taskID) {
-    let currentTask = allTasksFromStorage.filter(t => t['taskID'] == taskID);
-    console.log(currentTask[0].subtasks.length);
-    if (currentTask[0].subtasks.length == 0) {
-        let subtaskProgressbarWidth = 0;
-        console.log('yepp');
-    }
-
-    else {
-        let checkedSubtasks = currentTask[0].subtasks.filter(t => t['2'] == true);
-    }
+function SubtasksDone(subtasks) {
+    let SubtasksDone = subtasks.filter(t => t['2'] == true);
+    return SubtasksDone.length;
 }
+
 
 async function loadEditTaskForm(elementId, taskID) {
     await renderEditTaskForm(elementId, taskID);

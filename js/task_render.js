@@ -18,6 +18,12 @@ async function selectSubtaskStatus(checkbox, taskID, subtaskID){
             tasks[taskIdx].subtasks[subtaskIdx][SUBTASK_DONE] = false;
         }
         await setItem('tasks', tasks);
+
+        /* Update the Subtask Progressbar in real time */
+        await getTasks(); /* Get changes of */
+        loadBoard(); /* Update the Subtask Progressbar in real time */
+        /* --- */
+
     } else {
         console.log('subtask not found in tasks[' + taskIdx + ']');
     }
