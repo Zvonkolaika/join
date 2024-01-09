@@ -1079,3 +1079,22 @@ main {
         padding: 0;
     }
 }
+
+@media screen and (max-height: 860px) {
+    .add-task-form {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+        padding: 24px 36px 24px 36px;
+        overflow-y: auto;
+    }
+
+    .add-task-form::-webkit-scrollbar {
+        display: none;
+    }
+
+    .task_card_container {
+        overflow-y: auto;
+    }
+}
