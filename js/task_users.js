@@ -20,6 +20,16 @@ async function renderFullUsersList() {
 }
 
 /**
+ * Handles the click event on the user dropdown.
+ * @param {string} userId - The ID of the user.
+ */
+function userDropDownClick(userId) {
+    const userCheckbox = document.getElementById('dropdown-user-' + userId.toString());
+    userCheckbox.checked = !userCheckbox.checked;
+    selectOption(userCheckbox, userId);
+}
+
+/**
  * Renders the user icon dropdown.
  * 
  * @param {object} user - The user object.
@@ -54,20 +64,14 @@ function renderHTMLUsersList(usersList){
                continue;
             }
         }
-        var option = document.createElement('div');
-        option.style.display = "flex";
-        option.style.flexDirection = "row";
-        option.style.flexWrap = "wrap";
-        option.style.justifyContent = "space-between";
-        option.style.paddingBottom = "10px";
-        option.className = "user-option";
-        const userName = user['name'];
-        option.innerHTML = renderUserIconDropdown(user);
-        option.innerHTML += /*html*/`
-            <input type="checkbox" role="option" class="contact-entry-task"
-                data-name="${userName}" onclick="selectOption(this, ${user.id})"/>
+        dropdown.innerHTML += /*html*/`
+        <div class="user-option" onclick="userDropDownClick(${user.id})" 
+            style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; padding-bottom: 10px;">
+            ${renderUserIconDropdown(user)}
+            <input type="checkbox" role="option" class="contact-entry-task" id='dropdown-user-${user.id}'
+                data-name="${user.name}" onclick="selectOption(this, ${user.id})"/>
+        </div>
         `;
-        dropdown.appendChild(option);
     }
 } 
 
