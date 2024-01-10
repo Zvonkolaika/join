@@ -20,12 +20,23 @@ async function renderFullUsersList() {
 }
 
 /**
+ * Toggles the checkbox for a user.
+ * 
+ * @param {number} userId - The ID of the user.
+ * @returns {HTMLInputElement} - The checkbox element for the user.
+ */
+function checkboxToggle(userId) {
+    const userCheckbox = document.getElementById('dropdown-user-' + userId.toString());
+    userCheckbox.checked = !userCheckbox.checked;
+    return userCheckbox;
+}
+
+/**
  * Handles the click event on the user dropdown.
  * @param {string} userId - The ID of the user.
  */
 function userDropDownClick(userId) {
-    const userCheckbox = document.getElementById('dropdown-user-' + userId.toString());
-    userCheckbox.checked = !userCheckbox.checked;
+    const userCheckbox = checkboxToggle(userId)
     selectOption(userCheckbox, userId);
 }
 
@@ -49,6 +60,14 @@ function renderUserIconDropdown(user){
 }
 
 /**
+ * Reverts the toggle state of a checkbox for a given user ID.
+ * @param {string} userId - The ID of the user.
+ */
+function checkboxRevertToggle(userId) {
+    checkboxToggle(userId);
+}
+
+/**
  * Renders the HTML for the users list dropdown.
  * 
  * @param {Array} usersList - The list of users.
@@ -69,8 +88,14 @@ function renderHTMLUsersList(usersList){
             style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; padding-bottom: 10px;">
             ${renderUserIconDropdown(user)}
             <input type="checkbox" role="option" class="contact-entry-task" id='dropdown-user-${user.id}'
-                data-name="${user.name}" onclick="selectOption(this, ${user.id})"/>
+                data-name="${user.name}" onclick="checkboxRevertToggle(${user.id})" />
         </div>
+        `;
+    }
+    if(dropdown.innerHTML == ''){
+        dropdown.innerHTML = /*html*/`
+        <div class="no-user-list">All users are assigned to the task</div>
+        <div class="no-user-list">Click on icon to remove</div>
         `;
     }
 } 
@@ -106,20 +131,34 @@ function removeAssignedUser(id) {
 }
 
 /**
- * Renders a user icon with the specified user ID, user colour, and user name.
+ * Renders the task users on the selected users container.
+ * @param {Array} assignedUserList - The list of assigned users.
+ */
+function renderTaskUses(assignedUserList) {
+    const selectedUsersContainer = document.getElementById('selected-users-container');
+    selectedUsersContainer.innerHTML = '';
+    for (let i = 0; i < assignedUserList.length; i++) {
+        const user = assignedUserList[i];
+        renderTaskUserIcon(user.id, user.bgColor, user.name, -assignUserList.length);
+    }
+}
+
+/**
+ * Renders a task user icon with the specified user ID, user colour, user name, and margin right.
  * @param {number} userID - The ID of the user.
  * @param {string} userColour - The colour of the user icon.
  * @param {string} userName - The name of the user.
+ * @param {number} marginRight - The margin right value for the user icon.
  */
-function renderTaskUserIcon(userID, userColour, userName) {
+function renderTaskUserIcon(userID, userColour, userName, marginRight) {
     const selectedUsersContainer = document.getElementById('selected-users-container');
     selectedUsersContainer.innerHTML +=  /*html*/`
-            <div class="selected-icon" id="selected-icon-user-assigned-${userID.toString()}" ondblclick="removeAssignedUser(${userID})">
-            <div class="acc-initials" style="background-color:${userColour}">
-                    <p>${returnInitials(userName)}</p>
-                </div>
+        <div class="selected-icon" id="selected-icon-user-assigned-${userID.toString()}" onclick="removeAssignedUser(${userID})">
+            <div class="acc-initials" style="background-color:${userColour}; margin-right:${marginRight}px;">
+                <p>${returnInitials(userName)}</p>
             </div>
-        `;
+        </div>
+    `;
 }
 
 /**
@@ -133,19 +172,20 @@ function renderTaskUserIcon(userID, userColour, userName) {
 function selectOption(checkbox, id) {
     if (checkbox.checked) {
         let selectedName = checkbox.getAttribute('data-name');   
-        // Create a div element for the icon with initials using innerHTML
         const index = usersList.findIndex((user) => user.id === id);
         if (index != -1) {
-            assignUserList.push(usersList[index]);
+            const idx = assignUserList.findIndex((user) => user.id === id);
+            if (idx == -1) {
+                assignUserList.push(usersList[index]);
+            }
         }
-        renderTaskUserIcon(id, usersList[index].bgColor, usersList[index].name);
     } else {
-        // If checkbox is unchecked, remove the corresponding icon div
-        const selectedIcon = document.getElementById('selected-icon-user-assigned-' + id.toString());
-        if (selectedIcon) {
-            selectedIcon.remove();
+        const idx = assignUserList.findIndex((user) => user.id === id);
+        if (idx != -1) {
+            assignUserList.splice(idx, 1);
         }
     }
+    renderTaskUses(assignUserList);
 }
 
 /**
@@ -183,7 +223,6 @@ document.addEventListener('click', function (event) {
 
     if(dropdownContainer){
         if (!dropdownContainer.contains(event.target)) {
-            // Click is outside the dropdown, close it
             dropdown.classList.add('d-none-ni');
             dropdownIcon.classList.remove('rotate');
             document.getElementById('search').value = "";

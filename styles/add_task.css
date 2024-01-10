@@ -275,6 +275,11 @@ input:focus-visible{
     width: 100%;
     font-size: 1.15rem;
 }
+
+.no-user-list {
+    font-size: 1rem;
+    color: rgb(209,209,209);
+}
   
 .select-button {
     width: 100%;
