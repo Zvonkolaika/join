@@ -7,6 +7,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
 }
 
 /* --- contact-list --- */
@@ -90,7 +91,7 @@ main {
 #contact-container-back-btn {
   display: none;
   position: absolute;
-  top: 80px;
+  top: 40px;
   right: 20px;
 }
 
@@ -145,19 +146,31 @@ main {
   line-height: 120%;
 }
 
+.contact-details-header .button-container {
+  display: flex;
+}
+
 .contact-details button {
+  width: 80px;
   border: none;
   background-color: transparent;
   display: flex;
   align-items: center;
-  justify-content: center;
+
   gap: 8px;
   font-size: 16px;
+  text-align: left;
 }
 
 .contact-details button:hover {
+  cursor: pointer;
   color: #29abe2;
   font-weight: 600;
+}
+
+.contact-details button:hover img {
+  filter: brightness(0) saturate(100%) invert(66%) sepia(47%) saturate(2891%)
+    hue-rotate(165deg) brightness(92%) contrast(93%);
 }
 
 .contact-details b {
@@ -187,6 +200,10 @@ main {
   height: 32px;
   width: 32px;
   border-radius: 100%;
+}
+
+.contact-container-btn:hover {
+  cursor: pointer;
 }
 
 #content-container-more {
@@ -436,6 +453,7 @@ main {
   .contact-header h1 {
     border: none;
     font-size: 47px;
+    padding-right: 0;
   }
 
   .contact-header p {
@@ -481,6 +499,11 @@ main {
     width: 100%;
   }
 
+  .contact-header {
+    margin-top: 40px;
+    margin-left: 24px;
+  }
+
   #contact-container-back-btn {
     display: initial;
   }
@@ -495,6 +518,14 @@ main {
   }
 
   .add-new-contact {
+    display: none;
+  }
+
+  .contact-details {
+    margin-left: 24px;
+  }
+
+  .contact-details-header .button-container {
     display: none;
   }
 
@@ -599,4 +630,16 @@ main {
   }
 
   /* --- contact form animation mobile end ---  */
+}
+
+@media screen and (max-width: 450px) {
+  .contact-form-right .input-container input {
+    max-width: 180px;
+  }
+}
+
+@media screen and (max-height: 850px) {
+  .contact-form-img-container {
+    display: none;
+  }
 }
