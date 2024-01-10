@@ -46,14 +46,11 @@ function renderUserIconDropdown(user){
 function renderHTMLUsersList(usersList){
     let dropdown = document.getElementById('select-dropdown-users');
     dropdown.innerHTML = '';
-    console.log('usersList ' + usersList);
     for (let index = 0; index < usersList.length; index++) {
         let user = usersList[index];
-        console.log('usersList ' + user["name"] + " user['id'] " +  user["id"] + " assignUserList " + assignUserList.length);
         if (assignUserList.length != 0) {
             const userIndex = assignUserList.findIndex((assignedUser) => assignedUser['id'] === user['id']);
             if (userIndex != -1) {
-                console.log('user ' + user['name'] + ' alredy is assigned');
                continue;
             }
         }

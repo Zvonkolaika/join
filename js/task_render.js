@@ -184,7 +184,6 @@ async function renderEditTaskForm(elementId, taskId) {
     let addTaskForm = document.getElementById(elementId);
 
     assignUserList = task['assignedUsers'];
-    console.log("Date " + task['date'] );
     addTaskForm.innerHTML = '';
     addTaskForm.innerHTML = renderTaskForm(
                                 'Edit Task',                        //  formTitle

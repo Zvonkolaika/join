@@ -22,9 +22,7 @@ async function resetRemote(key) {
 async function getRemote(key) {
     let values = [];
     let storedPromise = await getItem(key);
-    // console.log('storedPromise ' + storedPromise);
     storedValue = JSON.parse(storedPromise);
-    // console.log('storedValue ' + storedValue);
 
     if (!isJSON(storedValue)) {
         console.log('#### storedValue is not JSON');
@@ -33,7 +31,6 @@ async function getRemote(key) {
     } else {
         values = storedValue;
     }
-    // console.log('getRemoteTasks() ' + tasks);
 
     return values;
 }
