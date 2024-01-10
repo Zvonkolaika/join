@@ -1,58 +1,8 @@
 let contacts = [];
 
-const backgroundColors = [
-  "#3498db",
-  "#2ecc71",
-  "#9b59b6",
-  "#e74c3c",
-  "#f39c12",
-  "#1abc9c",
-  "#34495e",
-  "#95a5a6",
-  "#d35400",
-  "#27ae60",
-  "#2980b9",
-  "#8e44ad",
-  "#c0392b",
-  "#f1c40f",
-  "#16a085",
-  "#2c3e50",
-  "#7f8c8d",
-  "#e67e22",
-  "#1abc9c",
-  "#3498db",
-  "#f39c12",
-  "#d35400",
-  "#2ecc71",
-  "#8e44ad",
-  "#34495e",
-  "#e74c3c",
-  "#2980b9",
-  "#16a085",
-  "#95a5a6",
-  "#c0392b",
-  "#f1c40f",
-  "#27ae60",
-  "#7f8c8d",
-  "#e67e22",
-  "#1abc9c",
-  "#3498db",
-  "#f39c12",
-  "#d35400",
-  "#2ecc71",
-  "#8e44ad",
-  "#34495e",
-  "#e74c3c",
-  "#2980b9",
-  "#16a085",
-  "#95a5a6",
-  "#c0392b",
-  "#f1c40f",
-  "#27ae60",
-  "#7f8c8d",
-  "#e67e22",
-];
-
+/**
+ * This function loads several functions required on page load
+ */
 async function init() {
   await loadTemplates();
   await loadContacts();
@@ -60,6 +10,10 @@ async function init() {
   setCurrentPageLinkActive("contacts");
 }
 
+/**
+ * This function loads all contact objects from the
+ * remote storage - using getItem function - and saves them to the contacts array
+ */
 async function loadContacts() {
   try {
     contacts = JSON.parse(await getItem("contacts"));
@@ -68,8 +22,10 @@ async function loadContacts() {
   }
 }
 
-/* --- Contact List --- */
-
+/**
+ * This function renders the contact list with all objects found in the constacts array
+ * Entries are sorted alphabetically using the sortContactsAtoZ() function
+ */
 function renderContactList() {
   document.getElementById("contact-list").innerHTML = "";
 
@@ -90,6 +46,11 @@ function renderContactList() {
   }
 }
 
+/**
+ * This function returns the html to render the contact list categories
+ * @param {character} character - initial letter for the category
+ * @returns html to render the contact list categories
+ */
 function returnContactListCategory(character) {
   return `
     <p class="contact-category" 
@@ -99,9 +60,13 @@ function returnContactListCategory(character) {
   `;
 }
 
+/**
+ * This Function return the html to render a contact list entry
+ * @param {number} id - used to hand over the index of the contacts array of which the contact entry should be generated
+ * @returns the html to render the contact list entry
+ */
 function returnContactListEntry(id) {
   let contact = contacts[id];
-
   return `
     <div id="contact-id-${
       contact["id"]
@@ -115,6 +80,12 @@ function returnContactListEntry(id) {
 `;
 }
 
+/**
+ * This funtion returns the html to render a contact picture showing the initials of the contacts first and last name
+ * @param {*} initials - used to hand over the initials
+ * @param {*} id - used to hand over the index of the contacts array of the related contact to load the background color
+ * @returns the html to render a contact picture showing the initials of the contacts first and last name
+ */
 function renderContactInitials(initials, id) {
   return `
   <div class="acc-initials" style="background-color:${contacts[id]["bgColor"]}" >
@@ -123,6 +94,10 @@ function renderContactInitials(initials, id) {
   `;
 }
 
+/**
+ * This funtion removes the .contact-entry-active css class from all elements
+ * and then adds the class to the element who triggered the function
+ */
 function highlightActiveContact(element) {
   if (window.innerWidth >= 1024) {
     Array.from(document.querySelectorAll(".contact-entry-active")).forEach(
@@ -132,6 +107,10 @@ function highlightActiveContact(element) {
   }
 }
 
+/**
+ * This function copies the contacts array to the sortedContacts array
+ * and then sorts the array from a to z based on the first letter of the objects name
+ */
 function sortContactsAtoZ() {
   sortedContacts = contacts;
   sortedContacts.sort((a, b) => {
@@ -148,22 +127,12 @@ function sortContactsAtoZ() {
   });
 }
 
-/* --- Contact List ends --- */
-
-/* --- Contact Details --- */
-
+/**
+ * This function renders the contact details
+ * @param {number} id - index of the object within the contacts array
+ */
 function renderContactDetails(id) {
-  if (window.innerWidth <= 1024) {
-    document.getElementById("contact-container").classList.add("d-flex");
-    document.getElementById("contact-list-container").classList.add("d-none");
-    document
-      .getElementById("contact-mobile-delete")
-      .setAttribute("onclick", `deleteContact(${id}),hideMore()`);
-    document
-      .getElementById("contact-mobile-edit")
-      .setAttribute("onclick", `showEditContactForm(${id}),hideMore()`);
-  }
-
+  renderContactDetailsMobile(id);
   document.getElementById("contact-details").classList.remove("d-none");
   document.getElementById("contact-innitials").innerHTML =
     renderContactInitials(returnInitials(contacts[id]["name"]), id);
@@ -180,13 +149,34 @@ function renderContactDetails(id) {
     .setAttribute("onclick", `showEditContactForm(${id})`);
 }
 
+/**
+ * This function is a sublement to renderContactDetails(id) to optimize design on mobile devices
+ * @param {number} id - index of the object within the contacts array
+ */
+function renderContactDetailsMobile(id) {
+  if (window.innerWidth <= 1024) {
+    document.getElementById("contact-container").classList.add("d-flex");
+    document.getElementById("contact-list-container").classList.add("d-none");
+    document
+      .getElementById("contact-mobile-delete")
+      .setAttribute("onclick", `deleteContact(${id}),hideMore()`);
+    document
+      .getElementById("contact-mobile-edit")
+      .setAttribute("onclick", `showEditContactForm(${id}),hideMore()`);
+  }
+}
+
+/**
+ * This function hides the Contact details
+ */
 function hideContactDetails() {
   document.getElementById("contact-container").classList.remove("d-flex");
   document.getElementById("contact-list-container").classList.remove("d-none");
 }
-/* --- Contact Details end --- */
 
-/* --- Add New Contact --- */
+/**
+ * This function shows the Add Contact Form
+ */
 function showAddContactForm() {
   document
     .getElementById("add-contact-form-container")
@@ -195,6 +185,10 @@ function showAddContactForm() {
   document.getElementById("add-contact-form-container").classList.add("fadeIn");
 }
 
+/**
+ * This function creates a new contact objects, pushes the object to the contacts array
+ * and then re-render the page
+ */
 async function createNewContact() {
   const randomBgColorIndex = Math.floor(
     Math.random() * backgroundColors.length
@@ -216,6 +210,9 @@ async function createNewContact() {
   setTimeout(showContactCreatedNotification, 2000);
 }
 
+/**
+ * This function closes the Add Contact form
+ */
 function closeAddContactForm() {
   document
     .getElementById("add-contact-form-container")
@@ -226,6 +223,9 @@ function closeAddContactForm() {
   setTimeout(resetAddContactForm, 950);
 }
 
+/**
+ * This function resets the Add Contact form
+ */
 function resetAddContactForm() {
   document.getElementById("add-contact-bg").classList.add("d-none");
   document.getElementById("add-contact-name").value = "";
@@ -233,6 +233,9 @@ function resetAddContactForm() {
   document.getElementById("add-contact-phone").value = "";
 }
 
+/**
+ * This function highlights the last created contact in the contact list
+ */
 function highlightLatestContact() {
   const idOfmostRecentObject = Math.max(...contacts.map((e) => e.id));
   const index = contacts.findIndex((i) => i.id == idOfmostRecentObject);
@@ -249,6 +252,9 @@ function highlightLatestContact() {
   renderContactDetails(index);
 }
 
+/**
+ * This function shows a notification when a new contact is created
+ */
 async function showContactCreatedNotification() {
   document.getElementById("contact-created").classList.remove("d-none");
   document
@@ -259,10 +265,10 @@ async function showContactCreatedNotification() {
   }, 1950);
 }
 
-/* --- Add New Contact end --- */
-
-/* --- Delete Contact --- */
-
+/**
+ * This function deletes a object from the contacts array
+ * @param {number} id - index of the object to be deleted
+ */
 async function deleteContact(id) {
   contacts.splice(id, 1);
   await setItem("contacts", JSON.stringify(contacts));
@@ -274,10 +280,10 @@ async function deleteContact(id) {
   }
 }
 
-/* --- Delete Contact end--- */
-
-/* --- Edit Contact --- */
-
+/**
+ * This function shows the Edit Contact Form
+ * @param {number} id - index of the object in the contacts array which should be edited
+ */
 function showEditContactForm(id) {
   loadEditContactValues(id);
   document
@@ -289,6 +295,10 @@ function showEditContactForm(id) {
     .classList.add("fadeIn");
 }
 
+/**
+ * This function loads the contact objects property values into the Edit Contact Form
+ * @param {number} id
+ */
 function loadEditContactValues(id) {
   const contact = contacts[id];
   document.getElementById("edit-contact-name").value = contact["name"];
@@ -299,6 +309,10 @@ function loadEditContactValues(id) {
     .setAttribute("onsubmit", `editContact(${id}); return false`);
 }
 
+/**
+ * This function saves the edited contact object into the contacts array
+ * @param {number} id - index of the object that was edited
+ */
 async function editContact(id) {
   contacts[id] = {
     id: contacts[id]["id"],
@@ -314,6 +328,9 @@ async function editContact(id) {
   renderContactDetails(id);
 }
 
+/**
+ * This function resets the Edit Contact Form
+ */
 function resetEditContactForm() {
   document.getElementById("edit-contact-bg").classList.add("d-none");
   document.getElementById("edit-contact-name").value = "";
@@ -321,6 +338,9 @@ function resetEditContactForm() {
   document.getElementById("edit-contact-phone").value = "";
 }
 
+/**
+ * This function closes the Edit Contact Form
+ */
 function closeEditContactForm() {
   document
     .getElementById("edit-contact-form-container")
@@ -331,43 +351,9 @@ function closeEditContactForm() {
   setTimeout(resetEditContactForm, 950);
 }
 
-/* --- Edit Contact end --- */
-
-async function addTestContacts() {
-  contacts = [
-    {
-      id: Date.now() + 0,
-      name: "Eva Evans",
-      email: "eva@email.com",
-      phone: "555555",
-      bgColor: "#d35400",
-    },
-    {
-      id: Date.now() + 1,
-      name: "Peter Parker",
-      email: "peter@email.com",
-      phone: "161616",
-      bgColor: "#2ecc71",
-    },
-    {
-      id: Date.now() + 2,
-      name: "Zoe Zane",
-      email: "zoe@email.com",
-      phone: "262626",
-      bgColor: "#8e44ad",
-    },
-    {
-      id: Date.now() + 3,
-      name: "Alice Adams",
-      email: "alice@email.com",
-      phone: "111111",
-      bgColor: "#34495e",
-    },
-  ];
-  await setItem("contacts", JSON.stringify(contacts));
-  renderContactList();
-}
-
+/**
+ * This function opens the showMore Menu which contains edit and delete buttons on mobile design
+ */
 function showMore() {
   document.getElementById("content-container-more").classList.remove("d-none");
   document
@@ -376,6 +362,9 @@ function showMore() {
   document.getElementById("content-container-more").classList.add("fadeInMore");
 }
 
+/**
+ * This function hides the showMore Menu which contains edit and delete buttons on mobile design
+ */
 function hideMore() {
   document
     .getElementById("content-container-more")
@@ -388,6 +377,10 @@ function hideMore() {
   }, 950);
 }
 
+/**
+ * This function adds the .input-invalid css class when input is not valid
+ * @param {string} element
+ */
 function highlightInvalid(element) {
   if (!element.checkValidity())
     element.parentNode.classList.add("input-invalid");
