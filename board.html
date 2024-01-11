@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button id="button_add_task_desktop" onclick="openAddTaskPopup()"><span>Add task</span><img
+                        <button id="button_add_task_desktop" onclick="openAddTaskPopup(TASK_STATUS_TODO)"><span>Add task</span><img
                                 src="assets/img/icons/add.svg"></button>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                 <div class="column">
                     <div class="categories">
                         <p>To do</p>
-                        <div class="plus_icon_frame" onclick="openAddTaskPopup()">
+                        <div class="plus_icon_frame" onclick="openAddTaskPopup(TASK_STATUS_TODO)">
                             <img src="assets/img/icons/plus.svg">
                         </div>
                         <a href="add_task.html" class="plus_icon_mobile_link">
@@ -71,7 +71,7 @@
                 <div class="column">
                     <div class="categories">
                         <p>In progress</p>
-                        <div class="plus_icon_frame" onclick="openAddTaskPopup()">
+                        <div class="plus_icon_frame" onclick="openAddTaskPopup(TASK_STATUS_INPROGRESS)">
                             <img src="assets/img/icons/plus.svg">
                         </div>
                         <a href="add_task.html" class="plus_icon_mobile_link">
@@ -88,7 +88,7 @@
                 <div class="column">
                     <div class="categories">
                         <p>Await feedback</p>
-                        <div class="plus_icon_frame" onclick="openAddTaskPopup()">
+                        <div class="plus_icon_frame" onclick="openAddTaskPopup(TASK_STATUS_AWAITFEEDBACK)">
                             <img src="assets/img/icons/plus.svg">
                         </div>
                         <a href="add_task.html" class="plus_icon_mobile_link">

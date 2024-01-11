@@ -15,8 +15,8 @@ async function init() {
 }
 
 
-function openAddTaskPopup() {
-    renderAddTaskForm('add-task-placeholder');
+function openAddTaskPopup(taskstatus) {
+    renderAddTaskForm('add-task-placeholder', taskstatus);
     document.getElementById('add_task_popup_container').classList.add('show_add_task_popup');
     document.getElementById('edit_task_popup_close_button').classList.add('d-none');
 }
