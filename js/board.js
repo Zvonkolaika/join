@@ -231,9 +231,15 @@ function thumbnailCardHTML(index, element) {
 function renderAssignedUsers(element) {
 
     for (let i = 0; i < element.assignedUsers.length; i++) {
-        document.getElementById(`task_card_thumbnail_assigned_users_container_${element.taskID}`).innerHTML += `
-        <div class="acc-initials task_card_thumbnail_profile_badge_frame" style="background: ${element.assignedUsers[i].bgColor};">${returnInitials(element.assignedUsers[i].name)}</div>
-        `;
+        if (i >= 2) {
+            let moreUsers = element.assignedUsers.length - i;
+            return document.getElementById(`task_card_thumbnail_assigned_users_container_${element.taskID}`).innerHTML += `
+            <div class="acc-initials task_card_thumbnail_profile_badge_frame">+${moreUsers}</div>`;
+        }
+        else {
+            document.getElementById(`task_card_thumbnail_assigned_users_container_${ element.taskID }`).innerHTML += `
+                <div class="acc-initials task_card_thumbnail_profile_badge_frame" style = "background: ${element.assignedUsers[i].bgColor};"> ${ returnInitials(element.assignedUsers[i].name) }</div> `;
+        }
     }
 }
 
@@ -242,9 +248,8 @@ async function renderTaskCardBoard(elementId, cardID) {
     await getTasks();
     task = allTasksFromStorage.filter(t => t['taskID'] == cardID)[0];
     let taskCard = document.getElementById(elementId);
-    taskCard.innerHTML = /*html*/`
-        
-    <div class="task_card_content" id="task_card_ID_${task['taskID']}">
+    taskCard.innerHTML = `
+    <div class="task_card_content" id = "task_card_ID_${task['taskID']}">
     <div class="task_card_header">
         <div class="task_card_thumbnail_label"  style="background: ${task['category']['colour']};">
             <span>${task['category']['name']}</span>
@@ -292,8 +297,8 @@ async function renderTaskCardBoard(elementId, cardID) {
         Edit
         </button>
     </div>
-</div>
-`;
+</div >
+                `;
 }
 
 
@@ -309,7 +314,7 @@ function loadSubtasksInCard(taskID, subtasks) {
 
 function loadSubtasksInThumbnail(element) {
     if (element.subtasks.length == 0) {
-        document.getElementById(`task_card_thumbnail_progress_${element.taskID}`).innerHTML = `<div class="no_subtasks">No Subtasks</div>`;
+        document.getElementById(`task_card_thumbnail_progress_${ element.taskID }`).innerHTML = `< div class="no_subtasks" > No Subtasks</div >`;
     }
 }
 
@@ -317,7 +322,7 @@ function loadSubtasksInThumbnail(element) {
 function renderSubtaskProgressBar(subtasks) {
     let NumberOfSubtasks = subtasks.length;
     let SubtasksDone = subtasks.filter(t => t['2'] == true);
-    return Math.round((100 /NumberOfSubtasks) * SubtasksDone.length);
+    return Math.round((100 / NumberOfSubtasks) * SubtasksDone.length);
 }
 
 
