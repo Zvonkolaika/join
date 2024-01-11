@@ -219,3 +219,117 @@
     }
 
 }
+
+@media screen and (max-width: 767px) {
+
+    .task_card_container_overwrite {
+        padding: 21px !important;
+    }
+
+    #task-card-bgr-container {
+        justify-content: center;
+    }
+
+    .task_card_container {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        padding: 24px;
+    }
+
+    .task_card_thumbnail_title h1 {
+        font-size: 36px;
+        margin: 0;
+    }
+
+    .description {
+        margin-bottom: 0;
+    }
+
+    .task-categories {
+        justify-content: center;
+        padding-top: 0;
+        padding: 4px 0px;
+        width: fit-content;
+    }
+
+
+    .task_card_thumbnail_label span {
+        justify-content: center;
+        padding-top: 0;
+        padding: 4px 8px;
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+    }
+
+    /* .acc-initials {
+        margin-right: 24px;
+    } */
+
+    .selected-users-container {
+        justify-content: space-between;
+    }
+
+    .prio-btn-container {
+        flex-direction: column;
+        gap: 21px;
+        width: 100%;
+    }
+
+    .task-categories {
+        width: 100%;
+    }
+
+    .prio {
+        width: 100%;
+    }
+
+    .categories {
+        align-items: flex-start;
+    }
+
+    .create-delete-task-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .create-delete-task-btn {
+        padding-left: 0;
+    }
+
+    .task-form-full {
+        padding: 48px;
+    }
+
+    .create-delete-task-container-responsive {
+        margin-bottom: 21px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .task-form-full {
+        padding: 0;
+    }
+}
+
+@media screen and (max-height: 860px) {
+    .add-task-form {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+        padding: 24px 36px 24px 36px;
+        overflow-y: auto;
+    }
+
+    .add-task-form::-webkit-scrollbar {
+        display: none;
+    }
+
+    .task_card_container {
+        overflow-y: auto;
+    }
+}
