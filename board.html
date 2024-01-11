@@ -45,8 +45,8 @@
                                 </div>
                             </div>
                         </div>
-                        <button id="button_add_task_desktop" onclick="openAddTaskPopup(TASK_STATUS_TODO)"><span>Add task</span><img
-                                src="assets/img/icons/add.svg"></button>
+                        <button id="button_add_task_desktop" onclick="openAddTaskPopup(TASK_STATUS_TODO)"><span>Add
+                                task</span><img src="assets/img/icons/add.svg"></button>
                     </div>
                 </div>
             </div>
@@ -111,19 +111,15 @@
                         ondragleave="removeHighlight('column_done')">
                     </div>
                 </div>
-
             </div>
+        </main>
     </div>
-    </div>
-    </main>
-    </div>
-    <div id="add_task_popup_container">
-        <div id="add-task-placeholder"></div>
-    </div>
-    <div id="task-card-bgr-container" onclick="closeTaskCard()">
-        <div class="task_card_container" id="task-card" onclick="event.stopPropagation()">
-        </div>
-    </div>
+            <div id="add_task_popup_container">
+                <div id="add-task-placeholder"></div>
+            </div>
+            <div id="task-card-bgr-container" onclick="closeTaskCard()">
+                <div class="task_card_container" id="task-card" onclick="event.stopPropagation()"></div>
+            </div>
 </body>
 
 </html>
