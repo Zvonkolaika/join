@@ -289,7 +289,7 @@ function renderTaskForm(
                 <div class="task-categories description">
                     <span>Description</span>
                     <div class="input-container">
-                        <textarea type="text" text="ewewr" required id="task-description" 
+                        <textarea type="text" text="ewewr" id="task-description" 
                         class="input-field" placeholder="Enter a Description">${taskDescription}</textarea>
                     </div>
                 </div>
@@ -358,10 +358,10 @@ function renderTaskForm(
                             <span>Categories</span><span class="red-asterisk">*</span>
                         </div>
                         <div class="custom-select">
-                            <button class="dropdown select-button" role="combobox" id="categories-select-button"  onclick="toggleCategoriesSelect();">
-                                <input placeholder="Select task category" type="text" autocomplete="off" class="selected-value" id="selected-category" readonly>
+                            <div class="dropdown select-button" role="combobox" id="categories-select-button" onclick="toggleCategoriesSelect();">
+                                <input placeholder="Select task category" type="text" required autocomplete="off" class="selected-value" id="selected-category">
                                 <img class="dropdown-icon" id="dropdown-icon-categories" src="/assets/img/icons/arrow_drop_downaa.svg" alt="dropdown icon">
-                            </button>
+                            </div>
                             <ul id="categories-list" class="dropdown d-none-ni" role="listbox">
                             </ul>
                         </div>
