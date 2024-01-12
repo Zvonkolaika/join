@@ -89,8 +89,6 @@ function editModeSavedSubtask(subtaskText, subtaskId) {
     const selectSubtaskEdit = document.getElementById(`${subtaskId}`);
     selectSubtaskEdit.classList.add('display-block');
     selectSubtaskEdit.innerHTML = renderEditModeSavedSubtask(subtaskText, subtaskId);
-
-    // Set focus on the input field
     focusEditSavedSubtask(`${subtaskId}-edit-subtask-input`);
 }
 
@@ -186,13 +184,10 @@ function renderSubtaskListItem(subtaskText, subtaskId) {
 function deleteSubtask(event, subtaskId) {
     const subtaskItem = event.target.closest('li');
     if (subtaskItem) {
-        // Find the index of the subtask in the arrays
         const index = subtasks.findIndex((task) => task[SUBTASK_ID] === subtaskId);
-        // If the subtask is found in the arrays, remove it
         if (index !== -1) {
             subtasks.splice(index, 1);
         }
-        // Remove the subtaskItem from the DOM
         subtaskItem.remove();
     }
 }

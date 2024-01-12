@@ -171,7 +171,6 @@ function renderTaskUserIcon(userID, userColour, userName, marginRight) {
  */
 function selectOption(checkbox, id) {
     if (checkbox.checked) {
-        let selectedName = checkbox.getAttribute('data-name');   
         const index = usersList.findIndex((user) => user.id === id);
         if (index != -1) {
             const idx = assignUserList.findIndex((user) => user.id === id);
