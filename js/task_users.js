@@ -77,12 +77,6 @@ function renderHTMLUsersList(usersList){
     dropdown.innerHTML = '';
     for (let index = 0; index < usersList.length; index++) {
         let user = usersList[index];
-        if (assignUserList.length != 0) {
-            const userIndex = assignUserList.findIndex((assignedUser) => assignedUser['id'] === user['id']);
-            if (userIndex != -1) {
-               continue;
-            }
-        }
         dropdown.innerHTML += /*html*/`
         <div class="user-option" onclick="userDropDownClick(${user.id})" 
             style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; padding-bottom: 10px;">
@@ -92,11 +86,11 @@ function renderHTMLUsersList(usersList){
         </div>
         `;
     }
-    if(dropdown.innerHTML == ''){
-        dropdown.innerHTML = /*html*/`
-        <div class="no-user-list">All users are assigned to the task</div>
-        <div class="no-user-list">Click on icon to remove</div>
-        `;
+    if (assignUserList.length != 0) {
+        assignUserList.forEach((assignedUser) => {
+            const userCheckbox = document.getElementById('dropdown-user-' + assignedUser.id.toString());
+            userCheckbox.checked = true;
+        });
     }
 } 
 

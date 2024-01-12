@@ -267,6 +267,7 @@ input:focus-visible{
     flex-direction: row;
     padding-bottom: 10px;
     padding-top: 10px;
+    overflow-x: scroll;
 }
 
 .custom-select {
