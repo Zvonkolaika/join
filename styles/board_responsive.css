@@ -40,12 +40,12 @@
 
 @media screen and (max-width: 1024px) {
     main {
-        z-index: 0;
+        /* z-index: 0;
         position: absolute;
         top: 80px;
         left: 0;
         height: calc(100% - 80px - 80px);
-        width: 100%;
+        width: 100%; */
         overflow-x: hidden;
     }
 
@@ -130,6 +130,11 @@
         margin: 0 4px;
     }
 
+    .task_card_thumbnail_description {
+        max-height: 96px;
+        overflow: hidden;
+    }
+
     .board_header {
         padding: 0;
         gap: 0;
@@ -169,6 +174,7 @@
         width: 100vw;
         height: auto;
         justify-content: flex-start;
+        align-items: flex-start;
         overflow: auto;
         padding: 8px 56px 8px 0;
     }
