@@ -318,6 +318,7 @@ function taskFormClear(){
             selectedIcon.remove();
         }
     });
+    prioButtonMedium();
     assignUserList = [];
     subtasks = [];
     document.getElementById('select-subtask').innerHTML = '';
