@@ -198,8 +198,7 @@ async function renderEditTaskForm(elementId, taskId) {
                                 task['subtasks'],                   //  subtasksSubmit
                                 elementId                           //  elementId   
                                 );
-    
-    
+    document.getElementById('reset').classList.add('d-none');
     document.getElementById('selected-category').value = task['category']['name'];
     assignUserList.forEach(user => {    
         renderTaskUserIcon(user.id, user.bgColor, user.name);
