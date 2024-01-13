@@ -100,7 +100,6 @@ body {
 
 .login-card {
     width: 422px;
-    height: 397px;
     gap: 32px;
 }
 
@@ -265,7 +264,9 @@ label {
 /* mediaquerrys */
 @media(max-width: 1024px) {
     .login-logo {
-        top: 32px;
+        top: 12px;
+        left: 12px;
+        height: 160px;
     }
 
     .login-logo-register {
@@ -273,23 +274,29 @@ label {
     }
 
     .switch-to-sign-up_frame {
-        bottom: 90px;
+        bottom: 70px;
         width: 100%;
         left: 0;
         right: 0;
         top: unset;
     }
 
+    @keyframes logo_animation {
+        0% {
+            width: 80%;
+            height: 80%;
+        }
 
+        100% {
+            width: 80px;
+            height: 94px;
+        }
+    }
 }
 
 @media(max-width: 670px) {
     .login-card {
         width: 100%;
-    }
-
-    .login-logo {
-        left: 24px;
     }
 
     .login-logo-register {
@@ -307,7 +314,7 @@ label {
         }
 
         100% {
-            width: 80px;
+            width: 54px;
             height: 80px;
         }
     }
@@ -319,13 +326,12 @@ label {
     .card_frame {
         width: 100% !important;
         padding: 0;
-        height: 60%;
     }
 
     .login-card-frame {
         height: 100%;
         width: 90%;
-        padding: 0;
+        padding: 24px;
     }
 
     .input-container {
@@ -353,7 +359,7 @@ label {
     }
 
     .switch-to-sign-up_frame {
-        gap: 16px;
+        gap: 16px;        
     }
 
     .login-button_frame button {
@@ -414,3 +420,13 @@ label {
         opacity: 0;
     }
 }
+
+@media (max-height: 760px) {
+    .switch-to-sign-up_frame {
+        bottom: unset;
+        width: 100%;
+        right: 120px;
+        top: 1.3rem;
+    }
+}
+
