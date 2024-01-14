@@ -15,41 +15,16 @@ async function init() {
 }
 
 
-function openAddTaskPopup(taskstatus) {
-    renderAddTaskForm('add-task-placeholder', taskstatus);
-    document.getElementById('add_task_popup_container').classList.add('show_add_task_popup');
-    document.getElementById('edit_task_popup_close_button').classList.add('d-none');
-}
-
-
-function closeAddTaskPopup() {
-    document.getElementById('add-task-placeholder').innerHTML = '';
-    document.getElementById('add_task_popup_container').classList.remove('show_add_task_popup');
-}
-
-
-function openTaskCard(elementByID, cardID) {
-    renderTaskCardBoard(elementByID, cardID);
-    document.getElementById('task-card-bgr-container').classList.add('show-task-card');
-}
-
-
-function closeTaskCard() {
-    document.getElementById('task-card-bgr-container').classList.remove('show-task-card');
-    loadBoard();
-}
-
-
-async function getTasks() {
-    allTasksFromStorage = JSON.parse(await getItem("tasks"));
-}
-
-
 function loadBoard() {
     renderToDo();
     renderInProgress();
     renderAwaitFeedback();
     renderDone();
+}
+
+
+async function getTasks() {
+    allTasksFromStorage = JSON.parse(await getItem("tasks"));
 }
 
 
@@ -135,7 +110,7 @@ async function searchTask() {
 }
 
 
-//   Drag and Drop
+/* --- Drag and Drop --- */
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -166,18 +141,8 @@ function removeHighlight(id) {
 }
 
 
-// HTML Templates
-
-
 function renderNoTaskToDo(category) {
     document.getElementById(category).innerHTML += noTaskToDoHTML();
-}
-
-
-function noTaskToDoHTML() {
-    return `<div class="no_task">
-                <p>No task To Do</p>
-            </div>`
 }
 
 
@@ -186,33 +151,24 @@ function renderNoTaskDone(category) {
 }
 
 
-function noTaskDoneHTML() {
-    return `<div class="no_task">
-                <p>No task Done</p>
-            </div>`
-}
-
+/* --- Task Cards --- */
 
 function renderThumbnailCard(category, index, element) {
     document.getElementById(category).innerHTML += thumbnailCard_HTML(index, element);
     renderAssignedUsers(element);
-    loadSubtasksInThumbnail(element);
+    loadNoSubtasksInThumbnail(element);
 }
 
 
-function renderAssignedUsers(element) {
+function openTaskCard(elementByID, cardID) {
+    renderTaskCardBoard(elementByID, cardID);
+    document.getElementById('task-card-bgr-container').classList.add('show-task-card');
+}
 
-    for (let i = 0; i < element.assignedUsers.length; i++) {
-        if (i >= 2) {
-            let moreUsers = element.assignedUsers.length - i;
-            return document.getElementById(`task_card_thumbnail_assigned_users_container_${element.taskID}`).innerHTML += `
-            <div class="acc-initials task_card_thumbnail_profile_badge_frame">+${moreUsers}</div>`;
-        }
-        else {
-            document.getElementById(`task_card_thumbnail_assigned_users_container_${ element.taskID }`).innerHTML += `
-                <div class="acc-initials task_card_thumbnail_profile_badge_frame" style = "background: ${element.assignedUsers[i].bgColor};"> ${ returnInitials(element.assignedUsers[i].name) }</div> `;
-        }
-    }
+
+function closeTaskCard() {
+    document.getElementById('task-card-bgr-container').classList.remove('show-task-card');
+    loadBoard();
 }
 
 
@@ -224,6 +180,23 @@ async function renderTaskCardBoard(elementId, cardID) {
 }
 
 
+function renderAssignedUsers(element) {
+    for (let i = 0; i < element.assignedUsers.length; i++) {
+        if (i >= 2) {
+            let moreUsers = element.assignedUsers.length - i;
+            return document.getElementById(`task_card_thumbnail_assigned_users_container_${element.taskID}`).innerHTML += `
+            <div class="acc-initials task_card_thumbnail_profile_badge_frame more_users">+${moreUsers}</div>`;
+        }
+        else {
+            document.getElementById(`task_card_thumbnail_assigned_users_container_${ element.taskID }`).innerHTML += `
+                <div class="acc-initials task_card_thumbnail_profile_badge_frame" style = "background: ${element.assignedUsers[i].bgColor};"> ${ returnInitials(element.assignedUsers[i].name) }</div> `;
+        }
+    }
+}
+
+
+/* --- Subtasks --- */
+
 function loadSubtasksInCard(taskID, subtasks) {
     if (subtasks.length == 0) {
         return `No Subtasks`;
@@ -234,7 +207,7 @@ function loadSubtasksInCard(taskID, subtasks) {
 }
 
 
-function loadSubtasksInThumbnail(element) {
+function loadNoSubtasksInThumbnail(element) {
     if (element.subtasks.length == 0) {
         document.getElementById(`task_card_thumbnail_progress_${ element.taskID }`).innerHTML = `<div class="no_subtasks">No Subtasks</div>`;
     }
@@ -254,6 +227,8 @@ function SubtasksDone(subtasks) {
 }
 
 
+/* --- Task Form / Edit & Add --- */
+
 async function loadEditTaskForm(elementId, taskID) {
     await renderEditTaskForm(elementId, taskID);
     overwriteAddTaskFormCSS();
@@ -266,4 +241,17 @@ function overwriteAddTaskFormCSS() {
     document.getElementById('content-add-task').classList.add('content_add_task_overwrite');
     document.getElementById('borderline').classList.add('borderline_overwrite');
     document.getElementById('add_task_popup_close_button').classList.add('d-none');
+}
+
+
+function openAddTaskPopup(taskstatus) {
+    renderAddTaskForm('add-task-placeholder', taskstatus);
+    document.getElementById('add_task_popup_container').classList.add('show_add_task_popup');
+    document.getElementById('edit_task_popup_close_button').classList.add('d-none');
+}
+
+
+function closeAddTaskPopup() {
+    document.getElementById('add-task-placeholder').innerHTML = '';
+    document.getElementById('add_task_popup_container').classList.remove('show_add_task_popup');
 }

@@ -118,6 +118,8 @@
     }
 
     #add_task_popup_container {
+        /* transform: translateX(0) !important;
+        transition: none !important; */
         display: none !important;
     }
 
@@ -264,10 +266,6 @@
         justify-content: center;
         margin: 0;
     }
-
-    /* .acc-initials {
-        margin-right: 24px;
-    } */
 
     .selected-users-container {
         justify-content: space-between;

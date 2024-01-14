@@ -165,6 +165,13 @@
 .task_card_thumbnail_profile_badge_frame {
     gap: 10px;
     margin-right: -8px;
+    font-weight: 600;
+}
+
+.more_users {
+    background-color: rgb(247, 247, 247);
+    color: #333333;
+    border: 1px solid rgb(175, 175, 175);
 }
 
 .task_card_thumbnail_profile_badge {

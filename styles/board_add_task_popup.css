@@ -19,10 +19,10 @@
     padding-bottom: 24px;
 }
 
-#add_task_popup_container {
-    position: absolute;
+.add_task_popup_container {
+    position: fixed;
     top: 0;
-    left: 0;
+    right: -100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,15 +30,12 @@
     z-index: 99;
     width: 100%;
     height: 100%;
-    transform: translateX(100vw);
-    transition: all 100ms ease-out;
+    transition: transform 100ms ease-out;
     flex-direction: column;
-    /* !!! Muss wieder weg !!! */
 }
 
 .show_add_task_popup {
-    display: flex !important;
-    transform: translateX(0px) !important;
+    transform: translateX(-100%);
 }
 
 .add_task_popup_close_button {

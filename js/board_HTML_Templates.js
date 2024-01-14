@@ -73,3 +73,17 @@ function thumbnailCard_HTML(index, element) {
     </div>
 </div>`;
 }
+
+
+function noTaskToDoHTML() {
+    return `<div class="no_task">
+                <p>No task To Do</p>
+            </div>`
+}
+
+
+function noTaskDoneHTML() {
+    return `<div class="no_task">
+                <p>No task Done</p>
+            </div>`
+}
