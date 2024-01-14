@@ -85,7 +85,7 @@ body {
 
 /* login card */
 .login-card-frame {
-    padding: 48px 115px;
+    padding: 42px 115px;
     background-color: white;
     border-radius: 30px;
     box-shadow: 3px 4px 6px rgba(0,0,0,0.03);
@@ -151,7 +151,7 @@ label {
 
 .switch-to-sign-up_frame {
     position: fixed;
-    top: 67px;
+    top: 28px;
     right: 122px;
     gap: 35px;
 }
@@ -274,7 +274,7 @@ label {
     }
 
     .switch-to-sign-up_frame {
-        bottom: 70px;
+        bottom: 64px;
         width: 100%;
         left: 0;
         right: 0;
