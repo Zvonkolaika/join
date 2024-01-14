@@ -76,6 +76,10 @@
     width: 100%;
 }
 
+.task_card_description {
+    word-break: break-word;
+}
+
 .task_card_header_close_icon_frame {
     display: flex;
     justify-content: center;
