@@ -1,15 +1,17 @@
-let allTasksFromStorage = [];   /** array of all the task objects from the server */
-let currentDraggedElementID;    /** variable contains the ID of the current dragged element */
-let currentDraggedElementINDEX; /** variable contains the Index position of the current dragged task object in the allTasksFromStorage[] array */
+let allTasksFromStorage = [];   /** Array of all the task objects from the server */
+let currentDraggedElementID;    /** Variable contains the ID of the current dragged element */
+let currentDraggedElementINDEX; /** Variable contains the Index position of the current dragged task object in the allTasksFromStorage[] array */
 
 
-let toDo;           /** array contains all the task objects with the value 'taskStatus': 0 */
-let inProgress;     /** array contains all the task objects with the value 'taskStatus': 1 */
-let awaitFeedback;  /** array contains all the task objects with the value 'taskStatus': 2 */
-let done;           /** array contains all the task objects with the value 'taskStatus': 3 */
+let toDo;           /** Array contains all the task objects with the value 'taskStatus': 0 */
+let inProgress;     /** Array contains all the task objects with the value 'taskStatus': 1 */
+let awaitFeedback;  /** Array contains all the task objects with the value 'taskStatus': 2 */
+let done;           /** Array contains all the task objects with the value 'taskStatus': 3 */
 
 
-/** asynchronous function which loads required functions for the board.html page to load */
+/**
+ * This asynchronous function loads required functions for the board.html page to load
+ */
 async function init() {
     await loadTemplates();
     setCurrentPageLinkActive('board');
@@ -18,7 +20,9 @@ async function init() {
 }
 
 
-/** Function which loads the board columns with the attached task objects on the board.html */
+/**
+ * Function to load the board columns with the attached task objects on the board.html
+ */
 function loadBoard() {
     renderToDo();
     renderInProgress();
@@ -27,13 +31,16 @@ function loadBoard() {
 }
 
 
-/** asynchronous function which loads all the task objects from the server into a local array, after formated into JSON format. */
+/** This asynchronous function loads all the task objects from the server into a local array, after formated into JSON format.
+*/
 async function getTasks() {
     allTasksFromStorage = JSON.parse(await getItem("tasks"));
 }
 
 
-/** this function loads all the filtered task objects from the allTasksFromStorage[] array, related to the value of the "find task" inputfield */
+/**
+ * This function loads all the filtered task objects from the allTasksFromStorage[] array, related to the value of the "find task" inputfield
+ */
 function loadSearchResult() {
     renderToDo();
     renderInProgress();
@@ -42,7 +49,9 @@ function loadSearchResult() {
 }
 
 
-/** function renders all filtered task objects with the value 'taskStatus': 0 from the allTasksFromStorage[] array into the "To Do" column. */
+/**
+ * This unction renders all filtered task objects with the value 'taskStatus': 0 from the allTasksFromStorage[] array into the "To Do" column.
+ */
 function renderToDo() {
     document.getElementById('column_todo').innerHTML = '';
     toDo = allTasksFromStorage.filter(t => t['taskStatus'] == 0);
@@ -59,7 +68,9 @@ function renderToDo() {
 }
 
 
-/** function renders all filtered task objects with the value 'taskStatus': 1 from the allTasksFromStorage[] array into the "In progresso" column. */
+/**
+ * Function to render all filtered task objects with the value 'taskStatus': 1 from the allTasksFromStorage[] array into the "In progresso" column.
+*/
 function renderInProgress() {
     document.getElementById('column_in_progress').innerHTML = '';
     inProgress = allTasksFromStorage.filter(t => t['taskStatus'] == 1);
@@ -76,7 +87,9 @@ function renderInProgress() {
 }
 
 
-/** function renders all filtered task objects with the value 'taskStatus': 2 from the allTasksFromStorage[] array into the "Await feedback" column. */
+/**
+ * Function to render all filtered task objects with the value 'taskStatus': 2 from the allTasksFromStorage[] array into the "Await feedback" column.
+*/
 function renderAwaitFeedback() {
     document.getElementById('column_await_feedback').innerHTML = '';
     awaitFeedback = allTasksFromStorage.filter(t => t['taskStatus'] == 2);
@@ -93,7 +106,9 @@ function renderAwaitFeedback() {
 }
 
 
-/** function renders all filtered task objects with the value 'taskStatus': 3 from the allTasksFromStorage[] array into the "Done" column. */
+/**
+ * Function to render all filtered task objects with the value 'taskStatus': 3 from the allTasksFromStorage[] array into the "Done" column.
+*/
 function renderDone() {
     document.getElementById('column_done').innerHTML = '';
     done = allTasksFromStorage.filter(t => t['taskStatus'] == 3);
@@ -110,7 +125,11 @@ function renderDone() {
 }
 
 
-/** */
+/**
+ * This asynchronous function compares the input value of the inputfield on the board page and filters all task objects from the allTasksFromStorage[] array
+ * which includes the inputfield value in their title and/or the description.
+ * The result is loaded in an array named filteredTasks which is then loaded back into the allTasksFromStorage[] array.
+*/
 async function searchTask() {
     await getTasks();
     inputSearchfield = document.getElementById('inputfield_find_task').value.toLowerCase();
@@ -122,11 +141,21 @@ async function searchTask() {
 
 
 /* --- Drag and Drop --- */
+/**
+ * This function loads the preventDefault() method when a element is dragged over a dragable area which cancels the event if it is cancelable, meaning that the default action that belongs to the event will not occur.
+ * @param {???} ev 
+ */
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
 
+/**
+ * When an Html element is dragged this function adds a class to it, to rotate the element about 5 degrees clockwise.
+ * It then saves the taskID and the index of the task object in the allTasksFromStorage[] array
+ * @param {number} index 
+ * @param {string} element_taskID 
+ */
 function startDragging(index, element_taskID) {
     document.getElementById(element_taskID).classList.add('rotare_thumpnail');
     currentDraggedElementID = element_taskID;
@@ -134,6 +163,10 @@ function startDragging(index, element_taskID) {
 }
 
 
+/**
+ * 
+ * @param {*} task_status 
+ */
 function moveTo(task_status) {
     event.stopPropagation();
     let currentDraggedElement = allTasksFromStorage.filter(t => t['taskID'] == currentDraggedElementID);
