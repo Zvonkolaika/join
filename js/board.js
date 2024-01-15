@@ -1,13 +1,15 @@
-let allTasksFromStorage = [];
-let currentDraggedElementID;
-let currentDraggedElementINDEX;
+let allTasksFromStorage = [];   /** array of all the task objects from the server */
+let currentDraggedElementID;    /** variable contains the ID of the current dragged element */
+let currentDraggedElementINDEX; /** variable contains the Index position of the current dragged task object in the allTasksFromStorage[] array */
 
-let toDo;
-let inProgress;
-let awaitFeedback;
-let done;
 
-/** This function loads required functions for Pageload */
+let toDo;           /** array contains all the task objects with the value 'taskStatus': 0 */
+let inProgress;     /** array contains all the task objects with the value 'taskStatus': 1 */
+let awaitFeedback;  /** array contains all the task objects with the value 'taskStatus': 2 */
+let done;           /** array contains all the task objects with the value 'taskStatus': 3 */
+
+
+/** asynchronous function which loads required functions for the board.html page to load */
 async function init() {
     await loadTemplates();
     setCurrentPageLinkActive('board');
@@ -16,6 +18,7 @@ async function init() {
 }
 
 
+/** Function which loads the board columns with the attached task objects on the board.html */
 function loadBoard() {
     renderToDo();
     renderInProgress();
@@ -24,11 +27,13 @@ function loadBoard() {
 }
 
 
+/** asynchronous function which loads all the task objects from the server into a local array, after formated into JSON format. */
 async function getTasks() {
     allTasksFromStorage = JSON.parse(await getItem("tasks"));
 }
 
 
+/** this function loads all the filtered task objects from the allTasksFromStorage[] array, related to the value of the "find task" inputfield */
 function loadSearchResult() {
     renderToDo();
     renderInProgress();
@@ -37,6 +42,7 @@ function loadSearchResult() {
 }
 
 
+/** function renders all filtered task objects with the value 'taskStatus': 0 from the allTasksFromStorage[] array into the "To Do" column. */
 function renderToDo() {
     document.getElementById('column_todo').innerHTML = '';
     toDo = allTasksFromStorage.filter(t => t['taskStatus'] == 0);
@@ -53,6 +59,7 @@ function renderToDo() {
 }
 
 
+/** function renders all filtered task objects with the value 'taskStatus': 1 from the allTasksFromStorage[] array into the "In progresso" column. */
 function renderInProgress() {
     document.getElementById('column_in_progress').innerHTML = '';
     inProgress = allTasksFromStorage.filter(t => t['taskStatus'] == 1);
@@ -69,6 +76,7 @@ function renderInProgress() {
 }
 
 
+/** function renders all filtered task objects with the value 'taskStatus': 2 from the allTasksFromStorage[] array into the "Await feedback" column. */
 function renderAwaitFeedback() {
     document.getElementById('column_await_feedback').innerHTML = '';
     awaitFeedback = allTasksFromStorage.filter(t => t['taskStatus'] == 2);
@@ -85,6 +93,7 @@ function renderAwaitFeedback() {
 }
 
 
+/** function renders all filtered task objects with the value 'taskStatus': 3 from the allTasksFromStorage[] array into the "Done" column. */
 function renderDone() {
     document.getElementById('column_done').innerHTML = '';
     done = allTasksFromStorage.filter(t => t['taskStatus'] == 3);
@@ -101,6 +110,7 @@ function renderDone() {
 }
 
 
+/** */
 async function searchTask() {
     await getTasks();
     inputSearchfield = document.getElementById('inputfield_find_task').value.toLowerCase();
