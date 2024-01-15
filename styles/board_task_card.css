@@ -76,10 +76,6 @@
     width: 100%;
 }
 
-.task_card_description {
-    word-break: break-word;
-}
-
 .task_card_header_close_icon_frame {
     display: flex;
     justify-content: center;
@@ -89,6 +85,10 @@
 
 .task_card_header_close_icon_frame img {
     width: 30px;
+}
+
+.task_card_title {
+    word-break: break-word;
 }
 
 .task_card_title h1 {

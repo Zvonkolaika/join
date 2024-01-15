@@ -50,9 +50,24 @@ function taskCardBoard_HTML(task, elementId) {
 function thumbnailCard_HTML(index, element) {
     return ` <div id="${element.taskID}" class="task-card-thumbnail-container" draggable="true" ondragstart="startDragging(${index}, ${element.taskID})">
     <div class="task_card_thumbnail_content"  onclick="openTaskCard('task-card', ${element.taskID})">
-        <div class="task_card_thumbnail_label" style="background: ${element.category.colour};">
-            ${element.category.name}
+
+    <div class="task_card_thumbnail_submenu_container" id="task_card_thumbnail_submenu_${element.taskID}">
+        <div class="task_card_thumbnail_submenu_header">
+            <p>MOVE TO:</p>
+            <img class="task_card_thumbnail_submenu_icon" src="assets/img/icons/cancel.svg" onclick="closeThumbnailSubmenu(${element.taskID})">
         </div>
+            <div class="task_card_thumbnail_submenu_link_container" id="task_card_thumbnail_submenu_link_container_${element.taskID}"></div>
+    </div>
+
+        <div class="task_card_thumbnail_header">
+            <div class="task_card_thumbnail_label" style="background: ${element.category.colour};">
+                ${element.category.name}
+            </div>
+            <img class="task_card_thumbnail_submenu_icon" src="assets/img/icons/ellipsis-solid.svg" onclick="openThumbnailSubmenu(${element.taskID}, ${element.taskStatus})">
+        </div>
+
+
+
         <div class="task_card_thumbnail_main">
             <div class="task_card_thumbnail_title">${element.title}</div>
             <div class="task_card_thumbnail_description">${element.description}</div>

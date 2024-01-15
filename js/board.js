@@ -7,6 +7,7 @@ let inProgress;
 let awaitFeedback;
 let done;
 
+/** This function loads required functions for Pageload */
 async function init() {
     await loadTemplates();
     setCurrentPageLinkActive('board');
@@ -124,6 +125,7 @@ function startDragging(index, element_taskID) {
 
 
 function moveTo(task_status) {
+    event.stopPropagation();
     let currentDraggedElement = allTasksFromStorage.filter(t => t['taskID'] == currentDraggedElementID);
     currentDraggedElement[0]['taskStatus'] = task_status;
     setItem('tasks', allTasksFromStorage);
@@ -152,6 +154,37 @@ function renderNoTaskDone(category) {
 
 
 /* --- Task Cards --- */
+
+function openThumbnailSubmenu(taskID, taskStatus) {
+    event.stopPropagation();
+    document.getElementById(`task_card_thumbnail_submenu_${taskID}`).classList.add('show_task_card_thumbnail_submenu');
+    loadMoveTo(taskID, taskStatus);
+}
+
+
+function closeThumbnailSubmenu(taskID, taskStatus) {
+    event.stopPropagation();
+    document.getElementById(`task_card_thumbnail_submenu_${taskID}`).classList.remove('show_task_card_thumbnail_submenu');
+    document.getElementById(`task_card_thumbnail_submenu_link_container_${taskID}`).innerHTML = '';
+}
+
+
+function loadMoveTo(taskID, taskStatus) {
+    console.log(taskStatus);
+    let taskStatusArray = [
+        {'name': 'To Do', 'taskStatus': 0},
+        {'name': 'In Progress', 'taskStatus': 1},
+        {'name': 'Await Feedback', 'taskStatus': 2},
+        {'name': 'Done', 'taskStatus': 3}
+    ];
+    for (let index = 0; index < taskStatusArray.length; index++) {
+        if (taskStatusArray[index].taskStatus!==taskStatus) {
+            currentDraggedElementID = taskID;
+            document.getElementById(`task_card_thumbnail_submenu_link_container_${taskID}`).innerHTML += `<div class="task_card_thumbnail_submenu_link" onclick="moveTo(${taskStatusArray[index].taskStatus})">&#8226 ${taskStatusArray[index].name}</div>`;
+        }
+    }
+}
+
 
 function renderThumbnailCard(category, index, element) {
     document.getElementById(category).innerHTML += thumbnailCard_HTML(index, element);

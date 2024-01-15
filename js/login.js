@@ -1,5 +1,4 @@
-//--- global variables ---//
-
+/*-- global variables --*/
 // global variables for "password login visibility"
 let imgs = document.querySelectorAll('.password-eye');
 let imgsAsArray = Array.from(imgs);
@@ -20,12 +19,9 @@ let email = document.getElementById('register_email-input');
 const urlParams = new URLSearchParams(window.location.search);
 const message = urlParams.get('msg');
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-/**
- * user array 
- * 
- * This is the Array, new registred Accounts will push into this array. 
- */
+/*-- user array --*/
 let users = [
     {
         name: 'hubertus',
@@ -34,16 +30,9 @@ let users = [
     },
 ];
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-//--- init ---//
-/**
- * this function is used to initialize the data of index.html.
- * its checking the windows width. If its 670px the start animation of the logo will be switched to mobile version.
- * Its loading the data from the remote Storage and converts it into an array.
- * Then its loocking if user comes from register and if thats true a message box will appear, that user had a success in register.
- * if its not the case, the remembered data from localstorage will be load.
- * 
- */
+/*-- init --*/
 document.addEventListener('DOMContentLoaded', async function () {
     lookIfWindowIs670pxToOptimizeMobileVersion();
     await mobileAnimationsPreparing();
@@ -55,22 +44,19 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 });
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-//--- load user data ---//
-/**
- * this function requests the data from remote storage and converts it to an array.
- */
+/*-- load user data --*/
 async function convertData() {
     users = await getItem('users');
     parsedData = JSON.parse(users);
     users = parsedData;
 }
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-//--- mobile logo ---//
-/**
- * this function handles the insert of the mobilelogo. 
- */
+/*-- mobile logo --*/
+// prepare mobile logo
 async function mobileAnimationsPreparing() {
     if (window.location.href.includes('index.html')) {
         await insertMobileLogo();
@@ -80,27 +66,20 @@ async function mobileAnimationsPreparing() {
     }
 }
 
-/**
- *  inserts the mobileLogo if window-width is smaller or equal to 670px
- */
+// insert mobile logo
 async function insertMobileLogo() {
     if (window.innerWidth <= 670) {
         document.querySelector('.content').innerHTML += generateMobileLogo();
     }
 }
 
-/**
- * adds the animation to the mobile logo if the mobile logo exists.
- */
 function ifMobileLogoExistsAddAnimation() {
     if (document.getElementById('mobile-login-logo')) {
         document.getElementById('mobile-login-logo').classList.add('animate-logo')
     }
 }
 
-/**
- * generates the mobile logo and adds also the fill animation for the mobile logo
- */
+//generate mobile logo
 function generateMobileLogo() {
     return `
     <svg id="mobile-login-logo" class="login-logo" width="101" height="122" viewBox="0 0 101 122" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -132,14 +111,13 @@ function generateMobileLogo() {
     `;
 }
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-//--- password login visibility ---//
+/*-- password login visibility --*/
+// let pwImgs = document.querySelectorAll('.pw-img'); // these are global variables from the top there are used in this section of code
+// let visibleImgs = document.querySelectorAll('.visible-img'); // these are global variables from the top there are used in this section of code
 
-/**
- * executes if you put the focus in an input field.
- * there are 3 images: password | eye | eye canceled
- * if you focus an pwinput then the password img will dissapear and the "eye canceled" will be added
- */
+// while focus
 pwInputs.forEach(input => {
     input.addEventListener('focus', () => {
         pwImgs.forEach(img => {
@@ -151,10 +129,7 @@ pwInputs.forEach(input => {
     });
 });
 
-/** 
- * executes if you leave the focus of a pwinput
- * if the input is empty: the "eye img" will be replaced with the password img
- * */
+// if you leave focus
 pwInputs.forEach(input => {
     input.addEventListener('blur', () => {
         if (input.value === ``) {
@@ -168,10 +143,9 @@ pwInputs.forEach(input => {
     });
 });
 
-//--- Password Visibility & Password eye Visibility ---//
-/**
- * this function will remove or add the class visibillity-off if an img in a pwinput sontains the class visibillity-off.
- */
+/* --- Password Visibility & Password eye Visibility --- */
+// let imgs = document.querySelectorAll('.password-eye'); // these are global variables from the top there are used in this section of code
+// let imgsAsArray = Array.from(imgs); // these are global variables from the top there are used in this section of code
 function handleVisibility() {
     if (imgsAsArray.some(img => img.classList.contains('visibility-off'))) {
         addVisibility();
@@ -180,10 +154,6 @@ function handleVisibility() {
     }
 }
 
-/**
- * this function will remove the class visibillity-off from an "eye" img in a pwinput and will change the source of the img.
- * after that, it toggles the passwordvsibillity
- */
 function addVisibility() {
     imgsAsArray.forEach(img => {
         img.classList.remove('visibility-off');
@@ -192,10 +162,6 @@ function addVisibility() {
     togglePasswordVisibility();
 }
 
-/**
- * this function will add the class visibillity-off from an "eye" img in a pwinput and will change the source of the img.
- * after that, it toggles the passwordvsibillity
- */
 function removeVisibility() {
     imgsAsArray.forEach(img => {
         img.classList.add('visibility-off');
@@ -204,9 +170,8 @@ function removeVisibility() {
     togglePasswordVisibility();
 }
 
-/**
- * this function toggles the input type of a pwinput from password to text and from text to password when is called
- */
+// password visibility
+// let pwInputs = document.querySelectorAll('.password-input'); // these are global variables from the top there are used in this section of code
 function togglePasswordVisibility() {
     pwInputs.forEach(input => {
         if (input.type === 'password') {
@@ -217,14 +182,9 @@ function togglePasswordVisibility() {
     });
 }
 
-//--- login as existing user ---//
-/**
- * this function executes if you press the login button.
- * it finds a user wich email && password is the same as in the input fields text is written.
- * if a user was found, the users name and email will be saved in the session storage.
- * after a success with the login it refers to the summary.html.
- * else a loginWarning will appear.
- */
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*-- login as existing user --*/
 function logIn() {
     let email = document.getElementById('login-email').value;
     let password = document.getElementById('login-password').value;
@@ -237,38 +197,27 @@ function logIn() {
         rememberMe();
         sessionStorage.setItem('user', foundUser.name);
         sessionStorage.setItem('user-mail', foundUser.email)
+        console.log('login succesfull');
         window.location.href = 'summary.html';
     } else {
         logInWarning();
     }
 }
 
-/**
- * this function will set the currentUser wich is saved in the session Storage, to guest.
- * it refers after user is setted to geust, to summary.html
- */
 function logInAsGuest() {
     sessionStorage.setItem('user', 'guest');
     window.location.href = 'summary.html';
 }
 
-/**
- * if the function is called, the class d-none will be removed from the #warning div.
- * the forgot password? section will appear
- * the text in the #warning div, will be changed into "Incorrect email address or incorrect password".
- */
 function logInWarning() {
     document.querySelector('#warning').classList.remove('d-none');
     document.querySelector('.forgot-password').classList.remove('d-none');
     document.querySelector('#warning').innerHTML = `Incorrect email address or incorrect password`;
 }
 
-/**
- * looks if the checkbox on rememberme is cklicked.
- * if true the email and the password wich is written in the login options will be pushed into an JSON wich stores the information.
- * the JSON will be added to the local storage.
- * if the checkbox is not checked, the rememberMe-entry in the localStorage will be removed.
- */
+// remember me
+// let rememberedUser = []; // these are global variables from the top there are used in this section of code
+
 function rememberMe() {
     let checkbox = document.getElementById('remember');
     if (checkbox.checked) {
@@ -282,11 +231,6 @@ function rememberMe() {
     }
 }
 
-/**
- * looks if the rememberMe-entry in localStorage exists.
- * if true: the checkbox will be checked, the rememberMe-entry will be parsed and saved into a vartiable.
- * the emailsInput and passwordsValue will be replaced with the data from parsed localstorage-entry
- */
 function loadRememberedLoginData() {
     if (window.location.href.includes('index.html') && localStorage.getItem('rememberMe')) {
         document.getElementById('remember').checked = true;
@@ -300,18 +244,14 @@ function loadRememberedLoginData() {
     }
 }
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-//--- register new user ---//
+/*-- register new user --*/
+// let password = document.getElementById('register_password-input'); // these are global variables from the top there are used in this section of code
+// let confirm = document.getElementById('register_confirm-input'); // these are global variables from the top there are used in this section of code
+// let name = document.getElementById('register_name-input'); // these are global variables from the top there are used in this section of code
+// let email = document.getElementById('register_email-input'); // these are global variables from the top there are used in this section of code
 
-/**
- * this funktion looks if the new users mail is in user array if not,
- * it looks if the password.value === the value of the confirmed passwort,
- * if this is true a new user will be created as a JSON attached to a variable,
- * this JSON variable will be pushed into the user array,
- * the user array will be uoloaded to remote storage,
- * if user is successfully created, the windows href will be refer to index.html with a queryparameter wich displays a message,
- * the message will be displayed at the refered index.html
- */
 async function registerNewUser() {
     if (await lookIfUsersAllreadyExists(email.value) === true) {
         document.querySelector('#register_warning').innerHTML = `A user with this email allready exists`;
@@ -327,13 +267,6 @@ async function registerNewUser() {
     }
 }
 
-/**
- * 
- * @param {users name} name 
- * @param {users email} email 
- * @param {users password} password 
- * @returns a JSON object wich after will be pushed into user array
- */
 function generateNewUserArray(name, email, password) {
     return {
         name: `${name}`,
@@ -342,12 +275,6 @@ function generateNewUserArray(name, email, password) {
     }
 }
 
-/**
- * 
- * @param {user email} email 
- * @returns true if the searched user was find
- * this function, downloads the user array from remote storage and searches for the email if it allready exists in the user array.
- */
 async function lookIfUsersAllreadyExists(email) {
     await convertData();
     let foundUser = users.find(user => user.email.toLowerCase() === `${email}`.toLowerCase());
@@ -359,34 +286,23 @@ async function lookIfUsersAllreadyExists(email) {
 }
 
 // After new user is registrated
+// const urlParams = new URLSearchParams(window.location.search); // these are global variables from the top there are used in this section of code
+// const message = urlParams.get('msg'); // these are global variables from the top there are used in this section of code
 
-/**
- * 
- * @returns true if the index.html link includes 'You have registered successfully'
- */
 function lookIfMSGParameterIsInLink() {
     if (message === 'You have registered successfully') {
         return true;
     }
 }
 
-/**
- * removes the d-none class from the index.html registermessage div to display the register message wich is given through the queryparameter in the link
- */
 function displayRegisterSuccessMSG() {
     document.querySelector('.registerWasASuccess').classList.remove('d-none')
     document.querySelector('.registerWasASuccess').innerHTML += `${message}`;
 }
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*-- handle signIn signUp display --*/
-
-/**
- * 
- * @param {1 or 2} p
- * refers to the chosen site. if you call the funktion with 1 then index.html will be the refer,
- * if you call the function with 2 the refer will be register.html 
- */
 function goToSite(p) {
     if (p == 1) {
         window.location.href = 'index.html';
@@ -397,9 +313,6 @@ function goToSite(p) {
     }
 }
 
-/**
- * handles the visibillity of the signup button
- */
 function handleSignUpButton() {
     let button = document.getElementById('signUp-button');
     if (button.classList.contains('d-none')) {
@@ -409,10 +322,6 @@ function handleSignUpButton() {
     }
 }
 
-/**
- * looks if the window is 670px, if true the class d-none will be added to the switch-to-sign-up_frame, 
- * otherwise the class will be removed.
- */
 function lookIfWindowIs670pxToOptimizeMobileVersion() {
     if (window.innerWidth <= 670 && document.querySelector('.switch-to-sign-up_frame').hasAttribute("signupframe")) {
         document.querySelector('.switch-to-sign-up_frame').classList.add('d-none');
@@ -421,15 +330,9 @@ function lookIfWindowIs670pxToOptimizeMobileVersion() {
     }
 }
 
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*-- if privacy and legal note is open from login --*/
-
-/**
- * 
- * @param {html file wich you want to refer} p 
- * this function is used to refer to privacy or legal note site and it gives a queryparameter that the refered file can
- *  read if you came from the lgoin page or if you came from another page.
- */
 function cameFromLogin(p) {
     window.location.href = `${p}.html?login=login`;
 }
