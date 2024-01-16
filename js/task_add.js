@@ -55,7 +55,6 @@ async function addTaskInit() {
  * @returns {Promise<void>} - A promise that resolves when the task is submitted.
  */
 async function submitTask(taskStatus, submitTaskID = 0) {
-
     let title = document.getElementById('task-title').value;
     let description = document.getElementById('task-description').value;
     let date = new Date(document.getElementById('task-date').value);
@@ -70,24 +69,18 @@ async function submitTask(taskStatus, submitTaskID = 0) {
         'taskID': new Date().getTime(),
         'subtasks': subtasks,
     };
-
     tasks = await getRemote('tasks');
-
     if(submitTaskID){
         const index = tasks.findIndex((task) => task.taskID === submitTaskID);
         task.taskID = submitTaskID;
         tasks[index] = task;
-    } else {
-        tasks.push(task);
-    }
-  
+    } else tasks.push(task);
     await setItem('tasks', tasks);
     showAddedTaskMsg();
-    //redirect to task card for a new task
     if(!submitTaskID){
         setTimeout(() => {
-            window.location.href = `./board.html`;
-        }, 1800);
+           window.location.href = `./board.html`;
+        }, 1400);
     }
 }
 
@@ -99,7 +92,7 @@ function showAddedTaskMsg() {
     setTimeout(() => {
       const taskAdded = document.getElementById("task-added");
       if (taskAdded) {
-        taskAdded.classList.add("d-none");
+       taskAdded.classList.add("d-none");
       }
     }, 900);
   }
@@ -173,7 +166,6 @@ function disablePrioBtns(){
     disableBtnsDefault('categories-select-button');
 }
 
-
 /**
  * Renders a category list item with the given name, colour, and index.
  * 
@@ -229,7 +221,6 @@ async function selectOptionCat(element, index) {
     const selectedCategoryInput = document.getElementById('selected-category');
     const selectedEntry = element.querySelector('.initials-name').getAttribute('name');
 
-    // Update the input value and close the dropdown
     selectedCategoryInput.value = selectedEntry;
     toggleCategoriesSelect();
     const selectedCategory = await getTaskCategorieList();
@@ -247,7 +238,6 @@ document.addEventListener('click', function (event) {
 
     if(dropdownContainer){
         if (!dropdownContainer.contains(event.target)) {
-            // Click is outside the dropdown, close it
             dropdown.classList.add('d-none-ni');
             dropdownIcon.classList.remove('rotate');
         }
@@ -269,7 +259,6 @@ function generateUniqueID() {
  * @param {HTMLInputElement} subtaskInput - The input field to be reset.
  */
 function resetSubtaskInput(subtaskInput) {
-    // Clear the input value
     subtaskInput.value = '';
 }
 
@@ -318,6 +307,7 @@ function taskFormClear(){
             selectedIcon.remove();
         }
     });
+    prioButtonMedium();
     assignUserList = [];
     subtasks = [];
     document.getElementById('select-subtask').innerHTML = '';

@@ -1,5 +1,3 @@
-
-
 /**
  * Selects or deselects a subtask status based on the checkbox state.
  * @param {HTMLInputElement} checkbox - The checkbox element representing the subtask status.
@@ -18,14 +16,10 @@ async function selectSubtaskStatus(checkbox, taskID, subtaskID){
             tasks[taskIdx].subtasks[subtaskIdx][SUBTASK_DONE] = false;
         }
         await setItem('tasks', tasks);
-
-        /* Update the Subtask Progressbar in real time */
-        await getTasks(); /* Get changes of */
-        loadBoard(); /* Update the Subtask Progressbar in real time */
-        /* --- */
-
+        await getTasks();
+        loadBoard();
     } else {
-        console.log('subtask not found in tasks[' + taskIdx + ']');
+        console.warn('subtask not found in tasks[' + taskIdx + ']');
     }
 }
 
@@ -121,9 +115,8 @@ function renderPriority(prio, renderName){
 function normalDate(date) {
     let d = new Date(date);
     let day = d.getDate();
-    let month = d.getMonth() + 1; // Month is zero-based, so we add 1
-    let year = d.getFullYear() % 100; // Get last two digits of the year
-
+    let month = d.getMonth() + 1;
+    let year = d.getFullYear() % 100;
     day = day < 10 ? '0' + day : day;
     month = month < 10 ? '0' + month : month;
 
@@ -138,8 +131,8 @@ function normalDate(date) {
 function normalDateEditTask(date) {
     let d = new Date(date);
     let day = d.getDate();
-    let month = d.getMonth() + 1; // Month is zero-based, so we add 1
-    let year = d.getFullYear(); // Get last two digits of the year
+    let month = d.getMonth() + 1;
+    let year = d.getFullYear();
 
     day = day < 10 ? '0' + day : day;
     month = month < 10 ? '0' + month : month;
@@ -198,8 +191,7 @@ async function renderEditTaskForm(elementId, taskId) {
                                 task['subtasks'],                   //  subtasksSubmit
                                 elementId                           //  elementId   
                                 );
-    
-    
+    document.getElementById('reset').classList.add('d-none');
     document.getElementById('selected-category').value = task['category']['name'];
     assignUserList.forEach(user => {    
         renderTaskUserIcon(user.id, user.bgColor, user.name);
@@ -264,9 +256,8 @@ function renderTaskForm(
     category = categorySubmit;
     return /*html*/ `
     <form class="add-task-form" id="add-task-form-container" action="board.html" method="get"
-        onsubmit="event.preventDefault(); submitTask(${taskStatus}, submitTaskID = ${taskID}); setTimeout(() => renderTaskCardBoard('${elementId}', ${taskID}), 1000);" autocomplete="off">
+        onsubmit="event.preventDefault(); submitTask(${taskStatus}, submitTaskID = ${taskID}); setTimeout(() => renderTaskCardBoard('${elementId}', ${taskID}), 2000);" autocomplete="off">
         <div class="task-form-full">
-        <!-- Header Section -->
         <div class="header-div">
             <h1>${formTitle}</h1>
             <div class="add_task_popup_close_button" id="add_task_popup_close_button" onclick="closeAddTaskPopup()">
@@ -278,7 +269,6 @@ function renderTaskForm(
         </div>
         <div class="content-add-task" id="content-add-task">
             <div class="title-description-div">
-                <!-- Task Title -->
                 <div class="task-categories title">
                     <div class="required">
                         <span>Title</span><span class="red-asterisk">*</span>
@@ -290,7 +280,7 @@ function renderTaskForm(
                 <div class="task-categories description">
                     <span>Description</span>
                     <div class="input-container">
-                        <textarea type="text" text="ewewr" required id="task-description" 
+                        <textarea type="text" text="ewewr" id="task-description" 
                         class="input-field" placeholder="Enter a Description">${taskDescription}</textarea>
                     </div>
                 </div>
@@ -359,10 +349,10 @@ function renderTaskForm(
                             <span>Categories</span><span class="red-asterisk">*</span>
                         </div>
                         <div class="custom-select">
-                            <button class="dropdown select-button" role="combobox" id="categories-select-button"  onclick="toggleCategoriesSelect();">
-                                <input placeholder="Select task category" type="text" autocomplete="off" class="selected-value" id="selected-category" readonly>
+                            <div class="dropdown select-button" role="combobox" id="categories-select-button" onclick="toggleCategoriesSelect();">
+                                <input placeholder="Select task category" type="text" required autocomplete="off" class="selected-value" id="selected-category">
                                 <img class="dropdown-icon" id="dropdown-icon-categories" src="/assets/img/icons/arrow_drop_downaa.svg" alt="dropdown icon">
-                            </button>
+                            </div>
                             <ul id="categories-list" class="dropdown d-none-ni" role="listbox">
                             </ul>
                         </div>
