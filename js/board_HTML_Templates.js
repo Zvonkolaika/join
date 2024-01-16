@@ -1,7 +1,7 @@
 /** HTML Template to render a single taskcard with more data of the task object, loaded on the board.html
  * @param {object} task - The task object containing the task data.
  * @param {string} elementId - The ID of the selected Element to which the task card will be attached.
- * @returns - returns the Html code for the more detailed Card of the Task.
+ * @returns - Returns the Html code for the more detailed Card of the Task.
  */
 function taskCardBoard_HTML(task, elementId) {
     return `
@@ -54,9 +54,9 @@ function taskCardBoard_HTML(task, elementId) {
 
 /**
  * HTML Template to render a single preview taskcard with less data of the task object, loaded on the board.html
- * @param {*} index - position of the current selected task object in the allTasksFromStorage[] Array.
- * @param {*} element - the current selected task object containing the task data.
- * @returns - returns the Html code for the Thumbnail card of the Task.
+ * @param {number} index - Position of the current selected task object in the allTasksFromStorage[] Array.
+ * @param {object} element - The current selected task object containing the task data.
+ * @returns - Returns the Html code for the Thumbnail card of the Task.
  */
 function thumbnailCard_HTML(index, element) {
     return ` <div id="${element.taskID}" class="task-card-thumbnail-container" draggable="true" ondragstart="startDragging(${index}, ${element.taskID})">
@@ -103,21 +103,21 @@ function thumbnailCard_HTML(index, element) {
 
 /**
  * Html Template to render a Notification in the board column.
- * @returns returns the Html code for the notification, that the Board Columns titled "Todo, In progress, Await Feedback" are empty of task objects.
+ * @returns Returns the Html code for the notification, that the Board Columns titled "Todo, In progress, Await Feedback" are empty of task objects.
  */
 function noTaskToDoHTML() {
     return `<div class="no_task">
-                <p>No task To Do</p>
+                <p>No Task To Do</p>
             </div>`
 }
 
 
 /**
  * Html Template to render a Notification in the board column.
- * @returns returns the Html code for the notification, that the Board Column titled "Done" is empty of task objects.
+ * @returns Returns the Html code for the notification, that the Board Column titled "Done" is empty of task objects.
  */
 function noTaskDoneHTML() {
     return `<div class="no_task">
-                <p>No task Done</p>
+                <p>No Task Done</p>
             </div>`
 }
