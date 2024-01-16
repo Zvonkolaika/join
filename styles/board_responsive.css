@@ -124,8 +124,6 @@
     }
 
     #add_task_popup_container {
-        /* transform: translateX(0) !important;
-        transition: none !important; */
         display: none !important;
     }
 
@@ -182,7 +180,6 @@
     }
 
     .column_content::-webkit-scrollbar {
-        /* visibility: hidden; */
         visibility: visible;
         height: 12px;
     }

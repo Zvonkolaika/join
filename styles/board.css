@@ -62,7 +62,6 @@ main {
     height: 32px;
 }
 
-/* ???? border muss weg bei anklicken */
 .inputfield:focus {
     border: 1px solid transparent;
 }

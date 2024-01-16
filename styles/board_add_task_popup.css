@@ -52,15 +52,6 @@
     width: 30px;
 }
 
-/* .add_task_popup_content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border-radius: 24px;
-  } */
-
 .add_task_popup_content img:hover {
     cursor: pointer;
 }

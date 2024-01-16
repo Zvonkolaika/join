@@ -157,7 +157,6 @@
     font-style: normal;
     font-weight: 700;
     line-height: 120%;
-    /* 19.2px */
 }
 
 .task_card_thumbnail_description {
@@ -179,14 +178,11 @@
 
     /* typography */
     color: #000;
-
-    /* Version 2/t7 */
     font-family: Inter;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: 120%;
-    /* 14.4px */
 }
 
 .task_card_thumbnail_progressbar_container {
